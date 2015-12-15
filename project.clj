@@ -7,4 +7,5 @@
                  [org.clojure/clojurescript "1.7.170"]
                  [figwheel-sidecar "0.5.0-2"]
                  [rum "0.6.0"]
-                 [bidi "1.23.1"]])
+                 [bidi "1.23.1"]
+                 [funcool/httpurr "0.2.0"]])
