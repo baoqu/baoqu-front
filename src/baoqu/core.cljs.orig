@@ -2,9 +2,12 @@
   (:require [rum.core :as rum]
             [goog.dom :as dom]
             [bidi.router :as bidi]
+<<<<<<< HEAD
             [httpurr.client :as http]
-            [httpurr.client.xhr :refer [client]]
+            [httpurr.client.xhr :refer client]
             [httpurr.client.xhr :as hc]
+=======
+>>>>>>> First integration
             [baoqu.components.home :as home-c]))
 
 (defonce state (atom {}))
@@ -26,15 +29,11 @@
 
 (defn login-action []
   (let [username (get-in @state [:form :username])]
-
-    ;; request /login
-
-    ;; if (ok)
     (swap! state assoc-in [:session :username] username)
     (empty-form)
 
     ;; if (error)
-    (swap! state assoc-in [:errors :username] error-message)
+    ;;   (swap! state assoc-in [:errors :username] error-message)
     ))
 
 
@@ -54,16 +53,12 @@
   []
   (let [state (rum/react state)
         username (get-in state [:form :username])]
-  [:div.login-wrapper
-    [:div.login
-      [:h1 "Baoqu"]
-      [:h3 "Evento"]
-      [:h2 "¿Qué tipo de muerte dolorosa queremos para los ciclistas de La Guindalera?"]
-      [:div.input-box
-        [:input {:class "bt" :placeholder "Introduce tu nombre"
-                :on-change (change-in-form :username)
-                :value username}]
-        [:button {:on-click login-action} "Participar"]]]]))
+    [:div
+     [:h2 "Login"]
+     [:input {:class "bt" :placeholder "login input"
+              :on-change (change-in-form :username)
+              :value username}]
+     [:button {:on-click login-action} "login"]]))
 
 
 (defn join-event []

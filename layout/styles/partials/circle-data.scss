@@ -8,7 +8,7 @@
   position: relative;
 
   .circle-header {
-    flex: 0;
+    // flex: 0;
     display: flex;
     padding: $space;
     @extend .bg-white;
@@ -43,7 +43,7 @@
     flex-direction: column;
 
     .mod-header {
-      flex: 0;
+      // flex: 0;
       padding: $space;
       display: flex;
       font-size: $fs16;
@@ -64,7 +64,7 @@
       padding: 0 $space;
     }
     .mod-add-box {
-      flex: 0;
+      // flex: 0;
       padding: $space;
       position: relative;
       input {
