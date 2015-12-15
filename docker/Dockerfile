@@ -19,15 +19,11 @@ RUN apt-get update && \
 
 # INSTALL LEIN
 RUN curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -o /usr/local/bin/lein && chmod +x /usr/local/bin/lein && lein upgrade
-
-# USER CONFIG
-RUN useradd -m -g users -s /bin/bash user
-RUN echo "user:user" | chpasswd
-USER user
+ENV LEIN_ROOT 1
 
 # COPY LOCALDIR AND INSTALL DEPS
-COPY .:/home/user/app
-WORKDIR /home/user/app
+COPY . /app
+WORKDIR /app
 RUN lein deps
 
 # PORTS
