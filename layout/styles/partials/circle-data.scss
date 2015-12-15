@@ -60,15 +60,31 @@
       position: relative;
       input {
         width: 100%;
+        padding-right: 2.6rem;
       }
       .button {
-        width: 4rem;
-        background: $color-gray-medium;
+        width: 2.6rem;
+        background: $color-white;
         position: absolute;
         right: $space;
         top: $space;
         bottom: $space;
         border-radius: 0 $radius $radius 0;
+        border: 2px solid $color-gray-light;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        .fa {
+          color: $color-gray-medium;
+        }
+        &:hover {
+          background: $color-primary;
+          border-color: $color-primary;
+          .fa {
+            color: $color-white;
+          }
+        }
       }
     }
 
