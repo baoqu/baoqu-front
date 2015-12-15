@@ -4,7 +4,8 @@
             [bidi.router :as bidi]
             [httpurr.client :as http]
             [httpurr.client.xhr :refer client]
-            [httpurr.client.xhr :as hc])
+            [httpurr.client.xhr :as hc]
+            [baoqu.components.home :as home-c]))
 
 (defonce state (atom {}))
 
@@ -77,7 +78,7 @@
   (let [state (rum/react state)
         username (get-in state [:session :username])]
     (if username
-      (home)
+      (home-c/main)
       (login))))
 
 ;; MOUNT
