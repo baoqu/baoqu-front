@@ -82,4 +82,4 @@
       (login))))
 
 ;; MOUNT
-(rum/mount (base) (dom/getElement "content"))
+(rum/mount (base) (dom/getElement "app"))
