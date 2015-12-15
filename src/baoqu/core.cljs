@@ -54,12 +54,16 @@
   []
   (let [state (rum/react state)
         username (get-in state [:form :username])]
-    [:div
-     [:h2 "Login"]
-     [:input {:class "bt" :placeholder "login input"
-              :on-change (change-in-form :username)
-              :value username}]
-     [:button {:on-click login-action} "login"]]))
+  [:div.login-wrapper
+    [:div.login
+      [:h1 "Baoqu"]
+      [:h3 "Evento"]
+      [:h2 "¿Qué tipo de muerte dolorosa queremos para los ciclistas de La Guindalera?"]
+      [:div.input-box
+        [:input {:class "bt" :placeholder "Introduce tu nombre"
+                :on-change (change-in-form :username)
+                :value username}]
+        [:button {:on-click login-action} "Participar"]]]]))
 
 
 (defn join-event []
