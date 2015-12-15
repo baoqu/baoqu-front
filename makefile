@@ -9,7 +9,7 @@ docker-build:
 	docker build -t baoqu/front -f docker/Dockerfile .
 
 docker-run:
-	docker run -it --name baoqu-front -p 80:3449 -v ${PWD}:/app baoqu/front
+	rlwrap docker run -it --name baoqu-front -p 3449:3449 -v ${PWD}:/app baoqu/front
 
 docker-att:
-	docker exec -it baoqu-front ./scripts/figwheel
+	rlwrap docker exec -it baoqu-front ./scripts/figwheel
