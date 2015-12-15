@@ -15,11 +15,12 @@ RUN apt-get update && \
                     vim \
                     tmux \
                     curl \
+                    rlwrap \
                     openjdk-7-jdk
 
 # INSTALL LEIN
-RUN curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -o /usr/local/bin/lein && chmod +x /usr/local/bin/lein && lein upgrade
 ENV LEIN_ROOT 1
+RUN curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -o /usr/local/bin/lein && chmod +x /usr/local/bin/lein && lein upgrade
 
 # COPY LOCALDIR AND INSTALL DEPS
 COPY . /app
