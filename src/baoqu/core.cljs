@@ -3,7 +3,7 @@
             [goog.dom :as dom]
             [bidi.router :as bidi]
             [httpurr.client :as http]
-            [httpurr.client.xhr :refer client]
+            [httpurr.client.xhr :refer [client]]
             [httpurr.client.xhr :as hc]
             [baoqu.components.home :as home-c]))
 
