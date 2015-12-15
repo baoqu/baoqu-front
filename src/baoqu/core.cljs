@@ -1,7 +1,10 @@
 (ns baoqu.core
   (:require [rum.core :as rum]
             [goog.dom :as dom]
-            [bidi.router :as bidi]))
+            [bidi.router :as bidi]
+            [httpurr.client :as http]
+            [httpurr.client.xhr :refer client]
+            [httpurr.client.xhr :as hc])
 
 (defonce state (atom {}))
 
@@ -22,15 +25,11 @@
 
 (defn login-action []
   (let [username (get-in @state [:form :username])]
-
-    ;; request /login
-
-    ;; if (ok)
     (swap! state assoc-in [:session :username] username)
     (empty-form)
 
     ;; if (error)
-    (swap! state assoc-in [:errors :username] error-message)
+    ;;   (swap! state assoc-in [:errors :username] error-message)
     ))
 
 
@@ -57,9 +56,21 @@
               :value username}]
      [:button {:on-click login-action} "login"]]))
 
+
+(defn join-event []
+  (http/send! client
+              {:method :get
+               :url    "https://api.github.com/orgs/funcool"})
+
+  (hc/get "https://api.github.com/orgs/funcool")
+  )
+
 (rum/defc home < rum/reactive
   []
-  [:h2 "Home"])
+  [:div
+   [:h2 "Home"]
+   [:button#join-event {:on-click join-event} "Join Event"]
+    ])
 
 (rum/defc base < rum/reactive
   []
