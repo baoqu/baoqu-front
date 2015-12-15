@@ -1,0 +1,21 @@
+{
+  "name": "baoqu-front",
+  "version": "0.0.1",
+  "author": "myfunnyandy <andres.gonzalez79@gmail.com>",
+  "scripts": {
+    "dist": "gulp dist",
+    "watch": "gulp"
+  },
+  "dependencies": {
+    "browser-sync": "^2.7.1",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-jade": "^1.0.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.0.1",
+    "gulp-watch": "^4.2.4"
+    }
+}

@@ -1,0 +1,49 @@
+html
+  head
+    link(rel='stylesheet', href='/styles/main.css')
+    link(rel='stylesheet', href='/icons/font-awesome/css/font-awesome.min.css')
+
+    body
+      div.page
+        // HEADER
+        div#mainHeader
+          h1.logo Baoqu
+          div.event-name ¿Qué tipo de muerte dolorosa queremos para los ciclistas de La Guindalera?
+
+        // CONTAINER
+        div.container
+
+          // MAPA
+          div.map mapa
+
+          //CIRCLE
+          div.circle-wrapper
+            div.circle-header
+              div.circle-header-title Círculo Onisuzume
+              span.circle-header-exit Salir de este círculo
+            div.circle-content
+
+              // IDEAS
+              div.mod-ideas
+                div.mod-header
+                  div.title 36 ideas
+                  span.toggle >
+                div.mod-body ideas body
+                div.mod-add-box
+                  input(placeholder="Añade una nueva idea")
+                  span.button
+                    i.fa.fa-camera-retro
+
+              // COMMENTS
+              div.mod-comments
+                div.mod-header
+                  div.title 36 comments
+                  span.toggle >
+                div.mod-body comments body
+                div.mod-add-box
+                  input(placeholder="Comenta")
+                  span.button
+                    i.fa.fa-camera-retro
+
+        // FOOTER
+        div#mainFooter user movidas

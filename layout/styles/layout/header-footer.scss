@@ -1,0 +1,22 @@
+#mainHeader, #mainFooter {
+  color: $color-white;
+  background-color: $color-primary;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+
+  .logo {
+    padding: $space;
+    font-size: $fs24;
+    font-weight: bold;
+    border-right: 1px solid $color-white;
+  }
+
+  .event-name {
+    font-size: $fs20;
+    font-weight: normal;
+    margin-left: $space;
+  }
+
+}

@@ -1,0 +1,31 @@
+// FLEX GRID
+.flex {
+  display: flex;
+}
+
+/* Base classes for all media */
+.fc-fit {
+  flex: 1;
+}
+.fc-full {
+  flex: 0 0 100%;
+}
+.fc-1of2 {
+  flex: 0 0 50%;
+}
+.fc-1of3 {
+  flex: 0 0 33.3333%;
+}
+.fc-1of4 {
+  flex: 0 0 25%;
+}
+.fc-1of5 {
+  flex: 0 0 20%;
+}
+.fc-1of10 {
+  flex: 0 0 10%;
+}
+
+// RESPONSIVE SASS mixin?
+
+// https://philipwalton.github.io/solved-by-flexbox/demos/grids/
