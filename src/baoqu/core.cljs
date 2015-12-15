@@ -2,15 +2,17 @@
   (:require [rum.core :as rum]
             [goog.dom :as dom]
             [bidi.router :as bidi]
-            [httpurr.client :as http]
-            [httpurr.client.xhr :refer client]
-            [httpurr.client.xhr :as hc])
+            [httpurr.status :as s]
+            [httpurr.client.xhr :as xhr]
+            [promesa.core :as p]
+            ))
 
 (defonce state (atom {}))
 
 ;; ROUTES
 (def routes ["/" [["home" :home]
-                  ["index" :index]]])
+                  ["index" :index]
+                  [["event/" :id] :event]])
 
 (defn- on-navigate
   [{route :handler}]
@@ -57,13 +59,74 @@
      [:button {:on-click login-action} "login"]]))
 
 
-(defn join-event []
-  (http/send! client
-              {:method :get
-               :url    "https://api.github.com/orgs/funcool"})
 
-  (hc/get "https://api.github.com/orgs/funcool")
+
+
+
+
+
+
+
+(defn on-error
+  [message & path]
+  (swap! state assoc-in path message))
+
+(defn join-event-success
+  [response]
+  (let [parsed-response (js/json.Parse (:body response))]
+    ;; change state
+    (swap! state assoc :event (:id parsed-response))
+    ;; change url??
+    (swap! state assoc :route :event)))
+
+(defn join-event-request
+  []
+  ;; http request
+  ;; on-success => join-event-success
+  ;; on-error => on-error
+  (on-error "id not found" :errors :event :id)
   )
+
+(defn join-event-handler
+  []
+  (let [event-id 1
+        username (get-in @state [:session :username])]
+    (send-request :get url params on-success on-error)
+    )
+
+
+
+;; request
+(defn join-event-request
+  []
+  (defn eid->url
+    [event-id]
+    (str "http://private-a24a2a-baoqu.apiary-mock.com/events/" :event_id "/users"))
+
+  (defn process-response
+    [response]
+    (condp = (:status response)
+      s/ok           (p/resolved (:body response))
+      s/not-found    (p/rejected :not-found)
+      s/unauthorized (p/rejected :unauthorized)))
+
+  (-> (p/then (xhr/get (eid->url event-id))
+              process-response)
+      (p/catch (fn [err]
+                 (.error js/console err))))
+  )
+
+(defn join-event []
+  (let [event-id 1
+        username (get-in @state [:session :username])]
+
+    (enable-console-print!)
+    (println "====================")
+    (println "hola")
+    (println "====================")
+
+    (join-event-request event-id username)
+    )
 
 (rum/defc home < rum/reactive
   []
