@@ -65,3 +65,63 @@
   }
 
 }
+
+@include bp(large) {
+
+  .login {
+    width: 70%;
+    .input-box {
+      input {
+        font-size: $fs20;
+      }
+    }
+  }
+}
+@include bp(medium) {
+
+  .login {
+    width: 90%;
+    h2 {
+      font-size: $fs38;
+      margin-bottom: $space;
+    }
+    h3 {
+      font-size: $fs20;
+    }
+    .input-box {
+      margin-top: $space-xl;
+      input {
+        font-size: $fs16;
+        width: 60%;
+      }
+      button {
+        width: 30%;
+      }
+    }
+  }
+}
+@include bp(small) {
+
+  .login {
+    width: 90%;
+
+    h2 {
+      font-size: $fs30;
+    }
+    h3 {
+      font-size: $fs16;
+    }
+    .input-box {
+      flex-direction: column;
+      input {
+        font-size: $fs16;
+        width: 100%;
+        margin-bottom: $space;
+      }
+      button {
+        width: 100%;
+        margin-left:0;
+      }
+    }
+  }
+}

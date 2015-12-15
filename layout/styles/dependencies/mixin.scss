@@ -5,22 +5,18 @@
 /// "bp-papabear" (Desktop), "bp-mamabear" (Tablet) and "bp-babybear" (Mobile).
 @mixin bp($point) {
 
-  $bp-babybear: "(min-width: 720px)";
-  $bp-mamabear: "(min-width: 1020px)";
-  $bp-papabear: "(min-width: 1366px)";
-  $bp-monsterbear: "(min-width: 1680px)";
+  $bp-large: "(max-width: 1366px)";
+  $bp-medium: "(max-width: 960px)";
+  $bp-small: "(max-width: 480px)";
 
-  @if $point == monster-bear {
-    @media #{$bp-monsterbear} { @content; }
+  @if $point == large {
+    @media #{$bp-large}  { @content; }
   }
-  @if $point == papa-bear {
-    @media #{$bp-papabear} { @content; }
+  @else if $point == medium {
+    @media #{$bp-medium}  { @content; }
   }
-  @else if $point == mama-bear {
-    @media #{$bp-mamabear} { @content; }
-  }
-  @else if $point == baby-bear {
-    @media #{$bp-babybear}  { @content; }
+  @else if $point == small {
+    @media #{$bp-small}  { @content; }
   }
 
 }
