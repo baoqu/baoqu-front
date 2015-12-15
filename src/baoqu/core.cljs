@@ -17,9 +17,21 @@
   (bidi/start-router! routes {:on-navigate on-navigate
                               :default-location {:handler :home}}))
 
+(rum/defc login < rum/reactive
+  []
+  [:h2 "Login"])
+
+(rum/defc home < rum/reactive
+  []
+  [:h2 "Home"])
+
 (rum/defc base < rum/reactive
   []
-  [:h1 "Hello world"])
+  (let [state (rum/react state)
+        username (get-in state [:session :username])]
+    (if username
+      (home)
+      (login))))
 
 ;; MOUNT
 (rum/mount (base) (dom/getElement "content"))
