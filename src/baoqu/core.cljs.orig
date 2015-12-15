@@ -2,9 +2,12 @@
   (:require [rum.core :as rum]
             [goog.dom :as dom]
             [bidi.router :as bidi]
+<<<<<<< HEAD
             [httpurr.client :as http]
             [httpurr.client.xhr :refer client]
             [httpurr.client.xhr :as hc]
+=======
+>>>>>>> First integration
             [baoqu.components.home :as home-c]))
 
 (defonce state (atom {}))
@@ -26,15 +29,11 @@
 
 (defn login-action []
   (let [username (get-in @state [:form :username])]
-
-    ;; request /login
-
-    ;; if (ok)
     (swap! state assoc-in [:session :username] username)
     (empty-form)
 
     ;; if (error)
-    (swap! state assoc-in [:errors :username] error-message)
+    ;;   (swap! state assoc-in [:errors :username] error-message)
     ))
 
 

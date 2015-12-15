@@ -1,0 +1,63 @@
+html
+  head
+    link(rel='stylesheet', href='/styles/main.css')
+    link(rel='stylesheet', href='/icons/font-awesome/css/font-awesome.min.css')
+
+    body
+      div.page
+        // HEADER
+        div#mainHeader
+          h1.logo Baoqu
+          div.event-name ¿Qué tipo de muerte dolorosa queremos para los ciclistas de La Guindalera?
+
+        // CONTAINER
+        div.container
+
+          // MAPA
+          div.map mapa
+
+          //CIRCLE
+          div.circle-wrapper
+            div.circle-header
+              div.circle-header-title Círculo Onisuzume
+              span.circle-header-exit Salir de este círculo
+            div.circle-content
+
+              // IDEAS
+              div.mod-ideas
+                div.mod-header
+                  div.title 36 ideas
+                  span.toggle
+                    i.fa.fa-lg.fa-chevron-right
+                div.mod-body ideas body
+                div.mod-add-box
+                  input(placeholder="Añade una nueva idea")
+                  span.button
+                    i.fa.fa-lg.fa-plus
+
+              // COMMENTS
+              div.mod-comments
+                div.mod-header
+                  div.title 36 comments
+                  span.toggle
+                    i.fa.fa-lg.fa-chevron-right
+
+                div.mod-body
+                  // COMMENT
+                  ul
+                    - var n = 0
+                    each val in [1, 2, 3, 4, 5]
+                      li.mod-comment
+                        div.avatar
+                          div.thumb A
+                        div.content
+                          div.username Andy
+                          div.comment ¿Sabéis quién tenía una bici también?
+
+                div.mod-add-box
+                  input(placeholder="Comenta")
+                  span.button
+                    i.fa.fa-lg.fa-plus
+
+        // FOOTER
+        div#mainFooter user movidas
