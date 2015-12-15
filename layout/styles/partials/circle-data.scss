@@ -93,8 +93,8 @@
           color: $color-gray-medium;
         }
         &:hover {
-          background: $color-primary;
-          border-color: $color-primary !important;
+          background: $color-success;
+          border-color: $color-success !important;
           .fa {
             color: $color-white;
           }
@@ -111,7 +111,37 @@
 
   // COMMENTS
   .mod-comments {
-
+    .mod-comment {
+      display: flex;
+      margin-bottom: $space;
+      .avatar {
+        flex-shrink: 0;
+        .thumb {
+          height: 2.4rem;
+          width: 2.4rem;
+          margin-right: $space;
+          background-color: #c2288a;
+          color: $color-white;
+          font-size: $fs24;
+          font-weight:bold;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      .content {
+        flex: 1;
+        .username {
+          font-weight: bold;
+          font-size: $fs14;
+        }
+        .comment {
+          color: $color-gray-medium;
+          font-size: $fs14;
+        }
+      }
+    }
   }
 
 }

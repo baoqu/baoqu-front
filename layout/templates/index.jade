@@ -41,7 +41,19 @@ html
                   div.title 36 comments
                   span.toggle
                     i.fa.fa-lg.fa-chevron-right
-                div.mod-body comments body
+
+                div.mod-body
+                  // COMMENT
+                  ul
+                    - var n = 0
+                    each val in [1, 2, 3, 4, 5]
+                      li.mod-comment
+                        div.avatar
+                          div.thumb A
+                        div.content
+                          div.username Andy
+                          div.comment ¿Sabéis quién tenía una bici también?
+
                 div.mod-add-box
                   input(placeholder="Comenta")
                   span.button
