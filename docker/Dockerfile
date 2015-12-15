@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:sid
 MAINTAINER Miguel de la Cruz <mgdelacroix@gmail.com>
 
 # BOOTSTRAP
@@ -16,7 +16,7 @@ RUN apt-get update && \
                     tmux \
                     curl \
                     rlwrap \
-                    openjdk-7-jdk
+                    openjdk-8-jdk
 
 # INSTALL LEIN
 ENV LEIN_ROOT 1
