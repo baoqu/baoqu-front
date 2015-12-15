@@ -225,9 +225,12 @@ select {
   font-size: $fs16;
   border: 2px solid $color-gray-light;
   border-radius: $radius;
-  padding: 8px;
+  padding: 12px 8px;
   -webkit-appearance: none;
   -moz-appearance: none;
+  &:focus {
+    border-color: $color-gray-medium;
+  }
 }
 
 input[type="radio"],

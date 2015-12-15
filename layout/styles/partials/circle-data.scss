@@ -71,6 +71,11 @@
         width: 100%;
         padding-right: 2.6rem;
       }
+
+      input:focus + .button {
+        border-color: $color-gray-medium;
+      }
+
       .button {
         width: 2.6rem;
         background: $color-white;
@@ -89,7 +94,7 @@
         }
         &:hover {
           background: $color-primary;
-          border-color: $color-primary;
+          border-color: $color-primary !important;
           .fa {
             color: $color-white;
           }
