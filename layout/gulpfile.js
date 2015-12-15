@@ -63,7 +63,7 @@ gulp.task('templates', function() {
     .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('dist', ['images', 'fonts', 'icons', 'vendor', 'scss']);
+gulp.task('dist', ['images', 'fonts', 'icons', 'templates', 'vendor', 'scss']);
 
 gulp.task('browser-sync', function() {
   browserSync.init({
@@ -75,7 +75,7 @@ gulp.task('browser-sync', function() {
   });
 });
 
-gulp.task('default', ['dist'], function() {
+gulp.task('default', ['dist', 'browser-sync'], function() {
   gulp.watch(paths.scss, ['scss', browserSync.reload]);
   gulp.watch(paths.fonts, ['fonts', browserSync.reload]);
   gulp.watch(paths.icons, ['icons', browserSync.reload]);
