@@ -22,8 +22,21 @@ RUN apt-get update && \
 ENV LEIN_ROOT 1
 RUN curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -o /usr/local/bin/lein && chmod +x /usr/local/bin/lein && lein upgrade
 
-# COPY LOCALDIR AND INSTALL DEPS
+# INSTALL NVM
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+RUN . ~/.nvm/nvm.sh && nvm install v5.2.0 && nvm alias default v5.2.0
+
+# INSTALL GULP
+RUN . ~/.nvm/nvm.sh && npm install -g gulp
+
+# COPY LOCALDIR
 COPY . /app
+
+# COMPILE LAYOUT
+#WORKDIR /app/layout
+#RUN . ~/.nvm/nvm.sh && npm install && gulp dist
+
+# INSTALL LEIN DEPS
 WORKDIR /app
 RUN lein deps
 
