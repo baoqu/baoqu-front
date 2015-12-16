@@ -1,4 +1,5 @@
-(ns baoqu.routes)
+(ns baoqu.routes
+  (:require [bidi.router :as bidi]))
 
 (def routes ["/" [["home" :home]
                   ["index" :index]]])
