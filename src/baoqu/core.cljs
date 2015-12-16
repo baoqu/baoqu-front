@@ -9,18 +9,6 @@
 
 (defonce state (atom {}))
 
-;; ROUTES
-(def routes ["/" [["home" :home]
-                  ["index" :index]]])
-
-(defn- on-navigate
-  [{route :handler}]
-  (swap! state assoc :route route))
-
-(defonce +router+
-  (bidi/start-router! routes {:on-navigate on-navigate
-                              :default-location {:handler :home}}))
-
 (defn empty-form []
   (swap! state assoc :form nil))
 
