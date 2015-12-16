@@ -10,7 +10,13 @@
 
 (rum/defc footer < rum/static
   []
-  [:div#mainFooter "user movidas"])
+  ;; [:div#mainFooter "user movidas"]
+  [:div#user
+    [:div.avatar
+      [:div.thumb "A"]
+    ]
+  ]
+)
 
 (rum/defc ideas < rum/static
   []
