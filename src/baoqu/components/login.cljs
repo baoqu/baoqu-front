@@ -18,10 +18,6 @@
 (defn change-field [& path]
   (fn [e]
     (let [new-value (-> e (.-target) (.-value))]
-      (enable-console-print!)
-      (println "====================")
-      (println new-value)
-      (println "====================")
       (swap! state assoc-in path new-value))))
 
 (def change-in-form (partial change-field :form))
