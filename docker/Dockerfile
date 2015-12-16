@@ -43,4 +43,4 @@ RUN lein deps
 # PORTS
 EXPOSE 3449
 
-CMD ./scripts/watch
+CMD ./scripts/figwheel
