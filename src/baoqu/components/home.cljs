@@ -1,6 +1,8 @@
 (ns baoqu.components.home
   (:require [rum.core :as rum]
-            [baoqu.services.event :as event]))
+            [baoqu.services.event :as event]
+            [baoqu.data :as d]
+            [baoqu.routes :as routes]))
 
 (rum/defc header < rum/reactive
   []
@@ -192,10 +194,16 @@
    (the-map)
    (circle)])
 
-(rum/defc main < rum/reactive
+(def secured-mixin
+  {:will-mount (fn [own]
+                 (let [username (get-in @d/state [:session :username])]
+                   (when-not username
+                     (routes/go :login)))
+                 own)})
+
+(rum/defc main < rum/reactive secured-mixin
   "The main component for the home screen"
   []
-
   ;; list-events
 
   ;; select-event

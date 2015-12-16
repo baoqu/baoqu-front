@@ -3,7 +3,8 @@
             [httpurr.client :as http]
             [httpurr.client.xhr :refer [client]]
             [httpurr.client.xhr :as hc]
-            [baoqu.data :refer [state]]))
+            [baoqu.data :refer [state]]
+            [baoqu.routes :as routes]))
 
 (defn empty-form []
   (swap! state assoc :form nil))
@@ -13,6 +14,7 @@
 
     ;; hardcoded
     (swap! state assoc-in [:session :username] username)
+    (routes/go :home)
     (empty-form)))
 
 (defn change-field [& path]
