@@ -162,14 +162,14 @@
     (ideas)
     (comments)]])
 
-(rum/defc map < rum/reactive
+(rum/defc the-map < rum/reactive
   []
   [:div.map "mapa"])
 
 (rum/defc container < rum/reactive
   []
   [:div.container
-   (map)
+   (the-map)
    (circle)])
 
 (rum/defc main < rum/reactive
