@@ -2,6 +2,8 @@
   (:require [httpurr.client.xhr :as http]
             [promesa.core :as p]))
 
+(enable-console-print!)
+
 (defn encode
   [request]
   (update request :body #(js/JSON.stringify (clj->js %))))

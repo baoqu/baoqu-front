@@ -5,6 +5,8 @@
            [goog.net.WebSocket EventType]
            [goog Uri]))
 
+(enable-console-print!)
+
 (defn decode
   [data]
   (let [r (t/reader :json {:handlers {"u" ->UUID}})]
