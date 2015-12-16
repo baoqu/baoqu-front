@@ -2,7 +2,8 @@
   (:require [rum.core :as rum]
             [baoqu.services.event :as event]
             [baoqu.data :as d]
-            [baoqu.routes :as routes]))
+            [baoqu.routes :as routes]
+            [baoqu.services.ws :as ws]))
 
 (rum/defc header < rum/reactive
   []
@@ -201,7 +202,14 @@
                      (routes/go :login)))
                  own)})
 
-(rum/defc main < rum/reactive secured-mixin
+(def connect-ws-mixin
+  {:will-mount (fn [own]
+                 (let [websocket (ws/create-ws)]
+                   (println "WEBSOCKET CONNECTED  " websocket)
+                   (swap! d/state assoc :ws websocket))
+                 own)})
+
+(rum/defc main < rum/reactive secured-mixin connect-ws-mixin
   "The main component for the home screen"
   []
   ;; list-events
