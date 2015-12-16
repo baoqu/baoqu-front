@@ -1,7 +1,7 @@
 // MAP
 .map {
   flex: 1;
-  @extend .bg-gray-light;
+  background-color: #cde1e8;
   overflow-x: hidden;
   overflow-y: scroll;
   &::-webkit-scrollbar-thumb {
@@ -15,9 +15,10 @@ $circle-margin: 5%;
 .circle {
   position: relative;
   margin: $circle-margin;
-  background-color: white;
+  background-color: rgba(255,255,255,0.5);
   border-radius: 50%;
-  border: 1px solid #666;
+  border: 2px solid rgba(0,0,0,0.2);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.4);
 
   .circle { // top circle (default)
     margin:auto;
@@ -28,6 +29,8 @@ $circle-margin: 5%;
     top: $circle-margin;
     left: 50%;
     margin-left: -($circle-size/2); // half circle width
+    box-shadow: none;
+    border-width: 1px;
 
     &:first-child { // bottom left circle
       top: auto;
@@ -42,5 +45,17 @@ $circle-margin: 5%;
       bottom: 16%;
       right: 8%;
     }
+    &:hover {
+      background-color: rgba(255,255,255,0.8);
+    }
+  }
+  &.not-full {
+    border-style: dashed !important;
+  }
+  &.my-circle {
+    border-color: $color-primary;
+  }
+  &:hover {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.4);
   }
 }

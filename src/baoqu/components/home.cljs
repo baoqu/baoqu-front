@@ -168,6 +168,16 @@
 (rum/defc the-map < rum/reactive
   []
   [:div.map
+    [:div.circle.not-full {:style {:width "100px" :height "100px"}}
+      [:div.circle]
+      [:div.circle.my-circle]
+      [:div.circle.not-full]
+    ]
+    [:div.circle {:style {:width "100px" :height "100px"}}
+      [:div.circle]
+      [:div.circle]
+      [:div.circle]
+    ]
     [:div.circle {:style {:width "300px" :height "300px"}}
       [:div.circle]
       [:div.circle]
