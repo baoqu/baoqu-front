@@ -307,3 +307,22 @@ input[type="checkbox"]:focus {
     width: 100%;
   }
 }
+
+// Avatars
+
+.avatar {
+  flex-shrink: 0;
+  .thumb {
+    height: 2.4rem;
+    width: 2.4rem;
+    margin-right: $space;
+    background-color: #c2288a;
+    color: $color-white;
+    font-size: $fs24;
+    font-weight:bold;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -77,7 +77,7 @@
   [:div.mod-comments
    [:div.mod-header
    [:i {:class "icon-header fa fa-lg fa-comments"}]
-    [:div.title "36 commentarios"]
+    [:div.title "36 deliberación"]
     [:span.toggle
      [:i {:class "fa fa-lg fa-chevron-right"}]]]
 
