@@ -179,7 +179,6 @@
   ;; join-event
   (event/join-event)
 
-
   [:div.page
    (header)
    (container)
