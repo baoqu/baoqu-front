@@ -110,6 +110,50 @@
   // IDEAS
   .mod-ideas {
     @extend .line-right;
+    .mod-idea {
+      margin-bottom: $space;
+      border-radius: $radius;
+      border: 2px solid $color-gray-light;
+      .idea {
+        font-size: $fs18;
+        padding: $space;
+        font-weight: bold;
+        &:before {
+          content:"# ";
+        }
+      }
+      .voting-block {
+        display: flex;
+        align-items: center;
+        padding: $space;
+        background-color: $color-gray-lighter;
+        .votes {
+          flex: 1;
+          .votes-count {
+            font-size: $fs13;
+            color: $color-gray-medium;
+            margin-bottom: 0.2rem;
+          }
+          .progress-bar {
+            width: 100%;
+            background-color: $color-gray-light;
+            height: 6px;
+            border-radius: 6px;
+            .inner {
+              height: 6px;
+              border-radius: 6px;
+              background-color: $color-success;
+            }
+          }
+        }
+        .btn {
+          margin-left: $space;
+        }
+      }
+      &:first-child {
+        margin-top: $space;
+      }
+    }
   }
 
   // COMMENTS

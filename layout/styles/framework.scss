@@ -7,12 +7,11 @@
   cursor: pointer;
   display: flex;
   font-family: "sourcesanspro", sans-serif;
-  font-size: $fs20;
+  font-size: $fs16;
   font-weight: bold;
   justify-content: center;
-  padding: 1rem;
+  padding: 0.4rem 0.8rem;
   text-align: center;
-  transition: all .4s;
   -webkit-appearance: none;
   -moz-appearance: none;
   &.btn-big {
@@ -69,10 +68,9 @@
 .btn-gray {
   @extend %btn;
   background: $color-gray-medium;
-  color: $color-gray-dark;
+  color: $color-white;
   &:hover {
-    background: $color-gray-dark;
-    color: $color-gray-dark;
+    background: $color-gray-light;
   }
 }
 

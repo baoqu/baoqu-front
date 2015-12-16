@@ -19,9 +19,55 @@
     [:div.title "36 ideas"]
     [:span.toggle
      [:i {:class "fa fa-lg fa-chevron-right"}]]]
-   [:div.mod-body "ideas body"]
+   [:div.mod-body
+     [:ul
+       [:li.mod-idea
+         [:div.idea "Montar un bar"]
+         [:div.voting-block
+           [:div.votes
+             [:div.votes-count "2/3 apoyos para promocionar el círculo"]
+             [:div.progress-bar
+              [:div.inner {:style {:width "66%"}}]
+             ]
+           ]
+           [:div.btn.btn-gray "Apoyar"]
+         ]
+       ]
+
+
+       ;; rancio manual loop
+       [:li.mod-idea
+       [:div.idea "Montar DOS bares"]
+       [:div.voting-block
+       [:div.votes
+       [:div.votes-count "1/3 apoyos para promocionar el círculo"]
+       [:div.progress-bar
+       [:div.inner {:style {:width "33%"}}]
+       ]
+       ]
+       [:div.btn.btn-gray "Apoyar"]
+       ]
+       ]
+       [:li.mod-idea
+       [:div.idea "Las bicicletas son para el varano de Komodo"]
+       [:div.voting-block
+       [:div.votes
+       [:div.votes-count "0/3 apoyos para promocionar el círculo"]
+       [:div.progress-bar
+       [:div.inner {:style {:width "0%"}}]
+       ]
+       ]
+       [:div.btn.btn-gray "Apoyar"]
+       ]
+       ]
+
+       ;; end: rancio manual loop
+
+
+     ]
+   ]
    [:div.mod-add-box
-    [:input {:placeholder "Añade una nueva idea"}]
+    [:input {:placeholder "# Añade una nueva idea"}]
     [:span.button
      [:i {:class "fa fa-lg fa-plus"}]]]])
 
@@ -29,7 +75,7 @@
   []
   [:div.mod-comments
    [:div.mod-header
-    [:div.title "36 comments"]
+    [:div.title "36 commentarios"]
     [:span.toggle
      [:i {:class "fa fa-lg fa-chevron-right"}]]]
 

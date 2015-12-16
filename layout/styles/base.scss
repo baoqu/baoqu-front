@@ -292,10 +292,11 @@ $margin: 15px;
 $margin-big: 20px;
 
 // LINES
-.line-top { border-top: 1px solid $color-gray-light; }
-.line-bottom { border-bottom: 1px solid $color-gray-light; }
-.line-left { border-left: 1px solid $color-gray-light; }
-.line-right { border-right: 1px solid $color-gray-light; }
+.line-top     { border-top: 1px solid $color-gray-light; }
+.line-bottom  { border-bottom: 1px solid $color-gray-light; }
+.line-left    { border-left: 1px solid $color-gray-light; }
+.line-right   { border-right: 1px solid $color-gray-light; }
+.line-all     { border: 1px solid $color-gray-light; }
 
 // BORDER RADIUS
 $radius: 4px;
