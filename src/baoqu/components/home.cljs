@@ -1,5 +1,6 @@
 (ns baoqu.components.home
-  (:require [rum.core :as rum]))
+  (:require [rum.core :as rum]
+            [baoqu.services.event :as event]))
 
 (rum/defc header < rum/reactive
   []
@@ -115,9 +116,20 @@
    (map)
    (circle)])
 
+
+
 (rum/defc main < rum/reactive
   "The main component for the home screen"
   []
+
+  ;; list-events
+
+  ;; select-event
+
+  ;; join-event
+  (event/join-event)
+
+
   [:div.page
    (header)
    (container)

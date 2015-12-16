@@ -11,17 +11,9 @@
 (defn login-action []
   (let [username (get-in @state [:form :username])]
 
-    ;; request /login
-
-    ;; if (ok)
+    ;; hardcoded
     (swap! state assoc-in [:session :username] username)
-    (empty-form)
-
-    ;; if (error)
-    (swap! state assoc-in [:errors :username] error-message)
-    ))
-
-
+    (empty-form)))
 
 (defn change-field [& path]
   (fn [e]
@@ -33,13 +25,6 @@
       (swap! state assoc-in path new-value))))
 
 (def change-in-form (partial change-field :form))
-
-(defn join-event []
-  (http/send! client
-              {:method :get
-               :url    "https://api.github.com/orgs/funcool"})
-
-  (hc/get "https://api.github.com/orgs/funcool"))
 
 (rum/defc main < rum/reactive
   []
