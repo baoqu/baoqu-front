@@ -21,19 +21,19 @@
   [res]
   (let [message (decode (.-message res))]
     (println "=== MESSAGE ===")
-    (println (str "==> " message))))
+    (println "==> " message)))
 
 (defn process-error
   [res]
-  (println (str "--> ERROR: " res)))
+  (println "--> ERROR: " res))
 
 (defn process-closed
   [res]
-  (println (str "--> CLOSED: " res)))
+  (println "--> CLOSED: " res))
 
 (defn process-tick
   [res]
-  (println (str "--> TICK: " res)))
+  (println "--> TICK: " res))
 
 (defn create-ws
   []
