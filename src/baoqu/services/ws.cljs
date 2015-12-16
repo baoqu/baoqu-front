@@ -25,15 +25,15 @@
 
 (defn process-error
   [res]
-  (println ("--> ERROR: " res)))
+  (println (str "--> ERROR: " res)))
 
 (defn process-closed
   [res]
-  (println ("--> CLOSED: " res)))
+  (println (str "--> CLOSED: " res)))
 
 (defn process-tick
   [res]
-  (println ("--> TICK: " res)))
+  (println (str "--> TICK: " res)))
 
 (defn create-ws
   []
