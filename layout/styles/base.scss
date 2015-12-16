@@ -16,15 +16,14 @@ body {
     width: 100%;
   }
 
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
+}
 
-  &::-webkit-scrollbar-thumb {
-    background-color: $color-primary;
-    border-radius: 6px;
-  }
-
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $color-gray-light;
+  border-radius: 6px;
 }
 
 * {

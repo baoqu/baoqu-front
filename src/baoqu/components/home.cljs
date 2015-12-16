@@ -31,8 +31,66 @@
     [:div.title "36 comments"]
     [:span.toggle
      [:i {:class "fa fa-lg fa-chevron-right"}]]]
-   [:div.mod-body "comments body"]
-   [:div.mod-add-box
+
+    [:div.mod-body
+      [:ul
+        [:li.mod-comment
+          [:div.avatar
+            [:div.thumb "A"]
+          ]
+          [:div.content
+            [:div.username "Andy"]
+            [:div.comment "¿Sabéis quién tenía una bici también?"]
+          ]
+        ]
+        ;; rancio manual loop
+        [:li.mod-comment
+        [:div.avatar
+        [:div.thumb "A"]]
+        [:div.content
+        [:div.username "Thelma"]
+        [:div.comment "¿Adolf?"]]]
+        [:li.mod-comment
+        [:div.avatar
+        [:div.thumb "A"]]
+        [:div.content
+        [:div.username "Louise"]
+        [:div.comment "¿Estanli?"]]]
+        [:li.mod-comment
+        [:div.avatar
+        [:div.thumb "A"]]
+        [:div.content
+        [:div.username "Madonna"]
+        [:div.comment "El tiempo pasa, despacico"]]]
+        [:li.mod-comment
+        [:div.avatar
+        [:div.thumb "A"]]
+        [:div.content
+        [:div.username "Andy"]
+        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
+        [:li.mod-comment
+        [:div.avatar
+        [:div.thumb "A"]]
+        [:div.content
+        [:div.username "Andy"]
+        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
+        [:li.mod-comment
+        [:div.avatar
+        [:div.thumb "A"]]
+        [:div.content
+        [:div.username "Andy"]
+        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
+        [:li.mod-comment
+        [:div.avatar
+        [:div.thumb "A"]]
+        [:div.content
+        [:div.username "Andy"]
+        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
+        ;; end: rancio manual loop
+      ]
+    ]
+
+     [:div.mod-add-box
     [:input {:placeholder "Comenta"}]
     [:span.button
      [:i {:class "fa fa-lg fa-plus"}]]]])

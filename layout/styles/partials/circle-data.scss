@@ -48,6 +48,7 @@
       display: flex;
       font-size: $fs16;
       font-weight: bold;
+      box-shadow: 0px 2px 2px rgba(0,0,0,0.08);
       .title {
         flex: 1;
       }
@@ -60,12 +61,14 @@
       }
     }
     .mod-body {
-      flex: 1;
+      flex: 1 1 0;
       padding: 0 $space;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
     .mod-add-box {
       // flex: 0;
-      padding: $space;
+      padding: 0 $space $space $space;
       position: relative;
       input {
         width: 100%;
@@ -81,7 +84,7 @@
         background: $color-white;
         position: absolute;
         right: $space;
-        top: $space;
+        top: 0;
         bottom: $space;
         border-radius: 0 $radius $radius 0;
         border: 2px solid $color-gray-light;
@@ -140,6 +143,9 @@
           color: $color-gray-medium;
           font-size: $fs14;
         }
+      }
+      &:first-child {
+        margin-top: $space;
       }
     }
   }
