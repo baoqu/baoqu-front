@@ -172,8 +172,6 @@
    (map)
    (circle)])
 
-
-
 (rum/defc main < rum/reactive
   "The main component for the home screen"
   []

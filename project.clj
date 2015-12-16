@@ -9,4 +9,5 @@
                  [rum "0.6.0"]
                  [bidi "1.23.1"]
                  [funcool/httpurr "0.2.0"]
-                 [com.cognitect/transit-cljs "0.8.232"]])
+                 [com.cognitect/transit-cljs "0.8.232"]
+                 [funcool/beicon "0.3.0"]])
