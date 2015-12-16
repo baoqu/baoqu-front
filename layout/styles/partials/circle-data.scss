@@ -18,10 +18,22 @@
       flex: 1;
       font-size: $fs16;
       font-weight: bold;
+      .tag {
+        margin-left: $space-s;
+        color: $color-white;
+        background-color: $color-warning;
+        padding: 0.1rem 0.3rem;
+        font-size: $fs11;
+        font-weight: bold;
+        border-radius: 2px;
+        text-transform: uppercase;
+      }
     }
     .circle-header-exit {
       color: $color-gray-medium;
       cursor: pointer;
+      font-size: $fs13;
+      text-transform: uppercase;
       &:hover {
         color: $color-gray-dark;
       }
@@ -58,6 +70,9 @@
         &:hover {
           color: $color-gray-dark;
         }
+      }
+      .icon-header {
+        margin-right: $space-s;
       }
     }
     .mod-body {

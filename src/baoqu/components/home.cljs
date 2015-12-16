@@ -16,6 +16,7 @@
   []
   [:div.mod-ideas
    [:div.mod-header
+    [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
     [:div.title "36 ideas"]
     [:span.toggle
      [:i {:class "fa fa-lg fa-chevron-right"}]]]
@@ -75,6 +76,7 @@
   []
   [:div.mod-comments
    [:div.mod-header
+   [:i {:class "icon-header fa fa-lg fa-comments"}]
     [:div.title "36 commentarios"]
     [:span.toggle
      [:i {:class "fa fa-lg fa-chevron-right"}]]]
@@ -146,7 +148,9 @@
   []
   [:div.circle-wrapper
    [:div.circle-header
-    [:div.circle-header-title "Círculo Onisuzume"]
+    [:div.circle-header-title "Círculo Onisuzume"
+      [:span.tag "Nivel 1"]
+    ]
     [:span.circle-header-exit "Salir de este círculo"]]
    [:div.circle-content
     (ideas)
