@@ -164,7 +164,27 @@
 
 (rum/defc the-map < rum/reactive
   []
-  [:div.map "mapa"])
+  [:div.map
+    [:div.circle {:style {:width "300px" :height "300px"}}
+      [:div.circle]
+      [:div.circle]
+      [:div.circle
+        [:div.circle]
+        [:div.circle]
+        [:div.circle
+          [:div.circle]
+          [:div.circle]
+          [:div.circle
+            [:div.circle]
+            [:div.circle]
+            [:div.circle]
+          ]
+        ]
+      ]
+    ]
+    [:div.circle {:style {:width "300px" :height "300px"}}]
+    [:div.circle {:style {:width "300px" :height "300px"}}]
+  ])
 
 (rum/defc container < rum/reactive
   []

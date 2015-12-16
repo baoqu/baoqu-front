@@ -2,4 +2,45 @@
 .map {
   flex: 1;
   @extend .bg-gray-light;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-gray-lighter;
+  }
+}
+
+$circle-size: 40%;
+$circle-margin: 5%;
+
+.circle {
+  position: relative;
+  margin: $circle-margin;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #666;
+
+  .circle { // top circle (default)
+    margin:auto;
+    position: absolute;
+    width: $circle-size;
+    height: $circle-size;
+    display: block;
+    top: $circle-margin;
+    left: 50%;
+    margin-left: -($circle-size/2); // half circle width
+
+    &:first-child { // bottom left circle
+      top: auto;
+      margin-left: auto;
+      bottom: 16%;
+      left: 8%;
+    }
+
+    &:last-child { // bottom right circle
+      top: auto;
+      margin-left: auto;
+      bottom: 16%;
+      right: 8%;
+    }
+  }
 }

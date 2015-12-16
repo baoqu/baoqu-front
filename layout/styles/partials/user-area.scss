@@ -1,5 +1,6 @@
 #user {
   position: fixed;
-  bottom: $space;
-  left: $space;
+  bottom: $space-s;
+  left: $space-s;
+  z-index: 10;
 }
