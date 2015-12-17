@@ -38,22 +38,23 @@ $circle-margin: 2%;
     box-shadow: none;
     border-width: 1px;
 
-    &:first-child { // bottom left circle
-      top: auto;
-      margin-left: auto;
-      bottom: 18%;
-      left: 8%;
-    }
-
-    &:last-child { // bottom right circle
-      top: auto;
-      margin-left: auto;
-      bottom: 18%;
-      right: 8%;
-    }
     &:hover {
       background-color: rgba(255,255,255,0.8);
     }
+  }
+
+  .circle:nth-child(2) { // bottom left circle
+    top: auto;
+    margin-left: auto;
+    bottom: 18%;
+    left: 8%;
+  }
+
+  .circle:nth-child(3) { // bottom right circle
+    top: auto;
+    margin-left: auto;
+    bottom: 18%;
+    right: 8%;
   }
   &.not-full {
     border-style: dashed !important;
@@ -168,7 +169,7 @@ $size-lv3: 500px;
     flex-direction: row;
     padding: $space-s $space;
     background-color: $color-gray-lighter;
-    color: $color-gray-medium; 
+    color: $color-gray-medium;
     font-size: $fs13;
     .item {
       margin-right: $space;

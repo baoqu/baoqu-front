@@ -145,9 +145,6 @@
   []
   [:div.map
     [:div.circle.c-lv1.not-full
-      [:div.circle.agree]
-      [:div.circle]
-      [:div.circle.not-full]
 
       ;; context info
       [:div.context-info
@@ -182,6 +179,12 @@
         ]
       ]
       ;; end: context info
+
+      ;; inner circles
+      [:div.circle.agree]
+      [:div.circle]
+      [:div.circle.not-full]
+      ;; end: inner circles
     ]
     [:div.circle.c-lv1.my-circle
       [:div.circle.agree]
