@@ -10,6 +10,17 @@
 
 (enable-console-print!)
 
+(rum/defc notifications < rum/reactive
+  []
+  (let [state (rum/react d/state)
+  active-section (:active-section state)]
+  [:div
+    [:div.notification.info "This is a notification of something not that important"]
+    [:div.notification.success "This is a notification of success"]
+    [:div.notification.error "This is a notification of error"]
+  ]))
+
+
 (rum/defc header < rum/reactive
   []
   (let [state (rum/react d/state)
@@ -235,6 +246,7 @@
   ;;(event/join-event)
 
   [:div.page
+   (notifications)
    (header)
    (container)
    (footer)])

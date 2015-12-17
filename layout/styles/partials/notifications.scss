@@ -1,0 +1,28 @@
+.notification {
+  background-color: $color-info;
+  padding: $space;
+  font-size: $fs20;
+  color: $color-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 32px;
+  &.success {
+    background-color: $color-success;
+  }
+  &.error {
+    background-color: $color-danger;
+  }
+}
+
+@include bp(medium) {
+  .notification {
+    font-size: $fs18 !important;
+  }
+}
+
+@include bp(small) {
+  .notification {
+    font-size: $fs16 !important;
+  }
+}
