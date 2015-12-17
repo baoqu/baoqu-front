@@ -180,7 +180,9 @@ $size-lv3: 500px;
     }
   }
 }
-.circle:hover .context-info {
+.c-lv1:hover .context-info,
+.c-lv2:hover .context-info,
+.c-lv3:hover .context-info {
   opacity: 1;
   transition-delay:0.3s;
   pointer-events: auto;
