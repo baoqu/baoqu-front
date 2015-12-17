@@ -1,37 +1,75 @@
 // SUPER RESPONSIVE MENU
-@include bp(medium) {
-
-  #mainHeader, #mainFooter {
-    $color-primary: red;
-  }
-
-}
-
-
 
 .mobile-menu {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-bottom:0;
+  display:none;
 }
-.mobile-menu li {
-  flex: 1;
-  justify-content: center;
-  text-align: center;
-  padding: $space 0;
-  cursor: pointer;
-  @extend .line-bottom;
-  background-color: white;
-  color: $color-gray-medium;
-  .fa {
-    margin-right: $space-s;
+
+@include bp(medium) {
+  .mobile-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom:0;
   }
-  &:hover {
-    color: $color-gray-dark;
+  .mobile-menu li {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    padding: $space 0;
+    cursor: pointer;
+    @extend .line-bottom;
+    background-color: white;
+    color: $color-gray-medium;
+    .fa {
+      margin-right: $space-s;
+    }
+    &:hover {
+      color: $color-gray-dark;
+      background-color: $color-gray-lighter;
+    }
+    &.active {
+      background-color: $color-primary-dark;
+      color: $color-white;
+      //border-top: 1px solid $color-white;
+    }
   }
-  &.active {
-    background-color: $color-primary;
-    color: $color-white;
+
+  .map              { flex:0; }
+  .circle-wrapper   { flex:0; overflow:hidden; }
+  .mod-ideas        { flex:0; overflow:hidden; }
+  .mod-comments     { flex:0; overflow:hidden; }
+
+  .mobile-show-map {
+    .map            { flex:1; }
+  }
+  .mobile-show-ideas {
+    .circle-wrapper { flex:1; overflow:auto; }
+    .mod-ideas      { flex:1; overflow:auto; }
+  }
+  .mobile-show-comments {
+    .circle-wrapper { flex:1; overflow:auto; }
+    .mod-comments   { flex:1; overflow:auto; }
+  }
+
+  // hiding things
+  .mod-header .toggle {
+    display:none
+  }
+
+  // user area
+  #user {
+    bottom: auto;
+    left: auto;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+@include bp(small) {
+  .mobile-menu li {
+    cursor: pointer;
+    .title {
+      display: none;
+    }
   }
 }

@@ -24,8 +24,6 @@
 @import 'layout/header-footer';
 @import 'layout/scaffolding';
 @import 'layout/flexgrid';
-@import 'layout/mobile';
-
 //********************************************
 // COMPONENTS - Reusable pieces of code
 //********************************************
@@ -39,5 +37,6 @@
 @import 'partials/user-area';
 
 //********************************************
-// SHAME
+// RESPONVIVE
 //********************************************
+@import 'layout/mobile';

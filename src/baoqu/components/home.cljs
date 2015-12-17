@@ -222,7 +222,7 @@
 
 (rum/defc container < rum/reactive
   []
-  [:div.container
+  [:div.container.mobile-show-map
    (the-map)
    (circle)])
 
