@@ -21,12 +21,6 @@
   (let [w (t/writer :json)]
     (t/write w data)))
 
-(defn process-message
-  [res]
-  (let [message (decode (.-message res))]
-    (println "=== MESSAGE ===")
-    (println "==> " message)))
-
 (defn process-error
   [res]
   (println "--> ERROR: " res))
