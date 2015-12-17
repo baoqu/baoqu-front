@@ -13,6 +13,7 @@
    :circles [{:id 1
               :level 1
               :name "Circle 1"
+              :participants [1 2 3]
               :most-popular-idea "The idea itself"
               :most-popular-idea-votes 2
               :num-comments 3
@@ -29,6 +30,7 @@
               :inner-circles [1 3]}
              {:id 3
               :level 1
+              :participants [4 5]
               :name "Circle 3"
               :most-popular-idea "The idea itself"
               :most-popular-idea-votes 3
@@ -37,6 +39,7 @@
               :parent-circle 2}
              {:id 4
               :level 1
+              :participants []
               :name "Circle 4"
               :most-popular-idea "The idea itself"
               :most-popular-idea-votes 3
@@ -66,7 +69,13 @@
    :participants [{:id 1
                    :name "Miguel"}
                   {:id 2
-                   :name "Andy"}]
+                   :name "Andy"}
+                  {:id 3
+                   :name "Mario"}
+                  {:id 4
+                   :name "Toño"}
+                  {:id 5
+                   :name "Anler"}]
    :session {:username "Miguel"}})
 
 (defonce state (atom (get-initial-state)))

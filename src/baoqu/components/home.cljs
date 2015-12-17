@@ -193,9 +193,8 @@
        ]
       ]
      (if (= (:level circle) 1)
-         '([:div.circle]
-           [:div.circle]
-           [:div.circle])
+       (for [participant (:participants circle)]
+         [:div.circle])
        (for [inner-circle inner-circles]
          (a-circle inner-circle)))
      ]))
