@@ -26,7 +26,7 @@
        [:ul.mobile-menu
         [:li {:class (if (= active-section "map") "active" "") :on-click (change-section "map")}
          [:i {:class "icon-header fa fa-lg fa-map"}]
-         [:span.title "Map"]
+         [:span.title "Mapa"]
          ]
         [:li {:class (if (= active-section "ideas") "active" "") :on-click (change-section "ideas")}
          [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
