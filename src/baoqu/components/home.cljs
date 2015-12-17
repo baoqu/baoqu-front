@@ -152,9 +152,9 @@
 (rum/defc a-circle < rum/static
   [circle]
   (let [level (:level circle)
-        circle-size (:circle-size @d/state)
+        circle-size (get-in @d/state [:event :circle-size])
         circles (:circles @d/state)
-        percentage (/ (:most-popular-idea-votes circle) circle-size)
+        percentage (* 100 (/ (:most-popular-idea-votes circle) circle-size))
         parent (:parent-circle circle)
         inner-circles-ids (into #{} (:inner-circles circle))
         inner-circles (when inner-circles-ids
