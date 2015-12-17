@@ -2,7 +2,7 @@
 
 (defn get-initial-state
   []
-  ;; {:event {} :circles [] :participants [] :session {}})
+  ;; {:event {} :circles [] :participants [] :session {} :active-section "map"})
   {:event {:id 1
            :name "¿Cuando vamos a ver Star Wars?"
            :circle-size 3

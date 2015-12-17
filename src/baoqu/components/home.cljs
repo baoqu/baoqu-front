@@ -8,6 +8,7 @@
 (rum/defc header < rum/reactive
   []
   (let [state (rum/react d/state)
+        event (:event state)
         circle-id (:circle state)
         circles (:circles state)
         circle (first (filter #(= circle-id (:id %)) circles))
