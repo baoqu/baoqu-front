@@ -8,10 +8,11 @@
 (rum/defc header < rum/reactive
   []
   (let [state (rum/react d/state)
-        event (:event state)
         circle-id (:circle state)
         circles (:circles state)
-        circle (first (filter #(= circle-id (:id %)) circles))]
+        circle (first (filter #(= circle-id (:id %)) circles))
+        num-ideas (count (:ideas state))
+        num-comments (count (:comments state))]
     [:div.header-wrapper
      [:div#mainHeader
       [:h1.logo "Baoqu"]
@@ -23,11 +24,11 @@
        ]
       [:li
        [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
-       [:span.title (str (:num-ideas circle) " ideas")]
+       [:span.title (str num-ideas " ideas")]
        ]
       [:li
        [:i {:class "icon-header fa fa-lg fa-comments"}]
-       [:span.title (str (:num-comments circle) " deliberación")]
+       [:span.title (str num-comments " deliberación")]
        ]
       ]
      ]))
@@ -45,13 +46,15 @@
 (rum/defc ideas < rum/reactive
   []
   (let [state (rum/react d/state)
+        event (:event state)
         circle-id (:circle state)
         circles (:circles state)
-        circle (first (filter #(= circle-id (:id %)) circles))]
+        circle (first (filter #(= circle-id (:id %)) circles))
+        num-ideas (count (:ideas state))]
     [:div.mod-ideas
      [:div.mod-header
       [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
-      [:div.title (str (:num-ideas circle) " ideas")]
+      [:div.title (str num-ideas " ideas")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right"}]]]
      [:div.mod-body
@@ -82,13 +85,15 @@
 (rum/defc comments < rum/reactive
   []
   (let [state (rum/react d/state)
+        event (:event state)
         circle-id (:circle state)
         circles (:circles state)
-        circle (first (filter #(= circle-id (:id %)) circles))]
+        circle (first (filter #(= circle-id (:id %)) circles))
+        num-comments (count (:comments state))]
     [:div.mod-comments
      [:div.mod-header
       [:i {:class "icon-header fa fa-lg fa-comments"}]
-      [:div.title (str (:num-comments circle) " deliberación")]
+      [:div.title (str num-comments " deliberación")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right"}]]]
 
@@ -226,7 +231,7 @@
    (the-map)
    (circle)])
 
-(rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-ws-mixin
+(rum/defc main < rum/state mixins/secured-mixin mixins/connect-ws-mixin
   "The main component for the home screen"
   []
   ;; list-events
