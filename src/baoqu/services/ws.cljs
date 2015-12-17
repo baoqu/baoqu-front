@@ -1,8 +1,7 @@
 (ns baoqu.services.ws
   (:require [goog.events :as events]
             [cognitect.transit :as t]
-            (:require [baoqu.repos.event :as event-repo]))
-)
+            [baoqu.repos.event :as event-repo])
   (:import [goog.net WebSocket]
            [goog.net.WebSocket EventType]
            [goog Uri]))

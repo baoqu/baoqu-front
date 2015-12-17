@@ -8,25 +8,24 @@
 (rum/defc header < rum/reactive
   []
   [:div.header-wrapper
-    [:div#mainHeader
-      [:h1.logo "Baoqu"]
-      [:div.event-name (get-in @d/state [:event :name])]
+   [:div#mainHeader
+    [:h1.logo "Baoqu"]
+    [:div.event-name (get-in @d/state [:event :name])]]
+   [:ul.mobile-menu
+    [:li.active
+     [:i {:class "icon-header fa fa-lg fa-map"}]
+     [:span.title "Map"]
+     ]
+    [:li
+     [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
+     [:span.title "36 ideas"]
+     ]
+    [:li
+     [:i {:class "icon-header fa fa-lg fa-comments"}]
+     [:span.title "36 deliberación"]
+     ]
     ]
-    [:ul.mobile-menu
-      [:li.active
-        [:i {:class "icon-header fa fa-lg fa-map"}]
-        [:span.title "Map"]
-      ]
-      [:li
-        [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
-        [:span.title "36 ideas"]
-      ]
-      [:li
-        [:i {:class "icon-header fa fa-lg fa-comments"}]
-        [:span.title "36 deliberación"]
-      ]
-    ]
-  ])
+   ])
 
 (rum/defc footer < rum/static
   []
@@ -79,88 +78,36 @@
   (let [circle-id (:circle @d/state)
         circles (:circles @d/state)
         circle (first (filter #(= circle-id (:id %)) circles))]
-        [:div.mod-comments
-         [:div.mod-header
-          [:i {:class "icon-header fa fa-lg fa-comments"}]
-          [:div.title (str (:num-comments circle) " deliberación")]
-          [:span.toggle
-           [:i {:class "fa fa-lg fa-chevron-right"}]]]
+    [:div.mod-comments
+     [:div.mod-header
+      [:i {:class "icon-header fa fa-lg fa-comments"}]
+      [:div.title (str (:num-comments circle) " deliberación")]
+      [:span.toggle
+       [:i {:class "fa fa-lg fa-chevron-right"}]]]
 
-         [:div.mod-body
-          [:ul
-           (for [comment (:comments @d/state)]
-             (let [participants (:participants @d/state)
-                   author-id (:author comment)
-                   author (first (filter #(= (:id %) author-id) participants))
-                   initial (s/upper-case (first (:name author)))]
-               [:li.mod-comment
-                [:div.avatar
-                 [:div.thumb initial]
-                 ]
-                [:div.content
-                 [:div.username (:name author)]
-                 [:div.comment (:body comment)]
-                 ]
-                ])
-             )
-           ]
-          ]
-          [:div.content
-            [:div.username "Andy"]
-            [:div.comment "¿Sabéis quién tenía una bici también?"]
-          ]
-        ]
-        ;; rancio manual loop
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Thelma"]
-        [:div.comment "¿Adolf?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Louise"]
-        [:div.comment "¿Estanli?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Madonna"]
-        [:div.comment "El tiempo pasa, despacico"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Andy"]
-        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Andy"]
-        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Andy"]
-        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Andy"]
-        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
-        ;; end: rancio manual loop
+     [:div.mod-body
+      [:ul
+       (for [comment (:comments @d/state)]
+         (let [participants (:participants @d/state)
+               author-id (:author comment)
+               author (first (filter #(= (:id %) author-id) participants))
+               initial (s/upper-case (first (:name author)))]
+           [:li.mod-comment
+            [:div.avatar
+             [:div.thumb initial]
+             ]
+            [:div.content
+             [:div.username (:name author)]
+             [:div.comment (:body comment)]
+             ]
+            ])
+         )
+       ]
       ]
-    ]
-
-         [:div.mod-add-box
-          [:input {:placeholder "Comenta"}]
-          [:span.button
-           [:i {:class "fa fa-lg fa-plus"}]]]]))
+    [:div.mod-add-box
+     [:input {:placeholder "Comenta"}]
+     [:span.button
+      [:i {:class "fa fa-lg fa-plus"}]]]]))
 
 (rum/defc circle < rum/static
   []
