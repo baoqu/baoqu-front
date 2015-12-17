@@ -43,6 +43,10 @@
   [message]
   (js/alert message))
 
+(defmethod process-message :events/join-user
+  [message]
+  (js/alert message))
+
 (defmethod process-message :events/add-participant
   [message]
   (js/alert message))
@@ -50,6 +54,10 @@
 (defmethod process-message :events/status
   [message]
   (event-repo/load-event-status (:payload message)))
+
+(defmethod process-message :default
+  [message]
+  (println "-> Mensaje inválido: " message))
 
 (def process-decoded-message (comp process-message response->message))
 

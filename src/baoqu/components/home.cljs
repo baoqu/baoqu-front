@@ -2,13 +2,14 @@
   (:require [rum.core :as rum]
             [baoqu.services.event :as event]
             [baoqu.data :as d]
-            [baoqu.mixins :as mixins]))
+            [baoqu.mixins :as mixins]
+            [clojure.string :as s]))
 
 (rum/defc header < rum/reactive
   []
   [:div#mainHeader
    [:h1.logo "Baoqu"]
-   [:div.event-name "¿Qué tipo de muerte dolorosa queremos para los ciclistas de La Guindalera?"]])
+   [:div.event-name (get-in @d/state [:event :name])]])
 
 (rum/defc footer < rum/static
   []
@@ -22,147 +23,91 @@
 
 (rum/defc ideas < rum/static
   []
-  [:div.mod-ideas
-   [:div.mod-header
-    [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
-    [:div.title "36 ideas"]
-    [:span.toggle
-     [:i {:class "fa fa-lg fa-chevron-right"}]]]
-   [:div.mod-body
-     [:ul
-       [:li.mod-idea
-         [:div.idea "Montar un bar"]
-         [:div.voting-block
-           [:div.votes
-             [:div.votes-count "2/3 apoyos para promocionar el círculo"]
-             [:div.progress-bar
-              [:div.inner {:style {:width "66%"}}]
+  (let [circle-id (:circle @d/state)
+        circles (:circles @d/state)
+        circle (first (filter #(= circle-id (:id %)) circles))]
+    [:div.mod-ideas
+     [:div.mod-header
+      [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
+      [:div.title (str (:num-ideas circle) " ideas")]
+      [:span.toggle
+       [:i {:class "fa fa-lg fa-chevron-right"}]]]
+     [:div.mod-body
+      [:ul
+       (for [idea (:ideas @d/state)]
+         (let [circle-size (get-in @d/state [:event :circle-size])
+               votes (:votes idea)
+               approval-percentage (* 100 (/ votes circle-size))]
+           [:li.mod-idea
+            [:div.idea (:body idea)]
+            [:div.voting-block
+             [:div.votes
+              [:div.votes-count (str votes "/" circle-size " apoyos para promocionar el círculo")]
+              [:div.progress-bar
+               [:div.inner {:style {:width (str approval-percentage "%")}}]
+               ]
+              ]
+             [:div.btn.btn-gray "Apoyar"]
              ]
-           ]
-           [:div.btn.btn-gray "Apoyar"]
-         ]
+            ]))
        ]
-
-
-       ;; rancio manual loop
-       [:li.mod-idea
-       [:div.idea "Montar DOS bares"]
-       [:div.voting-block
-       [:div.votes
-       [:div.votes-count "1/3 apoyos para promocionar el círculo"]
-       [:div.progress-bar
-       [:div.inner {:style {:width "33%"}}]
-       ]
-       ]
-       [:div.btn.btn-gray "Apoyar"]
-       ]
-       ]
-       [:li.mod-idea
-       [:div.idea "Las bicicletas son para el varano de Komodo"]
-       [:div.voting-block
-       [:div.votes
-       [:div.votes-count "0/3 apoyos para promocionar el círculo"]
-       [:div.progress-bar
-       [:div.inner {:style {:width "0%"}}]
-       ]
-       ]
-       [:div.btn.btn-gray "Apoyar"]
-       ]
-       ]
-
-       ;; end: rancio manual loop
-
-
-     ]
-   ]
-   [:div.mod-add-box
-    [:input {:placeholder "# Añade una nueva idea"}]
-    [:span.button
-     [:i {:class "fa fa-lg fa-plus"}]]]])
+      ]
+     [:div.mod-add-box
+      [:input {:placeholder "# Añade una nueva idea"}]
+      [:span.button
+       [:i {:class "fa fa-lg fa-plus"}]]]]))
 
 (rum/defc comments < rum/static
   []
-  [:div.mod-comments
-   [:div.mod-header
-   [:i {:class "icon-header fa fa-lg fa-comments"}]
-    [:div.title "36 deliberación"]
-    [:span.toggle
-     [:i {:class "fa fa-lg fa-chevron-right"}]]]
+  (let [circle-id (:circle @d/state)
+        circles (:circles @d/state)
+        circle (first (filter #(= circle-id (:id %)) circles))]
+        [:div.mod-comments
+         [:div.mod-header
+          [:i {:class "icon-header fa fa-lg fa-comments"}]
+          [:div.title (str (:num-comments circle) " deliberación")]
+          [:span.toggle
+           [:i {:class "fa fa-lg fa-chevron-right"}]]]
 
-    [:div.mod-body
-      [:ul
-        [:li.mod-comment
-          [:div.avatar
-            [:div.thumb "A"]
+         [:div.mod-body
+          [:ul
+           (for [comment (:comments @d/state)]
+             (let [participants (:participants @d/state)
+                   author-id (:author comment)
+                   author (first (filter #(= (:id %) author-id) participants))
+                   initial (s/upper-case (first (:name author)))]
+               [:li.mod-comment
+                [:div.avatar
+                 [:div.thumb initial]
+                 ]
+                [:div.content
+                 [:div.username (:name author)]
+                 [:div.comment (:body comment)]
+                 ]
+                ])
+             )
+           ]
           ]
-          [:div.content
-            [:div.username "Andy"]
-            [:div.comment "¿Sabéis quién tenía una bici también?"]
-          ]
-        ]
-        ;; rancio manual loop
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Thelma"]
-        [:div.comment "¿Adolf?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Louise"]
-        [:div.comment "¿Estanli?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Madonna"]
-        [:div.comment "El tiempo pasa, despacico"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Andy"]
-        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Andy"]
-        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Andy"]
-        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
-        [:li.mod-comment
-        [:div.avatar
-        [:div.thumb "A"]]
-        [:div.content
-        [:div.username "Andy"]
-        [:div.comment "¿Sabéis quién tenía una bici también?"]]]
-        ;; end: rancio manual loop
-      ]
-    ]
 
-     [:div.mod-add-box
-    [:input {:placeholder "Comenta"}]
-    [:span.button
-     [:i {:class "fa fa-lg fa-plus"}]]]])
+         [:div.mod-add-box
+          [:input {:placeholder "Comenta"}]
+          [:span.button
+           [:i {:class "fa fa-lg fa-plus"}]]]]))
 
 (rum/defc circle < rum/static
   []
-  [:div.circle-wrapper
-   [:div.circle-header
-    [:div.circle-header-title "Círculo Onisuzume"
-      [:span.tag "Nivel 1"]
-    ]
-    [:span.circle-header-exit "Salir de este círculo"]]
-   [:div.circle-content
-    (ideas)
-    (comments)]])
+  (let [circle-id (:circle @d/state)
+        circles (:circles @d/state)
+        circle (first (filter #(= circle-id (:id %)) circles))]
+    [:div.circle-wrapper
+     [:div.circle-header
+      [:div.circle-header-title (:name circle)
+       [:span.tag (str "Nivel " (:level circle))]
+       ]
+      [:span.circle-header-exit "Salir de este círculo"]]
+     [:div.circle-content
+      (ideas)
+      (comments)]]))
 
 (rum/defc the-map < rum/reactive
   []
