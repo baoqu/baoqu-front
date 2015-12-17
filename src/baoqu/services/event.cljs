@@ -17,5 +17,5 @@
                           {:url uri
                            :body (encode {:username username})
                            :headers {"content-type" "application/json"}})
-              #(println (str "[HTTP-RESPONSE] "(js->clj (js/JSON.parse (:body %)))))
+              #(println (str "[HTTP-RESPONSE] " (js->clj (js/JSON.parse (:body %)))))
               #(println (str "[HTTP-ERROR] " %)))))
