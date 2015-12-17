@@ -72,6 +72,7 @@
        (for [idea (:ideas state)]
          (let [circle-size (get-in state [:event :circle-size])
                votes (:votes idea)
+               is-voted (:is-voted idea)
                approval-percentage (* 100 (/ votes circle-size))]
            [:li.mod-idea
             [:div.idea (:body idea)]
@@ -82,7 +83,9 @@
                [:div.inner {:style {:width (str approval-percentage "%")}}]
                ]
               ]
-             [:div.btn.btn-gray "Apoyar"]
+             (if is-voted
+               [:div.btn.btn-success "Apoyada"]
+               [:div.btn.btn-gray "Apoyar"])
              ]
             ]))
        ]

@@ -47,6 +47,7 @@
               :num-ideas 3}]
    :ideas [{:id 1
             :body "Mi idea 1"
+            :is-voted true
             :votes 2}
            {:id 2
             :body "Mi idea 2"
