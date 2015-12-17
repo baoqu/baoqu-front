@@ -168,17 +168,39 @@
 (rum/defc the-map < rum/reactive
   []
   [:div.map
-    [:div.circle.not-full {:style {:width "100px" :height "100px"}}
+    [:div.circle.c-lv1.not-full
+      [:div.circle.agree]
       [:div.circle]
-      [:div.circle.my-circle]
       [:div.circle.not-full]
     ]
-    [:div.circle {:style {:width "100px" :height "100px"}}
-      [:div.circle]
-      [:div.circle]
+    [:div.circle.c-lv1.my-circle
+      [:div.circle.agree]
+      [:div.circle.agree.my-circle]
       [:div.circle]
     ]
-    [:div.circle {:style {:width "300px" :height "300px"}}
+    [:div.circle.c-lv2
+      [:div.circle
+        [:div.circle.agree]
+        [:div.circle]
+        [:div.circle]
+      ]
+      [:div.circle
+        [:div.circle.agree]
+        [:div.circle]
+        [:div.circle.agree]
+      ]
+      [:div.circle
+        [:div.circle.agree]
+        [:div.circle.agree]
+        [:div.circle.agree]
+      ]
+    ]
+    [:div.circle.c-lv1
+    [:div.circle.agree]
+    [:div.circle.agree]
+    [:div.circle]
+    ]
+    [:div.circle.c-lv3
       [:div.circle]
       [:div.circle]
       [:div.circle
@@ -195,8 +217,6 @@
         ]
       ]
     ]
-    [:div.circle {:style {:width "300px" :height "300px"}}]
-    [:div.circle {:style {:width "300px" :height "300px"}}]
   ])
 
 (rum/defc container < rum/reactive
