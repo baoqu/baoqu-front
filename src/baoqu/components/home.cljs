@@ -17,7 +17,8 @@
         active-section (:active-section state)]
     [:div.header-wrapper
      [:div#mainHeader
-      [:h1.logo "Baoqu"]
+       [:div.logo-icon]
+       [:h1.logo "Baoqu"]
       [:div.event-name (:name event)]]
      (letfn [(change-section [section] #(swap! d/state assoc :active-section section))]
        [:ul.mobile-menu

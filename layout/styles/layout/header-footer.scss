@@ -6,11 +6,19 @@
   display: flex;
   align-items: center;
 
+  .logo-icon {
+    background: transparent url('../../icons/baoqu-logo.svg') no-repeat;
+    height: 32px;
+    width: 32px;
+    display: inline-block;
+    margin-left: $space;
+    margin-right: $space-s;
+  }
   .logo {
-    padding: $space;
+    padding: $space $space $space 0;
     font-size: $fs24;
     font-weight: bold;
-    border-right: 1px solid $color-white;
+    border-right: 1px solid rgba(255,255,255,0.3);
   }
 
   .event-name {
