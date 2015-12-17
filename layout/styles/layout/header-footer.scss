@@ -11,8 +11,9 @@
     height: 32px;
     width: 32px;
     display: inline-block;
-    margin-left: $space;
+    margin: $space;
     margin-right: $space-s;
+    min-width: 32px;
   }
   .logo {
     padding: $space $space $space 0;
@@ -20,11 +21,16 @@
     font-weight: bold;
     border-right: 1px solid rgba(255,255,255,0.3);
   }
-
   .event-name {
     font-size: $fs20;
+    line-height: 1;
     font-weight: normal;
     margin-left: $space;
   }
 
+}
+
+@include bp(medium) {
+  .logo { display: none; }
+  .logo-icon { margin-right: 0 !important; }
 }

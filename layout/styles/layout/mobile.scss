@@ -63,8 +63,16 @@
   #user {
     bottom: auto;
     left: auto;
-    top: 0.5rem;
-    right: 0.5rem;
+    bottom: $space;
+    left: $space;
+    .thumb {
+      height: 2.8rem;
+      width: 2.8rem;
+    }
+  }
+  .mod-add-box input, .mod-comments .mod-add-box input {
+    width: calc(100% - 3.8rem) !important;
+    margin-left: 3.8rem;
   }
 }
 

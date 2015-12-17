@@ -185,3 +185,47 @@ $size-lv3: 500px;
   transition-delay:0.3s;
   pointer-events: auto;
 }
+
+
+@include bp(large) {
+  .c-lv1 {
+    width: 60px;
+    height: 60px;
+  }
+  .c-lv2 {
+    width: 180px;
+    height: 180px;
+  }
+  .c-lv3 {
+    width: 320px;
+    height: 320px;
+  }
+}
+@include bp(medium) {
+  .c-lv1 {
+    width: 60px;
+    height: 60px;
+  }
+  .c-lv2 {
+    width: 180px;
+    height: 180px;
+  }
+  .c-lv3 {
+    width: 320px;
+    height: 320px;
+  }
+}
+@include bp(small) {
+  .c-lv1 {
+    width: 40px;
+    height: 40px;
+  }
+  .c-lv2 {
+    width: 120px;
+    height: 120px;
+  }
+  .c-lv3 {
+    width: 300px;
+    height: 300px;
+  }
+}
