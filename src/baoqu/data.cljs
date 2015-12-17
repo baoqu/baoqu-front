@@ -13,16 +13,27 @@
    :circles [{:id 1
               :level 1
               :name "Circle 1"
-              :most-voted-idea "The idea itself"
+              :most-popular-idea "The idea itself"
+              :most-popular-idea-votes 2
               :num-comments 3
-              :num-ideas 3}
+              :num-ideas 3
+              :parent-circle 2}
              {:id 2
               :level 2
               :name "Circle 2"
               :participants 3
-              :most-voted-idea "The idea itself"
+              :most-popular-idea "The idea itself"
+              :most-popular-idea-votes 1
               :num-comments 50
-              :num-ideas 7}]
+              :num-ideas 7
+              :inner-circles [1]}
+             {:id 3
+              :level 1
+              :name "Circle 3"
+              :most-popular-idea "The idea itself"
+              :most-popular-idea-votes 3
+              :num-comments 3
+              :num-ideas 3}]
    :ideas [{:id 1
             :body "Mi idea 1"
             :votes 2}

@@ -1,6 +1,7 @@
 (ns baoqu.services.event
   (:require [httpurr.client.xhr :as http]
-            [promesa.core :as p]))
+            [promesa.core :as p]
+            [baoqu.data :as d]))
 
 (enable-console-print!)
 
@@ -9,8 +10,10 @@
   (update request :body #(js/JSON.stringify (clj->js %))))
 
 (defn join-event []
-  (p/branch (http/post "http://localhost:5050/api/events/1/users" (encode {:body {:user_id 123}}))
+  (let [username (get-in @d/state [:session :username])
+        uri "http://localhost:5050/api/events/1/users"]
+    (p/branch (http/post uri (encode {:body {:username username}}))
             (fn [res]
               (println (js->clj (js/JSON.parse (:body res)))))
             (fn [err]
-              (println err))))
+              (println err)))))
