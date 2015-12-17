@@ -7,58 +7,80 @@
 
 (rum/defc header < rum/reactive
   []
-<<<<<<< HEAD
-  [:div#mainHeader
-   [:h1.logo "Baoqu"]
-   [:div.event-name (get-in @d/state [:event :name])]])
-=======
-  [:div.header-wrapper
-    [:div#mainHeader
+  (let [state (rum/react d/state)
+        event (:event state)
+        circle-id (:circle state)
+        circles (:circles state)
+        circle (first (filter #(= circle-id (:id %)) circles))
+        num-ideas (count (:ideas state))
+        num-comments (count (:comments state))
+        active-section (:active-section state)]
+    [:div.header-wrapper
+     [:div#mainHeader
       [:h1.logo "Baoqu"]
-      [:div.event-name "¿Qué tipo de muerte dolorosa queremos para los ciclistas de La Guindalera?"]
-    ]
-    [:ul.mobile-menu
+      [:div.event-name (:name event)]]
+<<<<<<< HEAD
+     (letfn [(change-section [section] #(swap! d/state assoc :active-section section))]
+       [:ul.mobile-menu
+        [:li {:class (if (= active-section "map") "active" "") :on-click (change-section "map")}
+         [:i {:class "icon-header fa fa-lg fa-map"}]
+         [:span.title "Map"]
+         ]
+        [:li {:class (if (= active-section "ideas") "active" "") :on-click (change-section "ideas")}
+         [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
+         [:span.title (str num-ideas " ideas")]
+         ]
+        [:li {:class (if (= active-section "comments") "active" "") :on-click (change-section "comments")}
+         [:i {:class "icon-header fa fa-lg fa-comments"}]
+         [:span.title (str num-comments " deliberación")]
+         ]
+        ])
+=======
+     [:ul.mobile-menu
       [:li.active
-        [:i {:class "icon-header fa fa-lg fa-map"}]
-        [:span.title "Map"]
-      ]
+       [:i {:class "icon-header fa fa-lg fa-map"}]
+       [:span.title "Map"]
+       ]
       [:li
-        [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
-        [:span.title "36 ideas"]
-      ]
+       [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
+       [:span.title (str (:num-ideas circle) " ideas")]
+       ]
       [:li
-        [:i {:class "icon-header fa fa-lg fa-comments"}]
-        [:span.title "36 deliberación"]
+       [:i {:class "icon-header fa fa-lg fa-comments"}]
+       [:span.title (str (:num-comments circle) " comentarios")]
+       ]
       ]
-    ]
-  ])
->>>>>>> responsive menu
+>>>>>>> viewport
+     ]))
 
-(rum/defc footer < rum/static
+(rum/defc footer < rum/reactive
   []
-  ;; [:div#mainFooter "user movidas"]
-  [:div#user
-    [:div.avatar
-      [:div.thumb "A"]
-    ]
-  ]
-)
+  (let [state (rum/react d/state)
+        username (get-in state [:session :username])
+        initial (s/upper-case (first username))]
+    ;; [:div#mainFooter "user movidas"]
+    [:div#user
+     [:div.avatar
+      [:div.thumb initial]]]))
 
-(rum/defc ideas < rum/static
+(rum/defc ideas < rum/reactive
   []
-  (let [circle-id (:circle @d/state)
-        circles (:circles @d/state)
-        circle (first (filter #(= circle-id (:id %)) circles))]
+  (let [state (rum/react d/state)
+        event (:event state)
+        circle-id (:circle state)
+        circles (:circles state)
+        circle (first (filter #(= circle-id (:id %)) circles))
+        num-ideas (count (:ideas state))]
     [:div.mod-ideas
      [:div.mod-header
       [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
-      [:div.title (str (:num-ideas circle) " ideas")]
+      [:div.title (str num-ideas " ideas")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right"}]]]
      [:div.mod-body
       [:ul
-       (for [idea (:ideas @d/state)]
-         (let [circle-size (get-in @d/state [:event :circle-size])
+       (for [idea (:ideas state)]
+         (let [circle-size (get-in state [:event :circle-size])
                votes (:votes idea)
                approval-percentage (* 100 (/ votes circle-size))]
            [:li.mod-idea
@@ -80,47 +102,54 @@
       [:span.button
        [:i {:class "fa fa-lg fa-plus"}]]]]))
 
-(rum/defc comments < rum/static
+(rum/defc comments < rum/reactive
   []
-  (let [circle-id (:circle @d/state)
-        circles (:circles @d/state)
-        circle (first (filter #(= circle-id (:id %)) circles))]
-        [:div.mod-comments
-         [:div.mod-header
-          [:i {:class "icon-header fa fa-lg fa-comments"}]
-          [:div.title (str (:num-comments circle) " deliberación")]
-          [:span.toggle
-           [:i {:class "fa fa-lg fa-chevron-right"}]]]
+  (let [state (rum/react d/state)
+        event (:event state)
+        circle-id (:circle state)
+        circles (:circles state)
+        circle (first (filter #(= circle-id (:id %)) circles))
+        num-comments (count (:comments state))]
+    [:div.mod-comments
+     [:div.mod-header
+      [:i {:class "icon-header fa fa-lg fa-comments"}]
+<<<<<<< HEAD
+      [:div.title (str num-comments " deliberación")]
+=======
+      [:div.title (str (:num-comments circle) " comentarios")]
+>>>>>>> viewport
+      [:span.toggle
+       [:i {:class "fa fa-lg fa-chevron-right"}]]]
 
-         [:div.mod-body
-          [:ul
-           (for [comment (:comments @d/state)]
-             (let [participants (:participants @d/state)
-                   author-id (:author comment)
-                   author (first (filter #(= (:id %) author-id) participants))
-                   initial (s/upper-case (first (:name author)))]
-               [:li.mod-comment
-                [:div.avatar
-                 [:div.thumb initial]
-                 ]
-                [:div.content
-                 [:div.username (:name author)]
-                 [:div.comment (:body comment)]
-                 ]
-                ])
-             )
-           ]
-          ]
+     [:div.mod-body
+      [:ul
+       (for [comment (:comments state)]
+         (let [participants (:participants state)
+               author-id (:author comment)
+               author (first (filter #(= (:id %) author-id) participants))
+               initial (s/upper-case (first (:name author)))]
+           [:li.mod-comment
+            [:div.avatar
+             [:div.thumb initial]
+             ]
+            [:div.content
+             [:div.username (:name author)]
+             [:div.comment (:body comment)]
+             ]
+            ])
+         )
+       ]
+      ]
+    [:div.mod-add-box
+     [:input {:placeholder "Comenta"}]
+     [:span.button
+      [:i {:class "fa fa-lg fa-plus"}]]]]))
 
-         [:div.mod-add-box
-          [:input {:placeholder "Comenta"}]
-          [:span.button
-           [:i {:class "fa fa-lg fa-plus"}]]]]))
-
-(rum/defc circle < rum/static
+(rum/defc circle < rum/reactive
   []
-  (let [circle-id (:circle @d/state)
-        circles (:circles @d/state)
+  (let [state (rum/react d/state)
+        circle-id (:circle state)
+        circles (:circles state)
         circle (first (filter #(= circle-id (:id %)) circles))]
     [:div.circle-wrapper
      [:div.circle-header
@@ -222,11 +251,13 @@
 
 (rum/defc container < rum/reactive
   []
-  [:div.container
-   (the-map)
-   (circle)])
+  (let [state (rum/react d/state)
+        active-section (:active-section state)]
+    [:div.container {:class (str "mobile-show-" active-section)}
+     (the-map)
+     (circle)]))
 
-(rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-ws-mixin
+(rum/defc main < rum/state mixins/secured-mixin mixins/connect-ws-mixin
   "The main component for the home screen"
   []
   ;; list-events

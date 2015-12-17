@@ -28,8 +28,11 @@
       background-color: $color-gray-lighter;
     }
     &.active {
-      background-color: $color-primary-dark;
-      color: $color-white;
+      pointer-events: none;
+    //background-color: $color-primary-dark;
+      //color: $color-white;
+      color: $color-primary;
+      box-shadow: inset 0px -4px 0 0px $color-primary;
       //border-top: 1px solid $color-white;
     }
   }

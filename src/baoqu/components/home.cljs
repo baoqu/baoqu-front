@@ -96,7 +96,7 @@
     [:div.mod-comments
      [:div.mod-header
       [:i {:class "icon-header fa fa-lg fa-comments"}]
-      [:div.title (str num-comments " deliberación")]
+      [:div.title (str num-comments " comentarios")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right"}]]]
 
@@ -236,7 +236,7 @@
      (the-map)
      (circle)]))
 
-(rum/defc main < rum/state mixins/secured-mixin mixins/connect-ws-mixin
+(rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-ws-mixin
   "The main component for the home screen"
   []
   ;; list-events
