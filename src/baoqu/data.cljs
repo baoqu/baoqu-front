@@ -1,3 +1,7 @@
 (ns baoqu.data)
 
-(defonce state (atom {:session {:username "Andy"}}))
+(defn get-initial-state
+  []
+  {:event {} :circles [] :participants [] :session {}})
+
+(defonce state (atom (get-initial-state)))
