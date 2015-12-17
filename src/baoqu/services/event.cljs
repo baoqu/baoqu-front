@@ -16,7 +16,7 @@
     (p/branch (http/send! client
                           {:method :post
                            :url uri
-                           :body (encode {:username username})
+                           :body {:username username}
                            :headers {"content-type" "application/json"}})
               #(println (str "[HTTP-RESPONSE] " (js->clj (js/JSON.parse (:body %)))))
               #(println (str "[HTTP-ERROR] " %)))))
