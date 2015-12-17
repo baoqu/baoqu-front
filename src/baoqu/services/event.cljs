@@ -14,7 +14,8 @@
   (let [username (get-in @d/state [:session :username])
         uri "http://localhost:5050/api/events/1/users"]
     (p/branch (http/send! client
-                          {:url uri
+                          {:method :post
+                           :url uri
                            :body (encode {:username username})
                            :headers {"content-type" "application/json"}})
               #(println (str "[HTTP-RESPONSE] " (js->clj (js/JSON.parse (:body %)))))
