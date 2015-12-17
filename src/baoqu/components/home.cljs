@@ -155,10 +155,11 @@
         circle-size (:circle-size @d/state)
         circles (:circles @d/state)
         percentage (/ (:most-popular-idea-votes circle) circle-size)
+        parent (:parent-circle circle)
         inner-circles-ids (into #{} (:inner-circles circle))
         inner-circles (when inner-circles-ids
                         (filter (comp inner-circles-ids :id) circles))]
-    [:div.circle {:class (str "c-lv" (:level circle))
+    [:div.circle {:class (str "c-lv" (:level circle) " " (when (nil? parent) "root"))
                   :key (str (:id circle))}
      [:div.context-info
       [:div.circle-title (:name circle)
@@ -191,8 +192,12 @@
         ]
        ]
       ]
-     (for [inner-circle inner-circles]
-       (a-circle inner-circle))
+     (if (= (:level circle) 1)
+         '([:div.circle]
+           [:div.circle]
+           [:div.circle])
+       (for [inner-circle inner-circles]
+         (a-circle inner-circle)))
      ]))
 
 (rum/defc the-map < rum/reactive
