@@ -70,6 +70,7 @@ $circle-margin: 2%;
   }
   &:hover {
     box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.4);
+    z-index: 7;
   }
 }
 
@@ -91,4 +92,95 @@ $size-lv3: 500px;
 .c-lv3 {
   width: $size-lv3;
   height: $size-lv3;
+}
+
+
+// CIRCLE CONTEXTUAL INFO
+
+.context-info {
+  opacity: 0;
+  pointer-events: none;
+  border-radius: $radius;
+  border: 2px solid $color-gray-light;
+  background-color: $color-white;
+  width: 16rem;
+  z-index: 10;
+  position: absolute;
+  left: -20%;
+  top: 90%;
+  .circle-title {
+    font-size: $fs16;
+    font-weight: bold;
+    padding: $space;
+    .tag {
+      margin-left: $space-s;
+      color: $color-white;
+      background-color: $color-warning;
+      padding: 0.1rem 0.2rem;
+      font-size: $fs10;
+      font-weight: bold;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+  }
+  .mod-idea {
+    .intro {
+      color: $color-gray-medium;
+      font-size: $fs11;
+      padding: 0 $space;
+    }
+    .idea {
+      font-size: $fs14;
+      padding: 0 $space 0 $space;
+      font-weight: bold;
+      &:before {
+        content:"# ";
+      }
+    }
+    .voting-block {
+      display: flex;
+      align-items: center;
+      padding: 0 $space $space $space;
+      .votes {
+        flex: 1;
+        .votes-count {
+          font-size: $fs13;
+          color: $color-gray-medium;
+          margin-bottom: 0.5rem;
+          line-height: 1;
+        }
+        .progress-bar {
+          width: 100%;
+          background-color: $color-gray-lighter;
+          height: 6px;
+          border-radius: 6px;
+          .inner {
+            height: 6px;
+            border-radius: 6px;
+            background-color: $color-success;
+          }
+        }
+      }
+    }
+  }
+  .mod-meta {
+    display: flex;
+    flex-direction: row;
+    padding: $space-s $space;
+    background-color: $color-gray-lighter;
+    color: $color-gray-medium;
+    font-size: $fs13;
+    .item {
+      margin-right: $space;
+    }
+    .fa {
+      font-size: $fs14;
+      margin-right: 0.3rem;
+    }
+  }
+}
+.circle:hover .context-info {
+  opacity: 1;
+  transition-delay:0.3s;
+  pointer-events: auto;
 }

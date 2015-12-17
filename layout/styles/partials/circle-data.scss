@@ -5,198 +5,197 @@
   flex-direction: column;
   position: relative;
   @extend .line-left;
+}
 
-  .circle-header {
-    // flex: 0;
-    display: flex;
-    padding: $space;
-    @extend .bg-white;
-    @extend .line-bottom;
+.circle-header {
+  // flex: 0;
+  display: flex;
+  padding: $space;
+  @extend .bg-white;
+  @extend .line-bottom;
 
-    .circle-header-title {
-      flex: 1;
-      font-size: $fs16;
+  .circle-header-title {
+    flex: 1;
+    font-size: $fs16;
+    font-weight: bold;
+    .tag {
+      margin-left: $space-s;
+      color: $color-white;
+      background-color: $color-warning;
+      padding: 0.1rem 0.3rem;
+      font-size: $fs11;
       font-weight: bold;
-      .tag {
-        margin-left: $space-s;
-        color: $color-white;
-        background-color: $color-warning;
-        padding: 0.1rem 0.3rem;
-        font-size: $fs11;
-        font-weight: bold;
-        border-radius: 2px;
-        text-transform: uppercase;
-      }
-    }
-    .circle-header-exit {
-      color: $color-gray-medium;
-      cursor: pointer;
-      font-size: $fs13;
+      border-radius: 2px;
       text-transform: uppercase;
+    }
+  }
+  .circle-header-exit {
+    color: $color-gray-medium;
+    cursor: pointer;
+    font-size: $fs13;
+    text-transform: uppercase;
+    &:hover {
+      color: $color-gray-dark;
+    }
+  }
+
+}
+
+.circle-content {
+  flex: 1;
+  display: flex;
+}
+
+// IDEAS & COMMENTS common base
+.mod-ideas, .mod-comments {
+  flex: 1;
+  display: flex;
+  @extend .bg-white;
+  position: relative;
+  flex-direction: column;
+
+  .mod-header {
+    // flex: 0;
+    padding: $space;
+    display: flex;
+    font-size: $fs16;
+    font-weight: bold;
+    box-shadow: 0px 2px 2px rgba(0,0,0,0.08);
+    z-index: 2;
+    .title {
+      flex: 1;
+    }
+    .toggle {
+      cursor: pointer;
+      color: $color-gray-medium;
       &:hover {
         color: $color-gray-dark;
       }
     }
-
+    .icon-header {
+      margin-right: $space-s;
+    }
   }
-
-  .circle-content {
-    flex: 1;
-    display: flex;
+  .mod-body {
+    flex: 1 1 0;
+    padding: 0 $space-s 0 $space;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
-
-  // IDEAS & COMMENTS common base
-  .mod-ideas, .mod-comments {
-    flex: 1;
-    display: flex;
-    @extend .bg-white;
+  .mod-add-box {
+    // flex: 0;
+    padding: $space;
+    box-shadow: 0px -2px 2px rgba(0,0,0,0.08);
     position: relative;
-    flex-direction: column;
-
-    .mod-header {
-      // flex: 0;
-      padding: $space;
+    input {
+      width: 100%;
+      padding-right: 2.6rem;
+    }
+    input:focus + .button {
+      border-color: $color-gray-medium;
+    }
+    .button {
+      width: 2.6rem;
+      background: $color-white;
+      position: absolute;
+      right: $space;
+      top: $space;
+      bottom: $space;
+      border-radius: 0 $radius $radius 0;
+      border: 2px solid $color-gray-light;
       display: flex;
-      font-size: $fs16;
-      font-weight: bold;
-      box-shadow: 0px 2px 2px rgba(0,0,0,0.08);
-      z-index: 2;
-      .title {
-        flex: 1;
-      }
-      .toggle {
-        cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      .fa {
         color: $color-gray-medium;
-        &:hover {
-          color: $color-gray-dark;
-        }
       }
-      .icon-header {
-        margin-right: $space-s;
-      }
-    }
-    .mod-body {
-      flex: 1 1 0;
-      padding: 0 $space-s 0 $space;
-      overflow-x: hidden;
-      overflow-y: scroll;
-    }
-    .mod-add-box {
-      // flex: 0;
-      padding: $space;
-      box-shadow: 0px -2px 2px rgba(0,0,0,0.08);
-      position: relative;
-      input {
-        width: 100%;
-        padding-right: 2.6rem;
-      }
-      input:focus + .button {
-        border-color: $color-gray-medium;
-      }
-      .button {
-        width: 2.6rem;
-        background: $color-white;
-        position: absolute;
-        right: $space;
-        top: $space;
-        bottom: $space;
-        border-radius: 0 $radius $radius 0;
-        border: 2px solid $color-gray-light;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
+      &:hover {
+        background: $color-success;
+        border-color: $color-success !important;
         .fa {
-          color: $color-gray-medium;
-        }
-        &:hover {
-          background: $color-success;
-          border-color: $color-success !important;
-          .fa {
-            color: $color-white;
-          }
+          color: $color-white;
         }
       }
     }
-
   }
 
-  // IDEAS
-  .mod-ideas {
-    @extend .line-right;
-    .mod-body {
-      background-color: $color-gray-lighter;
-    }
-    .mod-idea {
-      margin-bottom: $space;
-      border-radius: $radius;
-      border: 2px solid $color-gray-light;
-      background-color: $color-white;
-      .idea {
-        font-size: $fs18;
-        padding: $space;
-        font-weight: bold;
-        &:before {
-          content:"# ";
-        }
+}
+
+// IDEAS
+.mod-ideas {
+  @extend .line-right;
+  .mod-body {
+    background-color: $color-gray-lighter;
+  }
+  .mod-idea {
+    margin-bottom: $space;
+    border-radius: $radius;
+    border: 2px solid $color-gray-light;
+    background-color: $color-white;
+    .idea {
+      font-size: $fs18;
+      padding: $space;
+      font-weight: bold;
+      &:before {
+        content:"# ";
       }
-      .voting-block {
-        display: flex;
-        align-items: center;
-        padding: 0 $space $space $space;
-        .votes {
-          flex: 1;
-          .votes-count {
-            font-size: $fs13;
-            color: $color-gray-medium;
-            margin-bottom: 0.5rem;
-            line-height: 1;
-          }
-          .progress-bar {
-            width: 100%;
-            background-color: $color-gray-lighter;
+    }
+    .voting-block {
+      display: flex;
+      align-items: center;
+      padding: 0 $space $space $space;
+      .votes {
+        flex: 1;
+        .votes-count {
+          font-size: $fs13;
+          color: $color-gray-medium;
+          margin-bottom: 0.5rem;
+          line-height: 1;
+        }
+        .progress-bar {
+          width: 100%;
+          background-color: $color-gray-lighter;
+          height: 6px;
+          border-radius: 6px;
+          .inner {
             height: 6px;
             border-radius: 6px;
-            .inner {
-              height: 6px;
-              border-radius: 6px;
-              background-color: $color-success;
-            }
+            background-color: $color-success;
           }
         }
-        .btn {
-          margin-left: $space;
-        }
       }
-      &:first-child {
-        margin-top: $space;
+      .btn {
+        margin-left: $space;
       }
     }
-  }
-
-  // COMMENTS
-  .mod-comments {
-    .mod-comment {
-      display: flex;
-      margin-bottom: $space;
-      .avatar .thumb {
-        margin-right: $space;
-      }
-      .content {
-        flex: 1;
-        .username {
-          font-weight: bold;
-          font-size: $fs14;
-        }
-        .comment {
-          color: $color-gray-medium;
-          font-size: $fs14;
-        }
-      }
-      &:first-child {
-        margin-top: $space;
-      }
+    &:first-child {
+      margin-top: $space;
     }
   }
+}
 
+// COMMENTS
+.mod-comments {
+  .mod-comment {
+    display: flex;
+    margin-bottom: $space;
+    .avatar .thumb {
+      margin-right: $space;
+    }
+    .content {
+      flex: 1;
+      .username {
+        font-weight: bold;
+        font-size: $fs14;
+      }
+      .comment {
+        color: $color-gray-medium;
+        font-size: $fs14;
+      }
+    }
+    &:first-child {
+      margin-top: $space;
+    }
+  }
 }

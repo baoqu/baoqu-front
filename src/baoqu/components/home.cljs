@@ -172,6 +172,40 @@
       [:div.circle.agree]
       [:div.circle]
       [:div.circle.not-full]
+
+      ;; context info
+      [:div.context-info
+        [:div.circle-title "Círculo Carmander"
+          [:span.tag "Nivel 1"]
+        ]
+        [:div.mod-idea
+          [:div.intro "Idea más apoyada"]
+          [:div.idea "Montar un bar"]
+          [:div.voting-block
+            [:div.votes
+              [:div.votes-count "2/3 apoyos para promocionar"]
+              [:div.progress-bar
+                [:div.inner {:style {:width "66%"}}]
+              ]
+            ]
+          ]
+        ]
+        [:div.mod-meta
+          [:div.item
+          [:i {:class "icon-header fa fa-lightbulb-o"}]
+            [:span "33"]
+          ]
+          [:div.item
+          [:i {:class "icon-header fa fa-comments"}]
+            [:span "33"]
+          ]
+          [:div.item
+          [:i {:class "icon-header fa fa-lightbulb-o"}]
+            [:span "33"]
+          ]
+        ]
+      ]
+      ;; end: context info
     ]
     [:div.circle.c-lv1.my-circle
       [:div.circle.agree]
