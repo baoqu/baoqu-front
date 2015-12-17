@@ -5,6 +5,6 @@
 (defn add-idea
   []
   (let [body (get-in @d/state [:form :idea])
-        new-idea {:id "x" :body body :votes 0}]
+        new-idea {:id "x" :body body :votes 1}]
     (swap! d/state update :ideas conj new-idea)
     (fu/empty-form)))
