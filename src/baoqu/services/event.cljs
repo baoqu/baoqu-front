@@ -15,7 +15,7 @@
         uri "http://localhost:5050/api/events/1/users"]
     (p/branch (http/send! client
                           {:url uri
-                           :body (encode {:body {:username username}})
+                           :body (encode {:username username})
                            :headers {"content-type" "application/json"}})
               #(println (str "[HTTP-RESPONSE] "(js->clj (js/JSON.parse (:body %)))))
               #(println (str "[HTTP-ERROR] " %)))))
