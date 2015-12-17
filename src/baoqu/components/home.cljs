@@ -7,7 +7,7 @@
 
 (rum/defc header < rum/reactive
   []
-  (let [state (rum/reactive d/state)
+  (let [state (rum/react d/state)
         event (:event state)
         circle-id (:circle state)
         circles (:circles state)
@@ -34,7 +34,7 @@
 
 (rum/defc footer < rum/reactive
   []
-  (let [state (rum/reactive d/state)
+  (let [state (rum/react d/state)
         username (get-in state [:session :username])
         initial (s/upper-case (first username))]
     ;; [:div#mainFooter "user movidas"]
@@ -44,7 +44,7 @@
 
 (rum/defc ideas < rum/reactive
   []
-  (let [state (rum/reactive d/state)
+  (let [state (rum/react d/state)
         circle-id (:circle state)
         circles (:circles state)
         circle (first (filter #(= circle-id (:id %)) circles))]
@@ -81,7 +81,7 @@
 
 (rum/defc comments < rum/reactive
   []
-  (let [state (rum/reactive @d/state)
+  (let [state (rum/react d/state)
         circle-id (:circle state)
         circles (:circles state)
         circle (first (filter #(= circle-id (:id %)) circles))]
@@ -118,7 +118,7 @@
 
 (rum/defc circle < rum/reactive
   []
-  (let [state (rum/reactive d/state)
+  (let [state (rum/react d/state)
         circle-id (:circle state)
         circles (:circles state)
         circle (first (filter #(= circle-id (:id %)) circles))]
