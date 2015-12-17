@@ -35,9 +35,6 @@
 
 (defmulti process-message
   (fn [message]
-    (println "-----------------------------------------")
-    (println "-> Message received: " message)
-    (println "-----------------------------------------")
     (:topic message)))
 
 (defmethod process-message :events/create-circle
