@@ -5,6 +5,8 @@
             [baoqu.mixins :as mixins]
             [clojure.string :as s]))
 
+(enable-console-print!)
+
 (rum/defc header < rum/reactive
   []
   (let [state (rum/react d/state)
@@ -125,7 +127,7 @@
      [:span.button
       [:i {:class "fa fa-lg fa-plus"}]]]]))
 
-(rum/defc circle < rum/reactive
+(rum/defc my-circle < rum/reactive
   []
   (let [state (rum/react d/state)
         circle-id (:circle state)
@@ -147,96 +149,61 @@
       (ideas)
       (comments)]]))
 
+(rum/defc a-circle < rum/static
+  [circle]
+  (let [level (:level circle)
+        circle-size (:circle-size @d/state)
+        circles (:circles @d/state)
+        percentage (/ (:most-popular-idea-votes circle) circle-size)
+        inner-circles-ids (into #{} (:inner-circles circle))
+        inner-circles (when inner-circles-ids
+                        (filter (comp inner-circles-ids :id) circles))]
+    [:div.circle {:class (str "c-lv" (:level circle))
+                  :key (str (:id circle))}
+     [:div.context-info
+      [:div.circle-title (:name circle)
+       [:span.tag (str "Nivel " (:level circle))]
+       ]
+      [:div.mod-idea
+       [:div.intro "Idea más apoyada"]
+       [:div.idea (:most-voted-idea circle)]
+       [:div.voting-block
+        [:div.votes
+         [:div.votes-count (str (:most-popular-idea-votes circle) "/" circle-size " apoyos para promocionar")]
+         [:div.progress-bar
+          [:div.inner {:style {:width (str percentage "%")}}]
+          ]
+         ]
+        ]
+       ]
+      [:div.mod-meta
+       [:div.item
+        [:i {:class "icon-header fa fa-lightbulb-o"}]
+        [:span "33"]
+        ]
+       [:div.item
+        [:i {:class "icon-header fa fa-comments"}]
+        [:span "33"]
+        ]
+       [:div.item
+        [:i {:class "icon-header fa fa-lightbulb-o"}]
+        [:span "33"]
+        ]
+       ]
+      ]
+     (for [inner-circle inner-circles]
+       (a-circle inner-circle))
+     ]))
+
 (rum/defc the-map < rum/reactive
   []
-  [:div.map
-    [:div.circle.c-lv1.not-full
-
-      ;; context info
-      [:div.context-info
-        [:div.circle-title "Círculo Carmander"
-          [:span.tag "Nivel 1"]
-        ]
-        [:div.mod-idea
-          [:div.intro "Idea más apoyada"]
-          [:div.idea "Montar un bar"]
-          [:div.voting-block
-            [:div.votes
-              [:div.votes-count "2/3 apoyos para promocionar"]
-              [:div.progress-bar
-                [:div.inner {:style {:width "66%"}}]
-              ]
-            ]
-          ]
-        ]
-        [:div.mod-meta
-          [:div.item
-          [:i {:class "icon-header fa fa-lightbulb-o"}]
-            [:span "33"]
-          ]
-          [:div.item
-          [:i {:class "icon-header fa fa-comments"}]
-            [:span "33"]
-          ]
-          [:div.item
-          [:i {:class "icon-header fa fa-lightbulb-o"}]
-            [:span "33"]
-          ]
-        ]
-      ]
-      ;; end: context info
-
-      ;; inner circles
-      [:div.circle.agree]
-      [:div.circle]
-      [:div.circle.not-full]
-      ;; end: inner circles
-    ]
-    [:div.circle.c-lv1.my-circle
-      [:div.circle.agree]
-      [:div.circle.agree.my-circle]
-      [:div.circle]
-    ]
-    [:div.circle.c-lv2
-      [:div.circle
-        [:div.circle.agree]
-        [:div.circle]
-        [:div.circle]
-      ]
-      [:div.circle
-        [:div.circle.agree]
-        [:div.circle]
-        [:div.circle.agree]
-      ]
-      [:div.circle
-        [:div.circle.agree]
-        [:div.circle.agree]
-        [:div.circle.agree]
-      ]
-    ]
-    [:div.circle.c-lv1
-    [:div.circle.agree]
-    [:div.circle.agree]
-    [:div.circle]
-    ]
-    [:div.circle.c-lv3
-      [:div.circle]
-      [:div.circle]
-      [:div.circle
-        [:div.circle]
-        [:div.circle]
-        [:div.circle
-          [:div.circle]
-          [:div.circle]
-          [:div.circle
-            [:div.circle]
-            [:div.circle]
-            [:div.circle]
-          ]
-        ]
-      ]
-    ]
-  ])
+  (let [state (rum/react d/state)
+        all-circles (:circles state)]
+    [:div.map
+     (for [level (reverse (range 1 4))]
+       (let [parent-circles (filter #(and (= (:level %) level) (nil? (:parent-circle %))) all-circles)]
+         (for [circle parent-circles]
+           (a-circle circle))))]))
 
 (rum/defc container < rum/reactive
   []
@@ -244,16 +211,11 @@
         active-section (:active-section state)]
     [:div.container {:class (str "mobile-show-" active-section)}
      (the-map)
-     (circle)]))
+     (my-circle)]))
 
 (rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-ws-mixin
   "The main component for the home screen"
   []
-  ;; list-events
-
-  ;; select-event
-
-  ;; join-event
   (event/join-event)
 
   [:div.page
