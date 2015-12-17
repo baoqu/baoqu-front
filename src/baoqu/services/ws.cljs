@@ -40,15 +40,15 @@
 
 (defmethod process-message :events/create-circle
   [message]
-  (js/alert message))
+  (println  message))
 
 (defmethod process-message :events/join-user
   [message]
-  (js/alert message))
+  (println message))
 
 (defmethod process-message :events/add-participant
   [message]
-  (js/alert message))
+  (println message))
 
 (defmethod process-message :events/status
   [message]
