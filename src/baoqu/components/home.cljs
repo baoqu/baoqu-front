@@ -3,6 +3,9 @@
             [baoqu.services.event :as event]
             [baoqu.data :as d]
             [baoqu.mixins :as mixins]
+            [baoqu.form-utils :as fu]
+            [baoqu.services.comment :as cs]
+            [baoqu.services.idea :as is]
             [clojure.string :as s]))
 
 (enable-console-print!)
@@ -52,6 +55,7 @@
 (rum/defc ideas < rum/reactive
   []
   (let [state (rum/react d/state)
+        idea (fu/get-f :idea)
         event (:event state)
         circle-id (:circle state)
         circles (:circles state)
@@ -84,13 +88,16 @@
        ]
       ]
      [:div.mod-add-box
-      [:input {:placeholder "# Añade una nueva idea"}]
-      [:span.button
+      [:input {:placeholder "# Añade una nueva idea"
+               :on-change (fu/change-in-form :idea)
+               :value idea}]
+      [:span.button {:on-click is/add-idea}
        [:i {:class "fa fa-lg fa-plus"}]]]]))
 
 (rum/defc comments < rum/reactive
   []
   (let [state (rum/react d/state)
+        comment (fu/get-f :comment)
         event (:event state)
         circle-id (:circle state)
         circles (:circles state)
@@ -122,10 +129,12 @@
          )
        ]
       ]
-    [:div.mod-add-box
-     [:input {:placeholder "Comenta"}]
-     [:span.button
-      [:i {:class "fa fa-lg fa-plus"}]]]]))
+     [:div.mod-add-box
+      [:input {:placeholder "Comenta"
+               :on-change (fu/change-in-form :comment)
+               :value comment}]
+      [:span.button {:on-click cs/add-comment}
+       [:i {:class "fa fa-lg fa-plus"}]]]]))
 
 (rum/defc my-circle < rum/reactive
   []
@@ -220,7 +229,7 @@
 (rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-ws-mixin
   "The main component for the home screen"
   []
-  (event/join-event)
+  ;;(event/join-event)
 
   [:div.page
    (header)

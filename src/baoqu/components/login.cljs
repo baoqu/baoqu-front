@@ -3,30 +3,21 @@
             [httpurr.client :as http]
             [httpurr.client.xhr :refer [client]]
             [httpurr.client.xhr :as hc]
-            [baoqu.data :refer [state]]
-            [baoqu.routes :as routes]))
-
-(defn empty-form []
-  (swap! state assoc :form nil))
+            [baoqu.data :as d]
+            [baoqu.routes :as routes]
+            [baoqu.form-utils :as fu]))
 
 (defn login-action []
-  (let [username (get-in @state [:form :username])]
+  (let [username (get-in @d/state [:form :username])]
 
     ;; hardcoded
-    (swap! state assoc-in [:session :username] username)
+    (swap! d/state assoc-in [:session :username] username)
     (routes/go :home)
-    (empty-form)))
-
-(defn change-field [& path]
-  (fn [e]
-    (let [new-value (-> e (.-target) (.-value))]
-      (swap! state assoc-in path new-value))))
-
-(def change-in-form (partial change-field :form))
+    (fu/empty-form)))
 
 (rum/defc main < rum/reactive
   []
-  (let [state (rum/react state)
+  (let [state (rum/react d/state)
         username (get-in state [:form :username])]
     [:div.login-wrapper
      [:div.login
@@ -35,6 +26,6 @@
       [:h2 "¿Qué tipo de muerte dolorosa queremos para los ciclistas de La Guindalera?"]
       [:div.input-box
        [:input {:class "bt" :placeholder "Introduce tu nombre"
-                :on-change (change-in-form :username)
+                :on-change (fu/change-in-form :username)
                 :value username}]
        [:button {:on-click login-action} "Participar"]]]]))
