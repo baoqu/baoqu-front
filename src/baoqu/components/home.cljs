@@ -5,6 +5,10 @@
             [baoqu.mixins :as mixins]
             [clojure.string :as s]))
 
+(defn change-section
+  [section]
+  #(swap! d/state assoc :active-section section))
+
 (rum/defc header < rum/reactive
   []
   (let [state (rum/react d/state)
@@ -12,21 +16,22 @@
         circles (:circles state)
         circle (first (filter #(= circle-id (:id %)) circles))
         num-ideas (count (:ideas state))
-        num-comments (count (:comments state))]
+        num-comments (count (:comments state))
+        active-section (:active-section state)]
     [:div.header-wrapper
      [:div#mainHeader
       [:h1.logo "Baoqu"]
       [:div.event-name (:name event)]]
      [:ul.mobile-menu
-      [:li.active
+      [:li {:class (if (= active-section "map") "active" "") :on-click (change-section "map")}
        [:i {:class "icon-header fa fa-lg fa-map"}]
        [:span.title "Map"]
        ]
-      [:li
+      [:li {:class (if (= active-section "ideas") "active" "") :on-click (change-section "ideas")}
        [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
        [:span.title (str num-ideas " ideas")]
        ]
-      [:li
+      [:li {:class (if (= active-section "comments") "active" "") :on-click (change-section "comments")}
        [:i {:class "icon-header fa fa-lg fa-comments"}]
        [:span.title (str num-comments " deliberación")]
        ]
@@ -227,9 +232,11 @@
 
 (rum/defc container < rum/reactive
   []
-  [:div.container.mobile-show-map
-   (the-map)
-   (circle)])
+  (let [state (rum/react d/state)
+        active-section (:active-section state)]
+    [:div.container {:class (str "mobile-show-" active-section)}
+     (the-map)
+     (circle)]))
 
 (rum/defc main < rum/state mixins/secured-mixin mixins/connect-ws-mixin
   "The main component for the home screen"

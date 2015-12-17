@@ -9,6 +9,7 @@
            :approval-factor 2
            :circles [1 2]}
    :circle 1
+   :active-section "ideas"
    :circles [{:id 1
               :level 1
               :name "Circle 1"
