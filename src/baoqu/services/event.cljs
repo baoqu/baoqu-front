@@ -7,8 +7,8 @@
 (enable-console-print!)
 
 (defn encode
-  [request]
-  (update request :body #(js/JSON.stringify (clj->js %))))
+  [data]
+  (js/JSON.stringify (clj->js data)))
 
 (defn join-event []
   (let [username (get-in @d/state [:session :username])
@@ -16,7 +16,7 @@
     (p/branch (http/send! client
                           {:method :post
                            :url uri
-                           :body {:username username}
+                           :body (encode {:username username})
                            :headers {"content-type" "application/json"}})
               #(println (str "[HTTP-RESPONSE] " (js->clj (js/JSON.parse (:body %)))))
               #(println (str "[HTTP-ERROR] " %)))))
