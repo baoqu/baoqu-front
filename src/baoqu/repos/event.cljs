@@ -1,0 +1,16 @@
+(ns baoqu.repos.event
+  (:require [baoqu.data :as d]))
+
+(defn load-event-status
+  [event-status]
+  (swap! d/state assoc :event event-status))
+
+(defn add-circle
+  [circle]
+  (let [circles (:circles @d/state)]
+    (swap! d/state assoc-in :circles (into [] (concat circles circle)))))
+
+(defn add-participant
+  [participant]
+  (let [participants (:participants @d/state)]
+    (swap! d/state assoc-in :participants (into [] (concat participants participant)))))
