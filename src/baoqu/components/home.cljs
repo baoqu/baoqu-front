@@ -7,40 +7,46 @@
 
 (rum/defc header < rum/reactive
   []
-  [:div.header-wrapper
-   [:div#mainHeader
-    [:h1.logo "Baoqu"]
-    [:div.event-name (get-in @d/state [:event :name])]]
-   [:ul.mobile-menu
-    [:li.active
-     [:i {:class "icon-header fa fa-lg fa-map"}]
-     [:span.title "Map"]
-     ]
-    [:li
-     [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
-     [:span.title "36 ideas"]
-     ]
-    [:li
-     [:i {:class "icon-header fa fa-lg fa-comments"}]
-     [:span.title "36 deliberación"]
-     ]
-    ]
-   ])
+  (let [state (rum/reactive d/state)
+        event (:event state)
+        circle-id (:circle state)
+        circles (:circles state)
+        circle (first (filter #(= circle-id (:id %)) circles))]
+    [:div.header-wrapper
+     [:div#mainHeader
+      [:h1.logo "Baoqu"]
+      [:div.event-name (:name event)]]
+     [:ul.mobile-menu
+      [:li.active
+       [:i {:class "icon-header fa fa-lg fa-map"}]
+       [:span.title "Map"]
+       ]
+      [:li
+       [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
+       [:span.title (str (:num-ideas circle) " ideas")]
+       ]
+      [:li
+       [:i {:class "icon-header fa fa-lg fa-comments"}]
+       [:span.title (str (:num-comments circle) " deliberación")]
+       ]
+      ]
+     ]))
 
-(rum/defc footer < rum/static
+(rum/defc footer < rum/reactive
   []
-  ;; [:div#mainFooter "user movidas"]
-  [:div#user
-    [:div.avatar
-      [:div.thumb "A"]
-    ]
-  ]
-)
+  (let [state (rum/reactive d/state)
+        username (get-in state [:session :username])
+        initial (s/upper-case (first username))]
+    ;; [:div#mainFooter "user movidas"]
+    [:div#user
+     [:div.avatar
+      [:div.thumb initial]]]))
 
-(rum/defc ideas < rum/static
+(rum/defc ideas < rum/reactive
   []
-  (let [circle-id (:circle @d/state)
-        circles (:circles @d/state)
+  (let [state (rum/reactive d/state)
+        circle-id (:circle state)
+        circles (:circles state)
         circle (first (filter #(= circle-id (:id %)) circles))]
     [:div.mod-ideas
      [:div.mod-header
@@ -50,8 +56,8 @@
        [:i {:class "fa fa-lg fa-chevron-right"}]]]
      [:div.mod-body
       [:ul
-       (for [idea (:ideas @d/state)]
-         (let [circle-size (get-in @d/state [:event :circle-size])
+       (for [idea (:ideas state)]
+         (let [circle-size (get-in state [:event :circle-size])
                votes (:votes idea)
                approval-percentage (* 100 (/ votes circle-size))]
            [:li.mod-idea
@@ -73,10 +79,11 @@
       [:span.button
        [:i {:class "fa fa-lg fa-plus"}]]]]))
 
-(rum/defc comments < rum/static
+(rum/defc comments < rum/reactive
   []
-  (let [circle-id (:circle @d/state)
-        circles (:circles @d/state)
+  (let [state (rum/reactive @d/state)
+        circle-id (:circle state)
+        circles (:circles state)
         circle (first (filter #(= circle-id (:id %)) circles))]
     [:div.mod-comments
      [:div.mod-header
@@ -87,8 +94,8 @@
 
      [:div.mod-body
       [:ul
-       (for [comment (:comments @d/state)]
-         (let [participants (:participants @d/state)
+       (for [comment (:comments state)]
+         (let [participants (:participants state)
                author-id (:author comment)
                author (first (filter #(= (:id %) author-id) participants))
                initial (s/upper-case (first (:name author)))]
@@ -109,10 +116,11 @@
      [:span.button
       [:i {:class "fa fa-lg fa-plus"}]]]]))
 
-(rum/defc circle < rum/static
+(rum/defc circle < rum/reactive
   []
-  (let [circle-id (:circle @d/state)
-        circles (:circles @d/state)
+  (let [state (rum/reactive d/state)
+        circle-id (:circle state)
+        circles (:circles state)
         circle (first (filter #(= circle-id (:id %)) circles))]
     [:div.circle-wrapper
      [:div.circle-header
