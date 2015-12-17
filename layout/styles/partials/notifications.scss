@@ -1,5 +1,10 @@
 .notification {
-  background-color: $color-info;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  background-color: $color-primary-dark;
   padding: $space;
   font-size: $fs20;
   color: $color-white;
@@ -12,6 +17,9 @@
   }
   &.error {
     background-color: $color-danger;
+  }
+  &.active {
+    opacity: 1;
   }
 }
 
