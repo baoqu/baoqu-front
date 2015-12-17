@@ -1,6 +1,8 @@
 (ns baoqu.services.ws
   (:require [goog.events :as events]
-            [cognitect.transit :as t])
+            [cognitect.transit :as t]
+            (:require [baoqu.repos.event :as event-repo]))
+)
   (:import [goog.net WebSocket]
            [goog.net.WebSocket EventType]
            [goog Uri]))
@@ -47,7 +49,7 @@
 
 (defmethod process-message :events/status
   [message]
-  (js/alert message))
+  (event-repo/load-event-status (:payload message)))
 
 (def process-decoded-message (comp process-message response->message))
 
