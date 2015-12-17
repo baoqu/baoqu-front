@@ -34,6 +34,8 @@
     cursor: pointer;
     font-size: $fs13;
     text-transform: uppercase;
+    margin-left: $space-s;
+    margin-top: 0.2rem;
     &:hover {
       color: $color-gray-dark;
     }

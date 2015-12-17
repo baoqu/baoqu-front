@@ -31,6 +31,15 @@
 }
 
 @include bp(medium) {
-  .logo { display: none; }
+  .logo { display: none !important; }
   .logo-icon { margin-right: 0 !important; }
+  .event-name {
+    font-size: $fs18 !important;
+  }
+}
+
+@include bp(small) {
+  .event-name {
+    font-size: $fs16 !important;
+  }
 }

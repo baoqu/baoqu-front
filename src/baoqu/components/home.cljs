@@ -134,9 +134,15 @@
     [:div.circle-wrapper
      [:div.circle-header
       [:div.circle-header-title (:name circle)
-       [:span.tag (str "Nivel " (:level circle))]
-       ]
-      [:span.circle-header-exit "Salir de este círculo"]]
+        [:span.tag
+          [:span "Nivel "]
+          [:span (:level circle)]
+        ]
+      ]
+      [:span.circle-header-exit
+        [:span "Salir "]
+        [:span.hide-medium " de este círculo"]
+      ]]
      [:div.circle-content
       (ideas)
       (comments)]]))

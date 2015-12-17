@@ -4,12 +4,20 @@
   display:none;
 }
 
+@include bp(large) {
+  .hide-large { display: none !important}
+  .show-large { display: block !important}
+}
+
 @include bp(medium) {
+  .hide-medium { display: none !important}
+  .show-medium { display: block !important}
+
   .mobile-menu {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-bottom:0;
+    margin-bottom: 0;
   }
   .mobile-menu li {
     flex: 1;
@@ -59,6 +67,16 @@
     display:none
   }
 
+  // circle header
+  .circle-header {
+    margin-bottom: -3.4rem;
+    border: 0;
+    z-index: 3;
+    text-align: right;
+    background: transparent;
+  }
+
+
   // user area
   #user {
     bottom: auto;
@@ -77,6 +95,9 @@
 }
 
 @include bp(small) {
+  .hide-small { display: none !important}
+  .show-small { display: block !important}
+
   .mobile-menu li {
     cursor: pointer;
     .title {
