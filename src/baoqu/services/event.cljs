@@ -13,5 +13,5 @@
   (let [username (get-in @d/state [:session :username])
         uri "http://localhost:5050/api/events/1/users"]
     (p/branch (http/post uri (encode {:body {:username username}}))
-              #(println (js->clj (js/JSON.parse (:body %))))
-              #(println %))))
+              #(println (str "[HTTP-RESPONSE] "(js->clj (js/JSON.parse (:body %)))))
+              #(println (str "[HTTP-ERROR] " %)))))
