@@ -5,10 +5,6 @@
             [baoqu.mixins :as mixins]
             [clojure.string :as s]))
 
-(defn change-section
-  [section]
-  #(swap! d/state assoc :active-section section))
-
 (rum/defc header < rum/reactive
   []
   (let [state (rum/react d/state)
@@ -22,20 +18,21 @@
      [:div#mainHeader
       [:h1.logo "Baoqu"]
       [:div.event-name (:name event)]]
-     [:ul.mobile-menu
-      [:li {:class (if (= active-section "map") "active" "") :on-click (change-section "map")}
-       [:i {:class "icon-header fa fa-lg fa-map"}]
-       [:span.title "Map"]
-       ]
-      [:li {:class (if (= active-section "ideas") "active" "") :on-click (change-section "ideas")}
-       [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
-       [:span.title (str num-ideas " ideas")]
-       ]
-      [:li {:class (if (= active-section "comments") "active" "") :on-click (change-section "comments")}
-       [:i {:class "icon-header fa fa-lg fa-comments"}]
-       [:span.title (str num-comments " deliberación")]
-       ]
-      ]
+     (letfn [(change-section [section] #(swap! d/state assoc :active-section section))]
+       [:ul.mobile-menu
+        [:li {:class (if (= active-section "map") "active" "") :on-click (change-section "map")}
+         [:i {:class "icon-header fa fa-lg fa-map"}]
+         [:span.title "Map"]
+         ]
+        [:li {:class (if (= active-section "ideas") "active" "") :on-click (change-section "ideas")}
+         [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
+         [:span.title (str num-ideas " ideas")]
+         ]
+        [:li {:class (if (= active-section "comments") "active" "") :on-click (change-section "comments")}
+         [:i {:class "icon-header fa fa-lg fa-comments"}]
+         [:span.title (str num-comments " deliberación")]
+         ]
+        ])
      ]))
 
 (rum/defc footer < rum/reactive
