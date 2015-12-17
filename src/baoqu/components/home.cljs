@@ -34,7 +34,7 @@
          ]
         [:li {:class (if (= active-section "comments") "active" "") :on-click (change-section "comments")}
          [:i {:class "icon-header fa fa-lg fa-comments"}]
-         [:span.title (str num-comments " deliberación")]
+         [:span.title (str num-comments " comentarios")]
          ]
         ])
      ]))
