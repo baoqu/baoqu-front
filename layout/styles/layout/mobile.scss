@@ -1,4 +1,13 @@
 // SUPER RESPONSIVE MENU
+@include bp(medium) {
+
+  #mainHeader, #mainFooter {
+    $color-primary: red;
+  }
+
+}
+
+
 
 .mobile-menu {
   display: flex;
