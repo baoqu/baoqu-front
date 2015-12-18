@@ -16,16 +16,17 @@
     min-width: 32px;
   }
   .logo {
-    padding: $space $space $space 0;
+    padding: $space 0;
     font-size: $fs24;
     font-weight: bold;
-    border-right: 1px solid rgba(255,255,255,0.3);
   }
   .event-name {
     font-size: $fs20;
     line-height: 1;
     font-weight: normal;
+    padding: 1.3rem $space;
     margin-left: $space;
+    border-left: 1px solid rgba(255,255,255,0.3);
   }
 
 }

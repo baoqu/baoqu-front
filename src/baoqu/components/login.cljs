@@ -21,7 +21,10 @@
         username (get-in state [:form :username])]
     [:div.login-wrapper
      [:div.login
-      [:h1 "Baoqu"]
+      [:div#mainHeader
+        [:div.logo-icon]
+        [:h1.logo "Baoqu"]
+      ]
       [:h3 "Evento"]
       [:h2 "¿Qué tipo de muerte dolorosa queremos para los ciclistas de La Guindalera?"]
       [:div.input-box
