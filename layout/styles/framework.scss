@@ -50,7 +50,7 @@
   background: $color-success;
   color: $color-white;
   &:hover {
-    background: $color-success;
+    background: $color-success-dark;
     color: $color-white;
   }
 }
@@ -70,7 +70,7 @@
   background: $color-gray-medium;
   color: $color-white;
   &:hover {
-    background: $color-gray-light;
+    background: $color-gray-medium-dark;
   }
 }
 

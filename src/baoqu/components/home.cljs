@@ -14,7 +14,7 @@
   []
   (let [state (rum/react d/state)
   active-section (:active-section state)]
-  [:div
+  [:div.notifications
     [:div.notification.info "This is a notification of something not that important"]
     [:div.notification.success "This is a notification of success"]
     [:div.notification.error "This is a notification of error"]

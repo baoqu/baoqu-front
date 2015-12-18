@@ -1,10 +1,11 @@
 .notification {
   opacity: 0;
+  pointer-events: none;
   position: fixed;
   top: 0;
   z-index: 10;
   width: 100%;
-  background-color: $color-primary-dark;
+  background-color: $color-info;
   padding: $space;
   font-size: $fs20;
   color: $color-white;
