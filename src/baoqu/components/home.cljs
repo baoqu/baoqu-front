@@ -170,7 +170,7 @@
       [:span.button {:on-click cs/add-comment}
        [:i {:class "fa fa-lg fa-plus"}]]]]))
 
-(rum/defc my-circle < rum/reactive
+(rum/defc workspace < rum/reactive
   []
   (let [state (rum/react d/state)
         circle-id (:circle state)
@@ -192,17 +192,74 @@
       (ideas)
       (comments)]]))
 
-(rum/defc a-circle < rum/static
+(declare my-circle)
+
+(rum/defc a-circle < rum/reactive
   [circle]
-  (let [level (:level circle)
-        circle-size (get-in @d/state [:event :circle-size])
-        circles (:circles @d/state)
-        percentage (* 100 (/ (:most-popular-idea-votes circle) circle-size))
+  (let [state (rum/react d/state)
+        level (:level circle)
+        circle-size (get-in state [:event :circle-size])
+        circles (:circles state)
+        percentage (* 100 (/ (:most-popular-idea-votes circle) (* circle-size level)))
         parent (:parent-circle circle)
         inner-circles-ids (into #{} (:inner-circles circle))
         inner-circles (when inner-circles-ids
                         (filter (comp inner-circles-ids :id) circles))]
     [:div.circle {:class (str "c-lv" (:level circle) " " (when (nil? parent) "root"))
+                  :key (str (:id circle))}
+     [:div.context-info
+      [:div.circle-title (:name circle)
+       [:span.tag (str "Nivel " (:level circle))]
+       ]
+      [:div.mod-idea
+       [:div.intro "Idea más apoyada"]
+       [:div.idea (:most-popular-idea circle)]
+       [:div.voting-block
+        [:div.votes
+         [:div.votes-count (str (:most-popular-idea-votes circle) "/" (* circle-size level) " apoyos para promocionar")]
+         [:div.progress-bar
+          [:div.inner {:style {:width (str percentage "%")}}]
+          ]
+         ]
+        ]
+       ]
+      [:div.mod-meta
+       [:div.item
+        [:i {:class "icon-header fa fa-lightbulb-o"}]
+        [:span "33"]
+        ]
+       [:div.item
+        [:i {:class "icon-header fa fa-comments"}]
+        [:span "33"]
+        ]
+       [:div.item
+        [:i {:class "icon-header fa fa-lightbulb-o"}]
+        [:span "33"]
+        ]
+       ]
+      ]
+     (if (= (:level circle) 1)
+       (for [participant (:participants circle)]
+         [:div.circle])
+       (for [inner-circle inner-circles]
+         (let [my-circle? (= (:id inner-circle) (:circle state))]
+           (if my-circle?
+             (my-circle inner-circle)
+             (a-circle inner-circle)))))
+     ]))
+
+(rum/defc my-circle < rum/reactive
+  [circle]
+  (let [state (rum/react d/state)
+        level (:level circle)
+        circle-size (get-in state [:event :circle-size])
+        circles (:circles state)
+        percentage (* 100 (/ (:most-popular-idea-votes circle) circle-size))
+        parent (:parent-circle circle)
+        inner-circles-ids (into #{} (:inner-circles circle))
+        inner-circles (when inner-circles-ids
+                        (filter (comp inner-circles-ids :id) circles))]
+    [:div.circle.my-circle {:class (str "c-lv" (:level circle) " " (when (nil? parent) "root"))
                   :key (str (:id circle))}
      [:div.context-info
       [:div.circle-title (:name circle)
@@ -236,8 +293,14 @@
        ]
       ]
      (if (= (:level circle) 1)
-       (for [participant (:participants circle)]
-         [:div.circle])
+       (let [size (get-in state [:event :circle-size])
+             most-popular-idea-votes (apply max (map (comp :votes last) (:ideas state)))
+             delta (- size most-popular-idea-votes)
+             has-voted-vector (concat (repeat most-popular-idea-votes true) (repeat delta false))]
+         (for [has-voted? has-voted-vector]
+           (if has-voted?
+             [:div.circle.agreed]
+             [:div.circle])))
        (for [inner-circle inner-circles]
          (a-circle inner-circle)))
      ]))
@@ -258,7 +321,7 @@
         active-section (:active-section state)]
     [:div.container {:class (str "mobile-show-" active-section)}
      (the-map)
-     (my-circle)]))
+     (workspace)]))
 
 (rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-ws-mixin
   "The main component for the home screen"
