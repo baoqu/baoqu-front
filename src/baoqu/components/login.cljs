@@ -26,9 +26,9 @@
         [:h1.logo "Baoqu"]
       ]
       [:h3 "Evento"]
-      [:h2 "¿Qué tipo de muerte dolorosa queremos para los ciclistas de La Guindalera?"]
+      [:h2 "¿Qué tipo de ciclismo queremos para La Guindalera?"]
       [:div.input-box
-       [:input {:class "bt" :placeholder "Introduce tu nombre"
+       [:input {:class "bt" :placeholder "Aquí tu nombre"
                 :on-change (fu/change-in-form :username)
                 :value username}]
        [:button {:on-click login-action} "Participar"]]]]))
