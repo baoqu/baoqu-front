@@ -51,6 +51,7 @@
               :votes 2}
            2 {:id 2
               :body "Mi idea 2"
+              :is-voted true
               :votes 3}
            3 {:id 3
               :body "Mi idea 3"

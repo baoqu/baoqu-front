@@ -15,6 +15,9 @@
 
 (defn toggle-idea-vote
   [id]
-  (let [ideas (:ideas @d/state)]
-    ;; (swap! d/state update-in :ideas ??)
-    ))
+  (fn []
+    (let [is-voted (get-in @d/state [:ideas id :is-voted])]
+      (if is-voted
+        (swap! d/state update-in [:ideas id :votes] dec)
+        (swap! d/state update-in [:ideas id :votes] inc))
+      (swap! d/state update-in [:ideas id :is-voted] not))))

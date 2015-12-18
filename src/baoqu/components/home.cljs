@@ -97,8 +97,8 @@
                ]
               ]
              (if is-voted
-               [:div.btn.btn-success "Apoyada"]
-               [:div.btn.btn-gray "Apoyar"])
+               [:div.btn.btn-success {:on-click (is/toggle-idea-vote idea-id)} "Apoyada"]
+               [:div.btn.btn-gray {:on-click (is/toggle-idea-vote idea-id)} "Apoyar"])
              ]
             ]))
        ]
