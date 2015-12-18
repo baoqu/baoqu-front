@@ -45,16 +45,16 @@
               :most-popular-idea-votes 3
               :num-comments 3
               :num-ideas 3}]
-   :ideas [{:id 1
-            :body "Mi idea 1"
-            :is-voted true
-            :votes 2}
-           {:id 2
-            :body "Mi idea 2"
-            :votes 3}
-           {:id 3
-            :body "Mi idea 3"
-            :votes 1}]
+   :ideas {1 {:id 1
+              :body "Mi idea 1"
+              :is-voted true
+              :votes 2}
+           2 {:id 2
+              :body "Mi idea 2"
+              :votes 3}
+           3 {:id 3
+              :body "Mi idea 3"
+              :votes 1}}
    :comments [{:id 1
                :author 1
                :body "¿Qué mierda es esta?"

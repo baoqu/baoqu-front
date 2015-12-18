@@ -80,8 +80,10 @@
        [:i {:class "fa fa-lg fa-chevron-right"}]]]
      [:div.mod-body
       [:ul
-       (for [idea (:ideas state)]
+       (for [idea-it (:ideas state)]
          (let [circle-size (get-in state [:event :circle-size])
+               idea-id (first idea-it)
+               idea (last idea-it)
                votes (:votes idea)
                is-voted (:is-voted idea)
                approval-percentage (* 100 (/ votes circle-size))]
