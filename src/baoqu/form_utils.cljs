@@ -13,4 +13,8 @@
   (get-in @d/state [:form key]))
 
 (defn empty-form []
-  (swap! d/state assoc :form nil))
+  (swap! d/state dissoc :form))
+
+(defn empty-f
+  [key]
+  (swap! d/state update :form dissoc key))
