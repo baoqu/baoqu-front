@@ -26,7 +26,7 @@
         [:h1.logo "Baoqu"]
       ]
       [:h3 "Evento"]
-      [:h2 "¿Qué tipo de ciclismo queremos para La Guindalera?"]
+      [:h2 (get-in state [:event :name])]
       [:div.input-box
        [:input {:class "bt" :placeholder "Aquí tu nombre"
                 :on-change (fu/change-in-form :username)
