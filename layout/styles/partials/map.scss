@@ -107,8 +107,9 @@ $size-lv3: 500px;
   width: 16rem;
   z-index: 10;
   position: absolute;
-  left: -20%;
-  top: 90%;
+  left: 50%;
+  margin-left: -4rem;
+  top: 50%;
   .circle-title {
     font-size: $fs16;
     font-weight: bold;
