@@ -310,10 +310,17 @@
   (let [state (rum/react d/state)
         all-circles (:circles state)]
     [:div.map
+      [:div {:class "circle my-circle c-lv1 c-c4"}
+        [:div {:class "circle"}]
+        [:div {:class "circle"}]
+        [:div {:class "circle"}]
+        [:div {:class "circle"}]
+      ]
      (for [level (reverse (range 1 4))]
        (let [parent-circles (filter #(and (= (:level %) level) (nil? (:parent-circle %))) all-circles)]
          (for [circle parent-circles]
-           (a-circle circle))))]))
+           (a-circle circle))))
+           ]))
 
 (rum/defc container < rum/reactive
   []
