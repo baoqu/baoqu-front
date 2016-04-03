@@ -25,17 +25,6 @@
     [:div.notification.info {:class (if (= active-notification "info") "active" "")} " ¯|_(ツ)_|¯ "
       [:div.fa.fa-close]
     ]
-    (letfn [(change-notification [notification] #(swap! d/state assoc :active-notification notification))]
-      [:div.test-notifications
-        [:div.fa.fa-send
-          [:ul
-            [:li {:on-click (change-notification "success")} "success"]
-            [:li {:on-click (change-notification "error")} "error"]
-            [:li {:on-click (change-notification "info")} "info"]
-          ]
-        ]
-      ]
-    )
   ]))
 
 
@@ -48,12 +37,29 @@
         circle (first (filter #(= circle-id (:id %)) circles))
         num-ideas (count (:ideas state))
         num-comments (count (:comments state))
-        active-section (:active-section state)]
+        active-section (:active-section state)
+        active-modal (:active-modal state)]
+
     [:div.header-wrapper
      [:div#mainHeader
        [:div.logo-icon]
        [:h1.logo "Baoqu"]
-      [:div.event-name (:name event)]]
+      [:div.event-name (:name event)]
+      (letfn [(change-notification [notification] #(swap! d/state assoc :active-notification notification))]
+        [:div.test-notifications
+          [:div.fa.fa-send
+            [:ul
+              [:li {:on-click (change-notification "success")} "success"]
+              [:li {:on-click (change-notification "error")} "error"]
+              [:li {:on-click (change-notification "info")} "info"]
+            ]
+          ]
+        ]
+      )
+      (letfn [(change-modal [modal] #(swap! d/state assoc :active-modal modal))]
+        [:i.fa.fa-lg.fa-windows {:on-click (change-modal "show") :style {:margin-right "30px" :cursor "pointer"}}]
+      )
+     ]
      (letfn [(change-section [section] #(swap! d/state assoc :active-section section))]
        [:ul.mobile-menu
         [:li {:class (if (= active-section "map") "active" "") :on-click (change-section "map")}
@@ -328,6 +334,23 @@
      (the-map)
      (workspace)]))
 
+(rum/defc modaltesting < rum/reactive
+ []
+ (let [state (rum/react d/state)
+ active-modal (:active-modal state)]
+   (letfn [(change-modal [modal] #(swap! d/state assoc :active-modal modal))]
+     [:div
+       [:div.modal {:class active-modal}
+        [:div.modal-inner
+          [:div.modal-title "Modal title"]
+          [:div.modal-body "Modal body"]
+          [:i.fa.fa-lg.fa-close.modal-close {:on-click (change-modal "")}]
+        ]
+       ]
+     ]
+   )
+ ))
+
 (rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-ws-mixin
   "The main component for the home screen"
   []
@@ -337,4 +360,5 @@
    (notifications)
    (header)
    (container)
-   (footer)])
+   (footer)
+   (modaltesting)])

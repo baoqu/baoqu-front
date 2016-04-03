@@ -325,3 +325,40 @@ input[type="checkbox"]:focus {
     justify-content: center;
   }
 }
+
+
+// Modal
+
+.modal {
+  background-color: $color-overlay;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  z-index: 10;
+  display:none;
+  .modal-inner {
+    position: relative;
+    width: 600px;
+    margin: 20px auto;
+    background: $color-white;
+    border: 2px solid $color-gray-light;
+    border-radius: $radius;
+    padding: $space-xl;
+    .modal-title {
+      font-size: $fs24;
+      margin-bottom: $space;
+    }
+    .modal-body {
+
+    }
+    .modal-close {
+      position: absolute;
+      top: $space;
+      right: $space;
+      color: $color-gray-medium;
+      cursor: pointer;
+    }
+  }
+}
