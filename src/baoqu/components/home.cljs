@@ -194,12 +194,11 @@
 
 (declare my-circle)
 
-(rum/defc a-circle < rum/reactive
+(rum/defc a-circle < rum/static
   [circle]
-  (let [state (rum/react d/state)
-        level (:level circle)
-        circle-size (get-in state [:event :circle-size])
-        circles (:circles state)
+  (let [level (:level circle)
+        circle-size (get-in @d/state [:event :circle-size])
+        circles (:circles @d/state)
         percentage (* 100 (/ (:most-popular-idea-votes circle) (* circle-size level)))
         parent (:parent-circle circle)
         inner-circles-ids (into #{} (:inner-circles circle))
@@ -242,18 +241,17 @@
        (for [participant (:participants circle)]
          [:div.circle])
        (for [inner-circle inner-circles]
-         (let [my-circle? (= (:id inner-circle) (:circle state))]
+         (let [my-circle? (= (:id inner-circle) (:circle @d/state))]
            (if my-circle?
              (my-circle inner-circle)
              (a-circle inner-circle)))))
      ]))
 
-(rum/defc my-circle < rum/reactive
+(rum/defc my-circle < rum/static
   [circle]
-  (let [state (rum/react d/state)
-        level (:level circle)
-        circle-size (get-in state [:event :circle-size])
-        circles (:circles state)
+  (let [level (:level circle)
+        circle-size (get-in @d/state [:event :circle-size])
+        circles (:circles @d/state)
         percentage (* 100 (/ (:most-popular-idea-votes circle) circle-size))
         parent (:parent-circle circle)
         inner-circles-ids (into #{} (:inner-circles circle))
@@ -293,8 +291,8 @@
        ]
       ]
      (if (= (:level circle) 1)
-       (let [size (get-in state [:event :circle-size])
-             most-popular-idea-votes (apply max (map (comp :votes last) (:ideas state)))
+       (let [size (get-in @d/state [:event :circle-size])
+             most-popular-idea-votes (apply max (map (comp :votes last) (:ideas @d/state)))
              delta (- size most-popular-idea-votes)
              has-voted-vector (concat (repeat most-popular-idea-votes true) (repeat delta false))]
          (for [has-voted? has-voted-vector]
