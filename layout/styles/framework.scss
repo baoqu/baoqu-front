@@ -362,3 +362,21 @@ input[type="checkbox"]:focus {
     }
   }
 }
+@include bp(medium) {
+  .modal {
+    .modal-inner {
+      margin: 20px;
+      width: auto;
+    }
+  }
+}
+@include bp(small) {
+  .modal {
+    background-color: $color-white;
+    .modal-inner {
+      margin: 0;
+      border: none;
+      width: auto;
+    }
+  }
+}
