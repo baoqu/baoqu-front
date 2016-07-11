@@ -35,7 +35,7 @@
     display: flex;
     input {
       width: 40%;
-      height: 3.4rem;
+      height: 4.4rem;
       padding-left: 1rem;
       padding-right: 1rem;
       font-size: $fs24;
@@ -45,13 +45,13 @@
     }
     button {
       width: 20%;
-      height: 3.4rem;
+      height: 4.4rem;
       margin-left: $space;
-      background-color: $color-success;
+      background-color: transparent;
       color: $color-white;
       font-size: $fs24;
       font-weight: bold;
-      border: transparent;
+      border: 2px solid $color-white;
       border-radius: $radius;
       cursor: pointer;
       &:hover {
