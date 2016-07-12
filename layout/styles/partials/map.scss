@@ -243,9 +243,9 @@ Default is 3 because rythm with Andres
 }
 
 
-// Results
+// RESULTS
 .map-list-view {
-  background: $color-white;
+  background: $color-gray-lighter;
   width: 100%;
   position: absolute;
   z-index: 1;
@@ -264,11 +264,11 @@ Default is 3 because rythm with Andres
   .supports {
     padding-right: $space;
     .value {
+      color: $color-gray-medium-dark;
       font-weight: bold;
-      display: block;
     }
     .label {
-      color: $color-gray-medium;
+      color: $color-gray-medium-dark;
       font-size: $fs11;
     }
   }
@@ -285,13 +285,68 @@ Default is 3 because rythm with Andres
       color: $color-gray-medium;
       font-size: $fs11;
     }
+    .badge {
+      border: 1px solid $color-success-dark;
+      color: $color-success;
+      font-size: $fs11;
+      border-radius: 4px;
+      padding: 0.2rem 0.4rem;
+    }
   }
 }
-
-
-.scrolling {
-  height: 2000px;
-  background: red;
-  margin: 3rem;
-  display: none;
+.map-list-view .mod-idea:nth-child(0) {
+  .body .idea {
+    font-size: $fs26;
+  }
+  .supports .value {
+    font-size: $fs26;
+  }
+}
+.map-list-view .mod-idea:nth-child(1) {
+  .body .idea {
+    font-size: $fs24;
+  }
+  .supports .value {
+    font-size: $fs24;
+  }
+}
+.map-list-view .mod-idea:nth-child(2) {
+  .body .idea {
+    font-size: $fs22;
+  }
+  .supports .value {
+    font-size: $fs22;
+  }
+}
+.map-list-view .mod-idea:nth-child(2) {
+  .body .idea {
+    font-size: $fs22;
+  }
+  .supports .value {
+    font-size: $fs22;
+  }
+}
+.map-list-view .mod-idea:nth-child(3) {
+  .body .idea {
+    font-size: $fs20;
+  }
+  .supports .value {
+    font-size: $fs20;
+  }
+}
+.map-list-view .mod-idea:nth-child(4) {
+  .body .idea {
+    font-size: $fs18;
+  }
+  .supports .value {
+    font-size: $fs18;
+  }
+}
+.map-list-view .mod-idea:nth-child(5) {
+  .body .idea {
+    font-size: $fs16;
+  }
+  .supports .value {
+    font-size: $fs16;
+  }
 }
