@@ -8,9 +8,6 @@
   justify-content: center;
   padding: $space 0;
   position: relative;
-  &::-webkit-scrollbar-thumb {
-    background-color: $color-gray-lighter;
-  }
 }
 
 .map-circles-view {
@@ -22,6 +19,11 @@
   left: 0;
   overflow-x: hidden;
   overflow-y: scroll;
+  text-align: center;
+  background: #cde1e8;
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-gray-lighter;
+  }
 }
 
 $circle-size: 36%;
@@ -34,6 +36,7 @@ $circle-margin: 2%;
   border-radius: 50%;
   border: 2px solid rgba(0,0,0,0.2);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.4);
+  display: inline-block;
 
   .circle { // top circle (default)
     margin:auto;
@@ -262,7 +265,6 @@ Default is 3 because rythm with Andres
   left: 0;
   overflow-x: hidden;
   overflow-y: scroll;
-  background: #cde1e8;
 }
 .map-list-view .header {
   padding: $space $space 0 $space;
@@ -369,13 +371,26 @@ Default is 3 because rythm with Andres
   bottom: $space-s;
   right: $space-s;
   z-index: 10;
+  height: 2.4rem;
+  width: 2.4rem;
+  background-color: blue;
+  border-radius: 100px;
+  text-align: center;
+  cursor: pointer;
+  background: $color-white;
+  opacity: 0.6;
   .map-toggle {
-
+    .fa {
+      margin-top: 0.7rem;
+    }
   }
   .map-toggle-list {
 
   }
   .map-toggle-map {
 
+  }
+  :hover {
+    opacity: 1;
   }
 }
