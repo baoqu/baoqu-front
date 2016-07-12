@@ -254,7 +254,41 @@ Default is 3 because rythm with Andres
 }
 .map-list-view .header {
   padding: $space $space 0 $space;
+  font-size: $fs13;
+  text-transform: uppercase;
+  color: $color-gray-medium;
 }
+.map-list-view .mod-idea {
+  display: flex;
+  padding: $space;
+  .supports {
+    padding-right: $space;
+    .value {
+      font-weight: bold;
+      display: block;
+    }
+    .label {
+      color: $color-gray-medium;
+      font-size: $fs11;
+    }
+  }
+  .body {
+    flex: 1;
+    .idea {
+      font-size: $fs14;
+      font-weight: bold;
+      &:before {
+        content:"# ";
+      }
+    }
+    .info {
+      color: $color-gray-medium;
+      font-size: $fs11;
+    }
+  }
+}
+
+
 .scrolling {
   height: 2000px;
   background: red;
