@@ -1,0 +1,6 @@
+{
+  "name": "baoqu",
+  "dependencies": {
+    "jquery": "~3.1.0"
+  }
+}

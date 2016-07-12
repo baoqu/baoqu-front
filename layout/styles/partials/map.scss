@@ -240,3 +240,21 @@ Default is 3 because rythm with Andres
     height: 300px;
   }
 }
+
+
+// Results
+.map-results {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: $space 0;
+  background-color: #cde1e8;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-gray-lighter;
+  }
+}
