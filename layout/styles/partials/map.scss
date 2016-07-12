@@ -10,6 +10,7 @@
   background-color: #cde1e8;
   overflow-x: hidden;
   overflow-y: scroll;
+  position: relative;
   &::-webkit-scrollbar-thumb {
     background-color: $color-gray-lighter;
   }
@@ -243,18 +244,20 @@ Default is 3 because rythm with Andres
 
 
 // Results
-.map-results {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  padding: $space 0;
-  background-color: #cde1e8;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  &::-webkit-scrollbar-thumb {
-    background-color: $color-gray-lighter;
-  }
+.map-list-view {
+  background: $color-white;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+.map-list-view .header {
+  padding: $space $space 0 $space;
+}
+.scrolling {
+  height: 2000px;
+  background: red;
+  margin: 3rem;
+  display: none;
 }
