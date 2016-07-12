@@ -177,6 +177,22 @@
   }
 }
 
+.mod-ideas.collapsed,
+.mod-comments.collapsed {
+  flex:0;
+  overflow:hidden;
+  min-width: 2.7rem;
+  .mod-header .title,
+  .mod-body,
+  .mod-add-box {
+    opacity: 0;
+  }
+  .mod-header {
+    box-shadow: none;
+  }
+}
+
+
 // COMMENTS
 .mod-comments {
   .mod-comment {
