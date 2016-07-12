@@ -314,7 +314,7 @@
   (let [state (rum/react d/state)
         all-circles (:circles state)]
     [:div.map
-      [:div {:class "map-toggle-view"}
+      [:div {:class "map-toggle-view js-map-toggle-view"}
         [:div {:class "map-toggle map-toggle-list"}
           [:i {:class "icon-header fa fa-lg fa-map"}]
         ]

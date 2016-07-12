@@ -266,6 +266,7 @@ Default is 3 because rythm with Andres
   left: 0;
   overflow-x: hidden;
   overflow-y: scroll;
+  display: none;
 }
 .map-list-view .header {
   padding: $space $space 0 $space;
@@ -389,9 +390,18 @@ Default is 3 because rythm with Andres
 
   }
   .map-toggle-map {
-
+    display: none;
   }
   :hover {
     opacity: 1;
   }
+}
+.list-view .map-toggle-list {
+  display: none;
+}
+.list-view .map-toggle-map {
+  display: block;
+}
+.list-view .map-list-view {
+  display: block;
 }
