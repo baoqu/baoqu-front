@@ -12,3 +12,4 @@ pom.xml.asc
 /resources/public/
 *.log
 *.orig
+layout/vendor

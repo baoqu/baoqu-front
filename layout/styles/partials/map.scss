@@ -7,13 +7,21 @@
   align-items: center;
   justify-content: center;
   padding: $space 0;
-  background-color: #cde1e8;
-  overflow-x: hidden;
-  overflow-y: scroll;
   position: relative;
   &::-webkit-scrollbar-thumb {
     background-color: $color-gray-lighter;
   }
+}
+
+.map-circles-view {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 $circle-size: 36%;
@@ -247,10 +255,14 @@ Default is 3 because rythm with Andres
 .map-list-view {
   background: $color-gray-lighter;
   width: 100%;
+  height: 100%;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background: #cde1e8;
 }
 .map-list-view .header {
   padding: $space $space 0 $space;
@@ -348,5 +360,22 @@ Default is 3 because rythm with Andres
   }
   .supports .value {
     font-size: $fs16;
+  }
+}
+
+// TOGGLE VIEW
+.map-toggle-view {
+  position: absolute;
+  bottom: $space-s;
+  right: $space-s;
+  z-index: 10;
+  .map-toggle {
+
+  }
+  .map-toggle-list {
+
+  }
+  .map-toggle-map {
+
   }
 }

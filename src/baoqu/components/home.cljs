@@ -314,17 +314,58 @@
   (let [state (rum/react d/state)
         all-circles (:circles state)]
     [:div.map
-      [:div {:class "circle my-circle c-lv1 c-c4"}
-        [:div {:class "circle"}]
-        [:div {:class "circle"}]
-        [:div {:class "circle"}]
-        [:div {:class "circle"}]
+      [:div {:class "map-toggle-view"}
+        [:div {:class "map-toggle map-toggle-list"}
+          [:i {:class "icon-header fa fa-lg fa-map"}]
+        ]
+        [:div {:class "map-toggle map-toggle-map"}
+          [:i {:class "icon-header fa fa-lg fa-list"}]
+        ]
       ]
+      [:div {:class "map-list-view"}
+        [:div.header "Ideas más apoyadas"]
+        [:div.ideas-list
+        (for [idea [{:supports 129 :supported? false :body "Las bicis son para hippies, ¡cómo se nota que no trabajais!" :circle "Onosizumi" :level "2"}
+                    {:supports 28 :supported? true :body "Nos hacen falta más carriles bici" :circle "Onosizumi" :level "2"}
+                    {:supports 18 :supported? false :body "Cómo conectar con el centro: bulevar en Juan Bravo" :circle "Onosizumi" :level "2"}
+                    {:supports 8 :supported? true :body "Si empezamos por lo más elemental, tendremos que decir que aeróbico significa trabajo en presencia de oxígeno" :circle "Onosizumi" :level "2"}
+                    {:supports 7 :supported? false :body "Hay que arreglar los baches, son un peligro" :circle "Onosizumi" :level "2"}
+                    {:supports 6 :supported? false :body "Nos vamos a comer un arroz con bacalao" :circle "Onosizumi" :level "2"}
+                    {:supports 6 :supported? false :body "WHATEVER" :circle "Onosizumi" :level "2"}
+                    {:supports 6 :supported? false :body "Aprenda de bolsa con el nº1 en España en CFDs" :circle "Onosizumi" :level "2"}
+                    {:supports 6 :supported? true :body "Cómo conectar con el centro: bulevar en Juan Bravo" :circle "Onosizumi" :level "2"}
+                    {:supports 1 :supported? false :body "¿Cómo apoyo una idea que me gusta?" :circle "Onosizumi" :level "2"}
+                    {:supports 1 :supported? false :body "Si la cosa funciona" :circle "Onosizumi" :level "2"}
+                    {:supports 1 :supported? false :body "Hay que arreglar los baches, son un peligro" :circle "Onosizumi" :level "2"}
+                    {:supports 1 :supported? false :body "Cómo conectar con el centro: bulevar en Juan Bravo" :circle "Onosizumi" :level "2"}
+                    {:supports 1 :supported? false :body "Alien es del 79" :circle "Onosizumi" :level "2"}]]
+                    [:div.mod-idea
+                      [:div.supports
+                        [:div.value (:supports idea)]
+                        [:div.label " apoyos"]
+                      ]
+                      [:div.body
+                        [:div.idea (:body idea)]
+                        [:div.info  "Círculo " (:circle idea) " | " "nivel " (:level idea)]
+                        (if (:supported? idea)
+                          [:span.badge "la apoyaste"])
+                      ]
+                    ])
+        ]
+      ]
+      [:div {:class "map-circles-view"}
+        [:div {:class "circle my-circle c-lv1 c-c4 REMOVE"}
+          [:div {:class "circle"}]
+          [:div {:class "circle"}]
+          [:div {:class "circle"}]
+          [:div {:class "circle"}]
+        ]
      (for [level (reverse (range 1 4))]
        (let [parent-circles (filter #(and (= (:level %) level) (nil? (:parent-circle %))) all-circles)]
          (for [circle parent-circles]
            (a-circle circle))))
-           ]))
+           ]
+     ]))
 
 (rum/defc container < rum/reactive
   []
