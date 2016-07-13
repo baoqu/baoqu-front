@@ -11,9 +11,10 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create(),
     paths = {
       app: 'src/app/**/*.js',
-      globals: 'src/js/**/*.js',
+      globals: 'js/**/*.js',
       dist: '../resources/public/',
       //dist: 'dist/',
+      js: 'js/**/*.*',
       images: 'images/**/*.*',
       fonts: 'fonts/**/*.*',
       icons: 'icons/**/*.*',
@@ -24,6 +25,11 @@ var gulp = require('gulp'),
 
 gulp.task('clean', function() {
   gulp.src(paths.dist).pipe(clean());
+});
+
+gulp.task('js', function() {
+  gulp.src(paths.js)
+    .pipe(gulp.dest(paths.dist + 'js/'));
 });
 
 gulp.task('fonts', function() {
@@ -63,7 +69,7 @@ gulp.task('templates', function() {
     .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('dist', ['images', 'fonts', 'icons', 'templates', 'vendor', 'scss']);
+gulp.task('dist', ['images', 'js', 'fonts', 'icons', 'templates', 'vendor', 'scss']);
 
 gulp.task('browser-sync', function() {
   browserSync.init({
@@ -77,6 +83,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('default', ['dist', 'browser-sync'], function() {
   gulp.watch(paths.scss, ['scss', browserSync.reload]);
+  gulp.watch(paths.js, ['js', browserSync.reload]);
   gulp.watch(paths.fonts, ['fonts', browserSync.reload]);
   gulp.watch(paths.icons, ['icons', browserSync.reload]);
   gulp.watch(paths.images, ['images', browserSync.reload]);
