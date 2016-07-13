@@ -1,5 +1,5 @@
 (ns baoqu.mixins
-  (:require [baoqu.services.ws :as ws]
+  (:require [baoqu.services.sse :as sse]
             [baoqu.routes :as routes]
             [baoqu.data :as d]))
 
@@ -16,10 +16,10 @@
                      (routes/go :login)))
                  own)})
 
-(def connect-ws-mixin
+(def connect-see-mixin
   {:will-mount (fn [own]
                  (when (is-authenticated?)
-                   (let [websocket (ws/create-ws)]
-                     (println "WEBSOCKET CONNECTED  " websocket)
-                     (swap! d/state assoc :ws websocket)))
+                   (let [sse (sse/create-sse)]
+                     (println "[SSE] CONNECTED > " sse)
+                     (swap! d/state assoc :sse sse)))
                  own)})

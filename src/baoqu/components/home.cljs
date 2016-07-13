@@ -396,7 +396,7 @@
    )
  ))
 
-(rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-ws-mixin
+(rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-see-mixin
   "The main component for the home screen"
   []
   ;;(event/join-event)
