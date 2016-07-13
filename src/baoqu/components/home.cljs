@@ -98,10 +98,10 @@
         num-ideas (count (:ideas state))]
     [:div.mod-ideas
      [:div.mod-header
-      [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
+      [:i {:class "icon-header fa fa-lg fa-lightbulb-o js-expand-ideas"}]
       [:div.title (str num-ideas " ideas")]
       [:span.toggle
-       [:i {:class "fa fa-lg fa-chevron-right"}]]]
+       [:i {:class "fa fa-lg fa-chevron-right js-collapse-ideas"}]]]
      [:div.mod-body
       [:ul
        (for [idea-it (:ideas state)]
@@ -145,10 +145,10 @@
         num-comments (count (:comments state))]
     [:div.mod-comments
      [:div.mod-header
-      [:i {:class "icon-header fa fa-lg fa-comments"}]
+      [:i {:class "icon-header fa fa-lg fa-comments js-expand-comments"}]
       [:div.title (str num-comments " comentarios")]
       [:span.toggle
-       [:i {:class "fa fa-lg fa-chevron-right"}]]]
+       [:i {:class "fa fa-lg fa-chevron-right js-collapse-comments"}]]]
 
      [:div.mod-body
       [:ul
@@ -371,7 +371,7 @@
   []
   (let [state (rum/react d/state)
         active-section (:active-section state)]
-    [:div.container {:class (str "mobile-show-" active-section)}
+    [:div.container.event-wrapper {:class (str "mobile-show-" active-section)}
      (the-map)
      (workspace)]))
 

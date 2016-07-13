@@ -177,8 +177,10 @@
   }
 }
 
-.mod-ideas.collapsed,
-.mod-comments.collapsed {
+
+// COLLAPSING IDEAS & COMMENTS
+.ideas-collapsed .mod-ideas,
+.comments-collapsed .mod-comments {
   flex:0;
   overflow:hidden;
   min-width: 2.7rem;
