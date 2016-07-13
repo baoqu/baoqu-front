@@ -3,11 +3,22 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "1.7.170"]
-                 [figwheel-sidecar "0.5.0-2"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojurescript "1.8.51"]
                  [rum "0.6.0"]
                  [bidi "1.23.1"]
                  [funcool/httpurr "0.2.0"]
-                 [com.cognitect/transit-cljs "0.8.232"]
-                 [funcool/beicon "0.3.0"]])
+                 [com.cognitect/transit-cljs "0.8.232"]]
+  :plugins [[lein-figwheel "0.5.4-7"]]
+  :cljsbuild {:builds [{:id "dev"
+                        :source-paths ["src/"]
+                        :figwheel true
+                        :compiler {:main baoqu.core
+                                   :asset-path "js"
+                                   :pretty-print true
+                                   :language-in :ecmascript5
+                                   :language-out :ecmascript5
+                                   :output-to "resources/public/js/main.js"
+                                   :output-dir "resources/public/js"
+                                   :verbose true}}]}
+  :figwheel {:css-dirs ["resources/public/css"]})
