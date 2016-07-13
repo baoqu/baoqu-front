@@ -75,6 +75,7 @@
     }
     .icon-header {
       margin-right: $space-s;
+      pointer-events: none;
     }
   }
   .mod-body {
