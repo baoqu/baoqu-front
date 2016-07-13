@@ -8,6 +8,10 @@
   $bp-large: "(max-width: 1366px)";
   $bp-medium: "(max-width: 960px)";
   $bp-small: "(max-width: 480px)";
+  // mins
+  $bp-large-min: "(min-width: 1366px)";
+  $bp-medium-min: "(min-width: 960px)";
+  $bp-small-min: "(min-width: 480px)";
 
   @if $point == large {
     @media #{$bp-large}  { @content; }
@@ -17,6 +21,15 @@
   }
   @else if $point == small {
     @media #{$bp-small}  { @content; }
+  }
+  @else if $point == large-min {
+    @media #{$bp-large-min}  { @content; }
+  }
+  @else if $point == medium-min {
+    @media #{$bp-medium-min}  { @content; }
+  }
+  @else if $point == small-min {
+    @media #{$bp-small-min}  { @content; }
   }
 
 }

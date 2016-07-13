@@ -98,10 +98,12 @@
         num-ideas (count (:ideas state))]
     [:div.mod-ideas
      [:div.mod-header
-      [:i {:class "icon-header fa fa-lg fa-lightbulb-o js-expand-ideas"}]
+      [:span {:class "expander js-expand-ideas"}
+        [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
+      ]
       [:div.title (str num-ideas " ideas")]
-      [:span.toggle
-       [:i {:class "fa fa-lg fa-chevron-right js-collapse-ideas"}]]]
+        [:span.toggle
+          [:i {:class "fa fa-lg fa-chevron-right js-collapse-ideas"}]]]
      [:div.mod-body
       [:ul
        (for [idea-it (:ideas state)]
@@ -145,7 +147,9 @@
         num-comments (count (:comments state))]
     [:div.mod-comments
      [:div.mod-header
-      [:i {:class "icon-header fa fa-lg fa-comments js-expand-comments"}]
+      [:span {:class "expander js-expand-comments"}
+        [:i {:class "icon-header fa fa-lg fa-comments"}]
+      ]
       [:div.title (str num-comments " comentarios")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right js-collapse-comments"}]]]

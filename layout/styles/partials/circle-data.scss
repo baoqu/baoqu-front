@@ -178,21 +178,58 @@
 }
 
 
-// COLLAPSING IDEAS & COMMENTS
-.ideas-collapsed .mod-ideas,
-.comments-collapsed .mod-comments {
-  flex:0;
-  overflow:hidden;
-  min-width: 2.7rem;
-  .mod-header .title,
-  .mod-body,
-  .mod-add-box {
-    opacity: 0;
+// COLLAPSING IDEAS & COMMENTS (only desktop)
+@include bp(medium-min) {
+  .ideas-collapsed .mod-ideas,
+  .comments-collapsed .mod-comments {
+    flex:0;
+    overflow:hidden;
+    min-width: 50px;
+    .mod-header .title,
+    .mod-body,
+    .mod-add-box {
+      opacity: 0;
+    }
+    .mod-header {
+      box-shadow: none;
+    }
+    .expander {
+      cursor: pointer;
+      background: $color-white;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      .icon-header {
+        margin-top: 1.2rem;
+      }
+    }:hover {
+      background: $color-bg-highlight;
+    }
   }
-  .mod-header {
-    box-shadow: none;
+  .ideas-collapsed .map,
+  .comments-collapsed .map {
+    flex:2;
+  }
+  .ideas-collapsed .circle-wrapper,
+  .comments-collapsed .circle-wrapper {
+    flex:1;
+  }
+  .ideas-collapsed.comments-collapsed .map {
+    flex:3;
+  }
+  .ideas-collapsed.comments-collapsed .circle-wrapper {
+    flex:0;
+    min-width: 101px;
+    .circle-header {
+      display: none;
+    }
   }
 }
+
+
 
 
 // COMMENTS
