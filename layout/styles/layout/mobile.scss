@@ -25,7 +25,7 @@
     text-align: center;
     padding: $space 0;
     cursor: pointer;
-    @extend .line-bottom;
+    border-bottom: 1px solid $color-gray-light;
     background-color: white;
     color: $color-gray-medium;
     .fa {
