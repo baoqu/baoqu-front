@@ -315,10 +315,10 @@
         all-circles (:circles state)]
     [:div.map
       [:div {:class "map-toggle-view js-map-toggle-view"}
-        [:div {:class "map-toggle map-toggle-list" :data-balloon-pos "left" :data-balloon "Mapa de acuerdos"}
+        [:div {:class "map-toggle map-toggle-map" :data-balloon-pos "left" :data-balloon "Mapa de acuerdos"}
           [:i {:class "icon-header fa fa-lg fa-map"}]
         ]
-        [:div {:class "map-toggle map-toggle-map" :data-balloon-pos "left" :data-balloon "Ideas más votadas"}
+        [:div {:class "map-toggle map-toggle-list" :data-balloon-pos "left" :data-balloon "Ideas más votadas"}
           [:i {:class "icon-header fa fa-lg fa-list"}]
         ]
       ]
