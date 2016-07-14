@@ -40,6 +40,18 @@
        (:data)
        (println "[SSE] NEW-IDEA > ")))
 
+(defmethod process-message :upvote
+  [msg]
+  (->> msg
+       (:data)
+       (println "[SSE] UPVOTE > ")))
+
+(defmethod process-message :downvote
+  [msg]
+  (->> msg
+       (:data)
+       (println "[SSE] DOWNVOTE > ")))
+
 (defmethod process-message :default
   [msg]
   (println "[SSE] DEFAULT MESSAGE > " msg))

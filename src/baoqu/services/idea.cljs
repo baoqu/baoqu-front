@@ -1,6 +1,8 @@
 (ns baoqu.services.idea
   (:require [baoqu.data :as d]
-            [baoqu.form-utils :as fu]))
+            [baoqu.form-utils :as fu]
+            [baoqu.services.http :as http]
+            [baoqu.config :refer [cfg]]))
 
 (enable-console-print!)
 
@@ -16,8 +18,15 @@
 (defn toggle-idea-vote
   [id]
   (fn []
-    (let [voted? (get-in @d/state [:ideas id "voted?"])]
+    (let [voted? (get-in @d/state [:ideas id "voted?"])
+          user-id (get-in @d/state [:me :id])
+          idea-name (get-in @d/state [:ideas id "name"])
+          data {:user-id user-id :idea-name idea-name}]
       (if voted?
-        (swap! d/state update-in [:ideas id "votes"] dec)
-        (swap! d/state update-in [:ideas id "votes"] inc))
+        (do
+          (swap! d/state update-in [:ideas id "votes"] dec)
+          (http/post (str (:server cfg) "/api/ideas/downvote") data))
+        (do
+          (swap! d/state update-in [:ideas id "votes"] inc)
+          (http/post (str (:server cfg) "/api/ideas/upvote") data)))
       (swap! d/state update-in [:ideas id "voted?"] not))))
