@@ -26,13 +26,16 @@
                     (http/get (str (:server cfg) "/api/user-circle/" user-id)))))
         (p/then (fn [res]
                   (let [my-circle (http/decode res)
-                        circle-id (get my-circle "id")]
+                        circle-id (get my-circle "id")
+                        user-id (get-in @d/state [:me :id])]
                     (swap! d/state assoc :circle my-circle)
-                    (http/get (str (:server cfg) "/api/circles/" circle-id "/ideas")))))
+                    (http/get (str (:server cfg) "/api/circles/" circle-id "/ideas?user-id=" user-id)))))
         (p/then (fn [res]
                   (let [ideas (http/decode res)
-                        circle-id (get-in @d/state [:circle "id"])]
-                    (swap! d/state assoc :ideas ideas)
+                        circle-id (get-in @d/state [:circle "id"])
+                        ideas-map (into {} (for [idea ideas]
+                                             [(get idea "id") idea]))]
+                    (swap! d/state assoc :ideas ideas-map)
                     (http/get (str (:server cfg) "/api/circles/" circle-id "/comments")))))
         (p/then (fn [res]
                   (let [comments (http/decode res)]

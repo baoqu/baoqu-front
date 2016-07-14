@@ -115,10 +115,9 @@
           [:i {:class "fa fa-lg fa-chevron-right js-collapse-ideas"}]]]
      [:div.mod-body
       [:ul
-       (for [idea ideas]
-         (let [idea-id (get idea "id")
-               votes (get idea "votes")
-               is-voted (:is-voted idea) ;; TO BE FIXED
+       (for [[idea-id idea] ideas]
+         (let [votes (get idea "votes")
+               voted? (get idea "voted?")
                approval-percentage (* 100 (/ votes circle-size))]
            [:li.mod-idea
             [:div.idea (get idea "name")]
@@ -129,7 +128,7 @@
                [:div.inner {:style {:width (str approval-percentage "%")}}]
                ]
               ]
-             (if is-voted
+             (if voted?
                [:div.btn.btn-success {:on-click (is/toggle-idea-vote idea-id)} "Apoyada"]
                [:div.btn.btn-gray {:on-click (is/toggle-idea-vote idea-id)} "Apoyar"])
              ]
