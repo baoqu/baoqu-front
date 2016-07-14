@@ -1,11 +1,12 @@
 (ns baoqu.services.comment
   (:require [baoqu.data :as d]
             [baoqu.form-utils :as fu]
-            [baoqu.services.http :as http]))
+            [baoqu.services.http :as http]
+            [baoqu.config :refer [cfg]]))
 
 (defn add-comment-req
   [username circle-id body]
-  (let [url (str "http://localhost:3030/api/circles/" circle-id "/comments")
+  (let [url (str (:server cfg) "/api/circles/" circle-id "/comments")
         data {:name username :comment-body body}]
     (http/post url data)))
 

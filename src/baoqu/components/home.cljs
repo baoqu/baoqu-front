@@ -213,19 +213,18 @@
 
 (rum/defc a-circle < rum/static
   [circle]
-  (let [level (:level circle)
+  (let [level (get circle "level")
         circle-size (get-in @d/state [:event :circle-size])
         circles (:circles @d/state)
         percentage (* 100 (/ (:most-popular-idea-votes circle) (* circle-size level)))
-        parent (:parent-circle circle)
-        inner-circles-ids (into #{} (:inner-circles circle))
+        parent (get circle "parent-circle-id")
+        inner-circles-ids (into #{} (get circle "inner-circles"))
         inner-circles (when inner-circles-ids
-                        (filter (comp inner-circles-ids :id) circles))]
-    [:div.circle {:class (str "c-lv" (:level circle) " " (when (nil? parent) "root js-circle-root"))
-                  :key (str (:id circle))}
+                        (filter (comp inner-circles-ids #(get % "id")) circles))]
+    [:div.circle {:class (str "c-lv" level " " (when (nil? parent) "root js-circle-root"))}
      [:div.context-info.js-context-info
-      [:div.circle-title (:name circle)
-       [:span.tag (str "Nivel " (:level circle))]
+      [:div.circle-title (get circle "name")
+       [:span.tag (str "Nivel " level)]
        ]
       [:div.mod-idea
        [:div.intro "Idea más apoyada"]
@@ -254,7 +253,7 @@
         ]
        ]
       ]
-     (if (= (:level circle) 1)
+     (if (= level 1)
        (for [participant (:participants circle)]
          [:div.circle])
        (for [inner-circle inner-circles]
@@ -372,7 +371,7 @@
           [:div {:class "circle"}]
         ]
      (for [level (reverse (range 1 4))]
-       (let [parent-circles (filter #(and (= (:level %) level) (nil? (:parent-circle %))) all-circles)]
+       (let [parent-circles (filter #(and (= (get % "level") level) (nil? (:parent-circle %))) all-circles)]
          (for [circle parent-circles]
            (a-circle circle))))
            ]

@@ -1,8 +1,7 @@
-(ns baoqu.services.sse)
+(ns baoqu.services.sse
+  (:require [baoqu.config :refer [cfg]]))
 
 (enable-console-print!)
-
-(def sse-url "http://localhost:3030/sse")
 
 (defn keys->keywords
   [m]
@@ -55,5 +54,5 @@
   "Connects the frontend with the backend sse. Returns the SSE connection"
   []
   (->>
-   (js/EventSource. sse-url)
+   (js/EventSource. (str (:server cfg) "/sse"))
    (add-listeners)))

@@ -10,7 +10,7 @@
 
 (defn get-f
   [key]
-  (get-in @d/state [:form key]))
+  (get-in @d/state [:form key] ""))
 
 (defn empty-form []
   (swap! d/state dissoc :form))
