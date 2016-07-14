@@ -20,6 +20,21 @@
                     (swap! d/state assoc :event event)
                     (http/get (str (:server cfg) "/api/events/" event-id "/circles")))))
         (p/then (fn [res]
-                  (let [circles (http/decode res)]
-                    (swap! d/state assoc :circles circles))))
+                  (let [circles (http/decode res)
+                        user-id (get-in @d/state [:me :id])]
+                    (swap! d/state assoc :circles circles)
+                    (http/get (str (:server cfg) "/api/user-circle/" user-id)))))
+        (p/then (fn [res]
+                  (let [my-circle (http/decode res)
+                        circle-id (get my-circle "id")]
+                    (swap! d/state assoc :circle my-circle)
+                    (http/get (str (:server cfg) "/api/circles/" circle-id "/ideas")))))
+        (p/then (fn [res]
+                  (let [ideas (http/decode res)
+                        circle-id (get-in @d/state [:circle "id"])]
+                    (swap! d/state assoc :ideas ideas)
+                    (http/get (str (:server cfg) "/api/circles/" circle-id "/comments")))))
+        (p/then (fn [res]
+                  (let [comments (http/decode res)]
+                    (swap! d/state assoc :comments comments))))
         (p/catch #(println (str "[HTTP-ERROR]>> " %))))))
