@@ -117,9 +117,7 @@ Default is 3 because rythm with Andres
 }
 
 
-
 // CIRCLE CONTEXTUAL INFO
-
 .context-info {
   opacity: 0;
   pointer-events: none;
@@ -131,8 +129,9 @@ Default is 3 because rythm with Andres
   z-index: 10;
   position: absolute;
   left: 50%;
-  margin-left: -4rem;
   top: 50%;
+  margin-left: -130px;
+  margin-top: -75px;
   .circle-title {
     font-size: $fs16;
     font-weight: bold;
@@ -204,18 +203,12 @@ Default is 3 because rythm with Andres
     }
   }
 }
-/*
-.circle.root:hover > .context-info {
-  opacity: 1;
-  transition-delay:0.3s;
-  pointer-events: auto;
-}*/
+/*.circle.root:hover > .context-info {*/
 .circle.root > .context-info.info-shown {
   opacity: 1;
   transition-delay:0.3s;
   pointer-events: auto;
 }
-
 
 @include bp(large) {
   .c-lv1 {

@@ -31,19 +31,18 @@ $(document).ready(function(){
     // position
     if (e.type == 'mouseenter') {
 
-      $(this).find('> .js-context-info').addClass('info-shown');
-
-      $(this).find('> .js-context-info')
-      .position({
-        my: "center bottom+5%",
-        at: "center top+5%",
-        of: $(this),
-        collision: "flipfit flipfit",
-        within: ".map-circles-view"
-      });
+      $(this).find('> .js-context-info').addClass('info-shown')
+        .position({
+          my: "center bottom+5%",
+          at: "center top+5%",
+          of: $(this),
+          collision: "flipfit flipfit",
+          within: ".map-circles-view"
+        });
 
     } else {
       $(this).find('> .js-context-info').removeClass('info-shown');
+        //.css('top','').css('bottom','').css('left','').css('right','');
     }
   });
 
