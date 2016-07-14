@@ -1,7 +1,8 @@
 (ns baoqu.services.event
   (:require [baoqu.services.http :as http]
             [promesa.core :as p]
-            [baoqu.data :as d]))
+            [baoqu.data :as d]
+            [baoqu.utils :refer [->kwrds]]))
 
 (enable-console-print!)
 
@@ -9,5 +10,9 @@
   [event-id username]
   (let [uri (str "http://localhost:3030/api/events/" event-id "/users")]
     (p/branch (http/post uri {:name username})
-              #(println (str "[HTTP-RESPONSE] " (http/decode %)))
-              #(println (str "[HTTP-ERROR] " %)))))
+              (fn [res]
+                (->> res
+                     (http/decode)
+                     (->kwrds)
+                     (swap! d/state assoc :me)))
+              #(println (str "[HTTP-ERROR]>> " %)))))

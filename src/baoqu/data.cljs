@@ -2,7 +2,15 @@
 
 (defn get-initial-state
   []
-  ;; {:event {} :circles [] :participants [] :session {} :active-section "map"})
+  {:event {}
+   :me {}
+   :circles []
+   :participants []
+   :session {}
+   :active-section "map"})
+
+(defn get-old-state
+  []
   {:event {:id 1
            :name "Ciclismo en la Guindalera, una discusión abierta."
            :circle-size 3
