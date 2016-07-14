@@ -164,7 +164,7 @@
       [:span {:class "expander js-expand-comments"}
         [:i {:class "icon-header fa fa-lg fa-comments"}]
       ]
-      [:div.title (str num-comments " comentariosss")]
+      [:div.title (str num-comments " comentarios")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right js-collapse-comments"}]]]
 
