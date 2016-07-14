@@ -29,9 +29,11 @@
 
 (defmethod process-message :comment
   [msg]
-  (->> msg
-       (:data)
-       (println "[SSE] COMMENT > ")))
+  (let [data (:data msg)
+        milis (get data "date")
+        date (str (js/Date. milis))
+        new-data (assoc data "date" date)]
+    (println "[SSE] COMMENT > " new-data)))
 
 (defmethod process-message :new-idea
   [msg]
