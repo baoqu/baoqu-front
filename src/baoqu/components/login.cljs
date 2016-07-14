@@ -20,13 +20,16 @@
   (let [state (rum/react d/state)
         username (get-in state [:form :username])]
     [:div.login-wrapper
-     [:div.login
       [:div#mainHeader
         [:div.logo-icon]
         [:h1.logo "Baoqu"]
       ]
-      [:h3 "Evento"]
-      [:h2 (get-in state [:event :name])]
+     [:div.login
+      [:div.event-info
+        [:h3 "Evento"]
+        [:h2 (get-in state [:event :name])]
+        [:p "El Ayuntamiento (Urbanismo y Transportes), Vecinos y Colectivos se han de reunir para trazar un plan a largo plazo para la progresiva incorporación de la bicicleta como medio de transporte"]
+      ]
       [:div.input-box
        [:input {:class "bt" :placeholder "Aquí tu nombre"
                 :on-change (fu/change-in-form :username)

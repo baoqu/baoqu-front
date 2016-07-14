@@ -10,16 +10,15 @@
   align-items: center;
   justify-content: center;
   color: $color-white;
-}
-.login {
-  width: 50%;
-  margin-top: -3%;
-
   #mainHeader {
     position: absolute;
     top: 0;
     left: 0;
   }
+}
+.login {
+  width: 50%;
+  margin-top: -3%;
 
   h2 {
     font-size: $fs44;
