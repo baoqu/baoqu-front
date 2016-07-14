@@ -23,4 +23,29 @@ $(document).ready(function(){
     $(".event-wrapper").removeClass("comments-collapsed");
   });
 
+  // Show circles info
+  $('body').delegate('.js-circle-root','mouseenter mouseleave', function(e) {
+
+    // time
+
+    // position
+    if (e.type == 'mouseenter') {
+
+      $(this).find('> .js-context-info').addClass('info-shown');
+
+      $(this).find('> .js-context-info')
+      .position({
+        my: "center bottom+5%",
+        at: "center top+5%",
+        of: $(this),
+        collision: "flipfit flipfit",
+        within: ".map-circles-view"
+      });
+
+    } else {
+      $(this).find('> .js-context-info').removeClass('info-shown');
+    }
+  });
+
+
 });

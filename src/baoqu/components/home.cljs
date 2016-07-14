@@ -214,9 +214,9 @@
         inner-circles-ids (into #{} (:inner-circles circle))
         inner-circles (when inner-circles-ids
                         (filter (comp inner-circles-ids :id) circles))]
-    [:div.circle {:class (str "c-lv" (:level circle) " " (when (nil? parent) "root"))
+    [:div.circle {:class (str "c-lv" (:level circle) " " (when (nil? parent) "root js-circle-root"))
                   :key (str (:id circle))}
-     [:div.context-info
+     [:div.context-info.js-context-info
       [:div.circle-title (:name circle)
        [:span.tag (str "Nivel " (:level circle))]
        ]
@@ -267,9 +267,9 @@
         inner-circles-ids (into #{} (:inner-circles circle))
         inner-circles (when inner-circles-ids
                         (filter (comp inner-circles-ids :id) circles))]
-    [:div.circle.my-circle {:class (str "c-lv" (:level circle) " " (when (nil? parent) "root"))
+    [:div.circle.my-circle {:class (str "c-lv" (:level circle) " " (when (nil? parent) "root js-circle-root"))
                   :key (str (:id circle))}
-     [:div.context-info
+     [:div.context-info.js-context-info
       [:div.circle-title (:name circle)
        [:span.tag (str "Nivel " (:level circle))]
        ]
