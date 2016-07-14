@@ -148,33 +148,32 @@
   (let [state (rum/react d/state)
         comment (fu/get-f :comment)
         event (:event state)
-        circle-id (:circle state)
+        circle (:circle state)
         circles (:circles state)
-        circle (first (filter #(= circle-id (:id %)) circles))
-        num-comments (count (:comments state))]
+        comments (:comments state)
+        num-comments (count comments)]
     [:div.mod-comments
      [:div.mod-header
       [:span {:class "expander js-expand-comments"}
         [:i {:class "icon-header fa fa-lg fa-comments"}]
       ]
-      [:div.title (str num-comments " comentarios")]
+      [:div.title (str num-comments " comentariosss")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right js-collapse-comments"}]]]
 
      [:div.mod-body
       [:ul
-       (for [comment (:comments state)]
-         (let [participants (:participants state)
-               author-id (:author comment)
-               author (first (filter #(= (:id %) author-id) participants))
-               initial (s/upper-case (first (:name author)))]
+       (for [comment comments]
+         (let [author (get comment "name")
+               initial (s/upper-case (first author))
+               body (get comment "body")]
            [:li.mod-comment
             [:div.avatar
              [:div.thumb initial]
              ]
             [:div.content
-             [:div.username (:name author)]
-             [:div.comment (:body comment)]
+             [:div.username author]
+             [:div.comment body]
              ]
             ])
          )
