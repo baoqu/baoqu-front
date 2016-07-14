@@ -113,7 +113,8 @@
       .fa {
         color: $color-gray-medium;
       }
-      &:hover {
+      &:hover,
+      &:focus {
         background: $color-success;
         border-color: $color-success !important;
         .fa {

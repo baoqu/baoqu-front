@@ -148,7 +148,7 @@
       [:input {:placeholder "# Añade una nueva idea"
                :on-change (fu/change-in-form :idea)
                :value idea}]
-      [:span.button {:on-click is/add-idea}
+      [:button.button {:on-click is/add-idea}
        [:i {:class "fa fa-lg fa-plus"}]]]]))
 
 (rum/defc comments < rum/reactive
@@ -191,7 +191,7 @@
       [:input {:placeholder "Comenta"
                :on-change (fu/change-in-form :comment)
                :value comment}]
-      [:span.button {:on-click cs/add-comment}
+      [:button.button {:on-click cs/add-comment}
        [:i {:class "fa fa-lg fa-plus"}]]]]))
 
 (rum/defc workspace < rum/reactive
