@@ -204,7 +204,7 @@
           [:span "Nivel "]
           [:span (get circle "level")]
         ]
-        [:span.tag.my-circle "My circle"]
+        [:span.tag.my-circle "Mi círculo"]
       ]
       [:span.circle-header-exit
         [:span "Salir "]
