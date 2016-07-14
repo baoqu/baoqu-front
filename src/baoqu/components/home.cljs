@@ -135,7 +135,7 @@
              ]
             ]))
        ]
-       [:div.ideas-zero-case
+       [:div.ideas-zero-case.hide
         [:div.inner
           [:p {:class "copy"}
             "Aún no hay ideas en este círculo. Puedes proponer la primera desde aquí mismo."

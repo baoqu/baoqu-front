@@ -83,6 +83,7 @@
     padding: 0 $space-s 0 $space;
     overflow-x: hidden;
     overflow-y: scroll;
+    position: relative;
   }
   .mod-add-box {
     // flex: 0;
@@ -179,20 +180,24 @@
 }
 .ideas-zero-case {
   text-align: center;
-  display: flex;
-  align-content: center;
+  margin-top: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   .inner {
-    max-width: 14rem;
+    max-width: 16rem;
     display: inline-block;
     .copy {
       font-size: $fs16;
       color: $color-gray-medium-dark;
-      text-align: left;
     }
     .fa-hand-o-down {
       color: $color-gray-light;
-      font-size: 4rem;
-      margin-top: 2rem;
+      font-size: 3rem;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
     }
   }
 }
