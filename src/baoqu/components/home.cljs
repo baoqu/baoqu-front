@@ -98,11 +98,13 @@
   []
   (let [state (rum/react d/state)
         idea (fu/get-f :idea)
+        ideas (:ideas state)
         event (:event state)
-        circle-id (:circle state)
+        circle (:circle state)
         circles (:circles state)
-        circle (first (filter #(= circle-id (:id %)) circles))
-        num-ideas (count (:ideas state))]
+        circle-level (get circle "level")
+        circle-size (Math.pow (get circle "size") circle-level)
+        num-ideas (count ideas)]
     [:div.mod-ideas
      [:div.mod-header
       [:span {:class "expander js-expand-ideas"}
@@ -113,15 +115,13 @@
           [:i {:class "fa fa-lg fa-chevron-right js-collapse-ideas"}]]]
      [:div.mod-body
       [:ul
-       (for [idea-it (:ideas state)]
-         (let [circle-size (get-in state [:event :circle-size])
-               idea-id (first idea-it)
-               idea (last idea-it)
-               votes (:votes idea)
-               is-voted (:is-voted idea)
+       (for [idea ideas]
+         (let [idea-id (get idea "id")
+               votes (get idea "votes")
+               is-voted (:is-voted idea) ;; TO BE FIXED
                approval-percentage (* 100 (/ votes circle-size))]
            [:li.mod-idea
-            [:div.idea (:body idea)]
+            [:div.idea (get idea "name")]
             [:div.voting-block
              [:div.votes
               [:div.votes-count (str votes "/" circle-size " apoyos para promocionar el círculo")]
@@ -189,15 +189,13 @@
 (rum/defc workspace < rum/reactive
   []
   (let [state (rum/react d/state)
-        circle-id (:circle state)
-        circles (:circles state)
-        circle (first (filter #(= circle-id (:id %)) circles))]
+        circle (:circle state)]
     [:div.circle-wrapper
      [:div.circle-header
-      [:div.circle-header-title (:name circle)
+      [:div.circle-header-title (str "Círculo " (get circle "id"))
         [:span.tag
           [:span "Nivel "]
-          [:span (:level circle)]
+          [:span (get circle "level")]
         ]
       ]
       [:span.circle-header-exit
