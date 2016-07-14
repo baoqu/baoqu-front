@@ -27,6 +27,8 @@
       font-weight: bold;
       border-radius: 2px;
       text-transform: uppercase;
+    }&.my-circle {
+      background-color: $color-myself;
     }
   }
   .circle-header-exit {
