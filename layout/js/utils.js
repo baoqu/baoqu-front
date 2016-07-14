@@ -36,13 +36,13 @@ $(document).ready(function(){
           my: "center bottom+5%",
           at: "center top+5%",
           of: $(this),
-          collision: "fit fit",
+          collision: "flipfit flipfit",
           within: ".map-circles-view"
         });
 
     } else {
       $(this).find('> .js-context-info').removeClass('info-shown');
-        //.css('top','').css('bottom','').css('left','').css('right','');
+      //.css('top','').css('bottom','').css('left','').css('right','');
     }
   });
 

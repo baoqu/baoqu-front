@@ -144,10 +144,12 @@ Default is 3 because rythm with Andres
   text-align: left;
   z-index: 10;
   position: absolute;
+  /*
   left: 50%;
   top: 50%;
   margin-left: -130px;
   margin-top: -75px;
+  */
   .circle-title {
     font-size: $fs16;
     font-weight: bold;
