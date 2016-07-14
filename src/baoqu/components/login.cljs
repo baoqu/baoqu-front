@@ -19,7 +19,7 @@
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
-        username (get-in state [:form :username])]
+        username (get-in state [:form :username] "")]
     [:div.login-wrapper
       [:div#mainHeader
         [:div.logo-icon]
