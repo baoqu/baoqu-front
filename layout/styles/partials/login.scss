@@ -19,19 +19,29 @@
 .login {
   width: 50%;
   margin-top: -3%;
+  padding: 3rem;
+  background-color: $color-white;
+  box-sizing: border-box;
 
   h2 {
     font-size: $fs44;
-    margin-bottom: $space-xl;
+    margin-bottom: $space;
+    color: $color-gray-dark;
   }
   h3 {
     font-size: $fs24;
     opacity: 0.7;
     text-transform: uppercase;
+    color: $color-gray-medium;
+  }
+  p {
+    font-size: $fs18;
+    color: $color-gray-medium-dark;
   }
 
   .input-box{
     display: flex;
+    margin-top: 3rem;
     input {
       width: 40%;
       height: 4.4rem;
@@ -39,22 +49,23 @@
       padding-right: 1rem;
       font-size: $fs24;
       &:focus {
-        border-color: $color-success;
+        border-color: $color-success-dark;
       }
     }
     button {
       width: 20%;
       height: 4.4rem;
       margin-left: $space;
-      background-color: transparent;
+      background-color: $color-success;
       color: $color-white;
       font-size: $fs24;
       font-weight: bold;
+      /*border: 2px solid $color-white;*/
       border: 2px solid $color-white;
       border-radius: $radius;
       cursor: pointer;
       &:hover {
-        background-color: $color-success-dark;
+        background-color: $color-success;
       }
     }
 
@@ -84,6 +95,9 @@
     h3 {
       font-size: $fs20;
     }
+    p {
+      font-size: $fs16;
+    }
     .input-box {
       margin-top: $space-xl;
       input {
@@ -106,6 +120,9 @@
     }
     h3 {
       font-size: $fs16;
+    }
+    p {
+      font-size: $fs14;
     }
     .input-box {
       flex-direction: column;
