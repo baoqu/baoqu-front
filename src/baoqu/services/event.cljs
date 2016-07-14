@@ -12,7 +12,7 @@
 
 (defn join-event []
   (let [username (get-in @d/state [:session :username])
-        uri "http://localhost:5050/api/events/1/users"]
+        uri "http://localhost:3030/api/events/1/users"]
     (p/branch (http/send! client
                           {:method :post
                            :url uri

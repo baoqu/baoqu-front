@@ -5,9 +5,9 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.8.51"]
-                 [rum "0.6.0"]
-                 [bidi "1.23.1"]
-                 [funcool/httpurr "0.2.0"]
+                 [rum "0.10.4"]
+                 [bidi "2.0.9"]
+                 [funcool/httpurr "0.6.1"]
                  [com.cognitect/transit-cljs "0.8.232"]]
   :plugins [[lein-figwheel "0.5.4-7"]]
   :cljsbuild {:builds [{:id "dev"
