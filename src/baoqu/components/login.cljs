@@ -11,8 +11,6 @@
 (defn login-action []
   (let [username (fu/get-f :username)]
     (event-service/join-event 1 username)
-    ;; hardcoded
-    (swap! d/state assoc-in [:session :username] username)
     (routes/go :home)
     (fu/empty-form)))
 

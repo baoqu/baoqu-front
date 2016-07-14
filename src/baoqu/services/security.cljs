@@ -3,6 +3,6 @@
 
 (defn get-username
   []
-  (get-in @d/state [:session :username]))
+  (get-in @d/state [:me :name]))
 
 (def is-authenticated? (comp boolean get-username))

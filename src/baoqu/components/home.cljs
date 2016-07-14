@@ -87,7 +87,7 @@
 (rum/defc footer < rum/reactive
   []
   (let [state (rum/react d/state)
-        username (get-in state [:session :username])
+        username (get-in state [:me :name])
         initial (s/upper-case (first username))]
     ;; [:div#mainFooter "user movidas"]
     [:div#user
