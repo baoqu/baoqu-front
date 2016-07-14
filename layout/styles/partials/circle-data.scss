@@ -177,6 +177,25 @@
     }
   }
 }
+.ideas-zero-case {
+  text-align: center;
+  display: flex;
+  align-content: center;
+  .inner {
+    max-width: 14rem;
+    display: inline-block;
+    .copy {
+      font-size: $fs16;
+      color: $color-gray-medium-dark;
+      text-align: left;
+    }
+    .fa-hand-o-down {
+      color: $color-gray-light;
+      font-size: 4rem;
+      margin-top: 2rem;
+    }
+  }
+}
 
 
 // COLLAPSING IDEAS & COMMENTS (only desktop)

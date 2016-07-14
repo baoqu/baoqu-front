@@ -135,6 +135,14 @@
              ]
             ]))
        ]
+       [:div.ideas-zero-case
+        [:div.inner
+          [:p {:class "copy"}
+            "Aún no hay ideas en este círculo. Puedes proponer la primera desde aquí mismo."
+          ]
+          [:i {:class "fa fa-lg fa-hand-o-down"}]
+        ]
+       ]
       ]
      [:div.mod-add-box
       [:input {:placeholder "# Añade una nueva idea"
