@@ -11,15 +11,13 @@
 (defn login-action []
   (let [username (fu/get-f :username)]
     (event-service/join-event 1 username)
-    ;; hardcoded
-    (swap! d/state assoc-in [:session :username] username)
     (routes/go :home)
     (fu/empty-form)))
 
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
-        username (get-in state [:form :username])]
+        username (get-in state [:form :username] "")]
     [:div.login-wrapper
       [:div#mainHeader
         [:div.logo-icon]

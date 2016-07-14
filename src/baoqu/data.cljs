@@ -6,7 +6,6 @@
    :me {}
    :circles []
    :participants []
-   :session {}
    :active-section "map"})
 
 (defn get-old-state
