@@ -18,6 +18,4 @@
         new-comment {:id "x" :body body :author (:id author) :date "xy"}]
     (add-comment-req username circle-id body)
     (swap! d/state update :comments conj new-comment)
-    (println "GONNA CLEAN THE COMMENT")
-    (println (fu/get-f :comment))
     (fu/empty-f :comment)))

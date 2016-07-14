@@ -29,9 +29,11 @@
 
 (defmethod process-message :comment
   [msg]
-  (->> msg
-       (:data)
-       (println "[SSE] COMMENT > ")))
+  (let [data (:data msg)
+        milis (get data "date")
+        date (str (js/Date. milis))
+        new-data (assoc data "date" date)]
+    (println "[SSE] COMMENT > " new-data)))
 
 (defmethod process-message :new-idea
   [msg]
@@ -53,6 +55,5 @@
   "Connects the frontend with the backend sse. Returns the SSE connection"
   []
   (->>
-   (js-obj "withCredentials" true)
    (js/EventSource. sse-url)
    (add-listeners)))
