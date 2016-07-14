@@ -81,11 +81,16 @@ $circle-margin: 2%;
   &.my-circle.agreed {
     box-shadow: 0 0 0 4px rgba(249,120, 163, 0.4), inset 0 0 0 3px $color-success !important; //#c2288a
   }
-  &:hover {
-    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.4);
-    z-index: 7;
+}
+// hover state only in root, wich is the one that will show the info window
+.circle.root:hover {
+  box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.6);
+  z-index: 7;
+  &.c-lv1 {
+    box-shadow: 0 0 0 12px rgba(255, 255, 255, 0.6);
   }
 }
+
 
 
 // CIRCLE SIZES
