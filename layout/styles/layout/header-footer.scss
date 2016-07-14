@@ -34,6 +34,7 @@
 
 @include bp(medium) {
   .logo { display: none !important; }
+  .login-wrapper .logo { display: block !important; margin-left: 0.5rem !important; }
   .logo-icon { margin-right: 0 !important; }
   .event-name {
     font-size: $fs18 !important;
