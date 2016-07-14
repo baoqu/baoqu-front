@@ -13,19 +13,19 @@
 (rum/defc notifications < rum/reactive
   []
   (let [state (rum/react d/state)
-  active-section (:active-section state)
-  active-notification (:active-notification state)]
-  [:div.notifications
-    [:div.notification.success {:class (if (= active-notification "success") "active" "")} "Yay!"
+        active-section (:active-section state)
+        active-notification (:active-notification state)]
+    [:div.notifications
+     [:div.notification.success {:class (if (= active-notification "success") "active" "")} "Yay!"
       [:div.fa.fa-close]
-    ]
-    [:div.notification.error {:class (if (= active-notification "error") "active" "")} "Nay!"
+      ]
+     [:div.notification.error {:class (if (= active-notification "error") "active" "")} "Nay!"
       [:div.fa.fa-close]
-    ]
-    [:div.notification.info {:class (if (= active-notification "info") "active" "")} " ¯|_(ツ)_|¯ "
+      ]
+     [:div.notification.info {:class (if (= active-notification "info") "active" "")} " ¯|_(ツ)_|¯ "
       [:div.fa.fa-close]
-    ]
-  ]))
+      ]
+     ]))
 
 
 (rum/defc header < rum/reactive

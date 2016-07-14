@@ -8,8 +8,7 @@
             [baoqu.form-utils :as fu]))
 
 (defn login-action []
-  (let [username (get-in @d/state [:form :username])]
-
+  (let [username (fu/get-f :username)]
     ;; hardcoded
     (swap! d/state assoc-in [:session :username] username)
     (routes/go :home)
