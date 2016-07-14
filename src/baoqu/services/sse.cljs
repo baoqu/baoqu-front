@@ -1,5 +1,6 @@
 (ns baoqu.services.sse
-  (:require [baoqu.config :refer [cfg]]))
+  (:require [baoqu.config :refer [cfg]]
+            [baoqu.services.idea :as is]))
 
 (enable-console-print!)
 
@@ -42,15 +43,17 @@
 
 (defmethod process-message :upvote
   [msg]
-  (->> msg
-       (:data)
-       (println "[SSE] UPVOTE > ")))
+  (let [data (:data msg)
+        idea-id (get-in data ["idea" "id"])]
+    (is/react-to-upvote idea-id)
+    (println "[SSE] UPVOTE > " data)))
 
 (defmethod process-message :downvote
   [msg]
-  (->> msg
-       (:data)
-       (println "[SSE] DOWNVOTE > ")))
+  (let [data (:data msg)
+        idea-id (get-in data ["idea" "id"])]
+    (is/react-to-downvote idea-id)
+    (println "[SSE] DOWNVOTE > " data)))
 
 (defmethod process-message :default
   [msg]

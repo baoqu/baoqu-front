@@ -15,6 +15,14 @@
     (swap! d/state update :ideas merge {new-id new-idea})
     (fu/empty-f :idea)))
 
+(defn react-to-upvote
+  [id]
+  (swap! d/state update-in [:ideas id "votes"] inc))
+
+(defn react-to-downvote
+  [id]
+  (swap! d/state update-in [:ideas id "votes"] dec))
+
 (defn toggle-idea-vote
   [id]
   (fn []
@@ -23,10 +31,6 @@
           idea-name (get-in @d/state [:ideas id "name"])
           data {:user-id user-id :idea-name idea-name}]
       (if voted?
-        (do
-          (swap! d/state update-in [:ideas id "votes"] dec)
-          (http/post (str (:server cfg) "/api/ideas/downvote") data))
-        (do
-          (swap! d/state update-in [:ideas id "votes"] inc)
-          (http/post (str (:server cfg) "/api/ideas/upvote") data)))
+        (http/post (str (:server cfg) "/api/ideas/downvote") data)
+        (http/post (str (:server cfg) "/api/ideas/upvote") data))
       (swap! d/state update-in [:ideas id "voted?"] not))))
