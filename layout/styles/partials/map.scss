@@ -21,10 +21,10 @@
   overflow-y: auto;
   text-align: center;
   background: #cde1e8;
-  display: flex;
+  /*display: flex;
   flex-wrap: wrap;
   align-items: center;
-  align-content: center;
+  align-content: center;*/
   &::-webkit-scrollbar-thumb {
     background-color: $color-gray-lighter;
   }

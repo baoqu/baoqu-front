@@ -36,7 +36,7 @@ $(document).ready(function(){
           my: "center bottom+5%",
           at: "center top+5%",
           of: $(this),
-          collision: "flipfit flipfit",
+          collision: "fit fit",
           within: ".map-circles-view"
         });
 
