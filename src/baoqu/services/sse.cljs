@@ -55,6 +55,5 @@
   "Connects the frontend with the backend sse. Returns the SSE connection"
   []
   (->>
-   (js-obj "withCredentials" true)
    (js/EventSource. sse-url)
    (add-listeners)))
