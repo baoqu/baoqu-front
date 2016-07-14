@@ -43,9 +43,12 @@
      [:div#mainHeader
        [:div.logo-icon]
        [:h1.logo "Baoqu"]
-      [:div.event-name (:name event)]
+       [:div.event-name (:name event)]
+       [:div.event-info-toggle.js-event-info-toggle {:data-balloon-pos "left" :data-balloon "Información del evento"}
+        [:div.fa.fa-plus]
+       ]
       (letfn [(change-notification [notification] #(swap! d/state assoc :active-notification notification))]
-        [:div.test-notifications
+        [:div.test-notifications.hide
           [:div.fa.fa-send
             [:ul
               [:li {:on-click (change-notification "success")} "success"]
@@ -56,9 +59,14 @@
         ]
       )
       (letfn [(change-modal [modal] #(swap! d/state assoc :active-modal modal))]
-        [:i.fa.fa-lg.fa-windows {:on-click (change-modal "show") :style {:margin-right "30px" :cursor "pointer"}}]
+        [:i.fa.fa-lg.fa-windows.hide {:on-click (change-modal "show") :style {:margin-right "30px" :cursor "pointer"}}]
       )
      ]
+
+     [:div.header-event-info.js-event-info
+      [:div.inner "El Ayuntamiento (Urbanismo y Transportes), Vecinos y Colectivos se han de reunir para trazar un plan a largo plazo para la progresiva incorporación de la bicicleta como medio de transporte"]
+      ]
+
      (letfn [(change-section [section] #(swap! d/state assoc :active-section section))]
        [:ul.mobile-menu
         [:li {:class (if (= active-section "map") "active" "") :on-click (change-section "map")}

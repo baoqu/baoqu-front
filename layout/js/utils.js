@@ -46,5 +46,14 @@ $(document).ready(function(){
     }
   });
 
+  // Display event info description
+  $("body").delegate(".js-event-info-toggle", "click", function() {
+    // $(".js-event-info").toggleClass("expanded");
+    $(this).toggleClass("expanded");
+    $(".js-event-info").slideToggle('200',"swing", function () {
+      // Animation complete.
+    });
+  });
+
 
 });

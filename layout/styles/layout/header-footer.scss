@@ -29,7 +29,26 @@
     margin-left: $space;
     border-left: 1px solid rgba(255,255,255,0.3);
   }
+}
 
+.event-info-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+.header-event-info {
+  font-size: $fs16;
+  color: $color-white;
+  background-color: $color-primary;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  display: none;
+  .inner {
+    padding: 1rem;
+  }
+  &.expanded {
+    height: auto;
+  }
 }
 
 @include bp(medium) {
