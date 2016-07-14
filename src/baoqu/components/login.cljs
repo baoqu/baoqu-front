@@ -5,10 +5,12 @@
             [httpurr.client.xhr :as hc]
             [baoqu.data :as d]
             [baoqu.routes :as routes]
-            [baoqu.form-utils :as fu]))
+            [baoqu.form-utils :as fu]
+            [baoqu.services.event :as event-service]))
 
 (defn login-action []
   (let [username (fu/get-f :username)]
+    (event-service/join-event 1 username)
     ;; hardcoded
     (swap! d/state assoc-in [:session :username] username)
     (routes/go :home)

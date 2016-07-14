@@ -1,6 +1,5 @@
 (ns baoqu.components.home
   (:require [rum.core :as rum]
-            [baoqu.services.event :as event]
             [baoqu.data :as d]
             [baoqu.mixins :as mixins]
             [baoqu.form-utils :as fu]
@@ -399,8 +398,6 @@
 (rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-see-mixin
   "The main component for the home screen"
   []
-  ;;(event/join-event)
-
   [:div.page
    (notifications)
    (header)
