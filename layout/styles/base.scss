@@ -6,9 +6,8 @@ body {
   color: $color-gray-dark;
   display: flex;
   flex-direction: column;
-  font-family: Arial, sans-serif;
-  /*font-family: "Open Sans", Arial, sans-serif;
-  letter-spacing: -0.2px;*/
+  font-family: "Open Sans", Arial, sans-serif;
+  letter-spacing: -0.2px;
 
   &.fix-body {
     height: 100%;
