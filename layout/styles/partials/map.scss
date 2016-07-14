@@ -26,6 +26,7 @@
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
+  justify-content: center;
   &::-webkit-scrollbar-thumb {
     background-color: $color-gray-lighter;
   }
@@ -99,10 +100,15 @@ $circle-margin: 2%;
 
 
 // CIRCLE SIZES
-
+/*
 $size-lv1: 80px;
 $size-lv2: 240px;
 $size-lv3: 500px;
+*/
+
+$size-lv1: 116px;
+$size-lv2: 320px;
+$size-lv3: 600px;
 
 .c-lv1 {
   width: $size-lv1;
@@ -222,44 +228,44 @@ Default is 3 because rythm with Andres
 
 @include bp(large) {
   .c-lv1 {
-    width: 60px;
-    height: 60px;
+    width: $size-lv1*0.90;
+    height: $size-lv1*0.90;
   }
   .c-lv2 {
-    width: 180px;
-    height: 180px;
+    width: $size-lv2*0.90;
+    height: $size-lv2*0.90;
   }
   .c-lv3 {
-    width: 320px;
-    height: 320px;
+    width: $size-lv3*0.90;
+    height: $size-lv3*0.90;
   }
 }
 @include bp(medium) {
   .c-lv1 {
-    width: 60px;
-    height: 60px;
+    width: $size-lv1*0.85;
+    height: $size-lv1*0.85;
   }
   .c-lv2 {
-    width: 180px;
-    height: 180px;
+    width: $size-lv2*0.85;
+    height: $size-lv2*0.85;
   }
   .c-lv3 {
-    width: 320px;
-    height: 320px;
+    width: $size-lv3*0.85;
+    height: $size-lv3*0.85;
   }
 }
 @include bp(small) {
   .c-lv1 {
-    width: 40px;
-    height: 40px;
+    width: $size-lv1*0.75;
+    height: $size-lv1*0.75;
   }
   .c-lv2 {
-    width: 120px;
-    height: 120px;
+    width: $size-lv2*0.75;
+    height: $size-lv2*0.75;
   }
   .c-lv3 {
-    width: 300px;
-    height: 300px;
+    width: $size-lv3*0.75;
+    height: $size-lv3*0.75;
   }
 }
 
