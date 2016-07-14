@@ -28,7 +28,7 @@
      [:div.login
       [:div.event-info
         [:h3 "Evento"]
-        [:h2 (get-in state [:event :name])]
+        [:h2 "Ciclismo en la Guindalera, una discusión abierta"]
         [:p "El Ayuntamiento (Urbanismo y Transportes), Vecinos y Colectivos se han de reunir para trazar un plan a largo plazo para la progresiva incorporación de la bicicleta como medio de transporte"]
       ]
       [:div.input-box
