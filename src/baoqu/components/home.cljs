@@ -369,14 +369,8 @@
         ]
       ]
       [:div {:class "map-circles-view"}
-        [:div {:class "circle my-circle c-lv1 c-c4 REMOVE"}
-          [:div {:class "circle"}]
-          [:div {:class "circle"}]
-          [:div {:class "circle"}]
-          [:div {:class "circle"}]
-        ]
      (for [level (reverse (range 1 4))]
-       (let [parent-circles (filter #(and (= (get % "level") level) (nil? (:parent-circle %))) all-circles)]
+       (let [parent-circles (filter #(and (= (get % "level") level) (nil? (get % "parent-circle-id"))) all-circles)]
          (for [circle parent-circles]
            (a-circle circle))))
            ]
