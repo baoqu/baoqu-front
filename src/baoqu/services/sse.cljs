@@ -1,7 +1,8 @@
 (ns baoqu.services.sse
   (:require [baoqu.config :refer [cfg]]
             [baoqu.services.idea :as is]
-            [baoqu.services.comment :as cs]))
+            [baoqu.services.comment :as cs]
+            [baoqu.services.event :as es]))
 
 (enable-console-print!)
 
@@ -53,6 +54,14 @@
         user-id (get-in data ["user" "id"])]
     (is/react-to-downvote idea-id user-id)
     (println "[SSE] DOWNVOTE > " data)))
+
+(defmethod process-message :grow
+  [msg]
+  (es/reload-event-data))
+
+(defmethod process-message :shrink
+  [msg]
+  (es/reload-event-data))
 
 (defmethod process-message :default
   [msg]
