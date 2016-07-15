@@ -4,19 +4,15 @@
             [baoqu.services.http :as http]
             [baoqu.config :refer [cfg]]))
 
-(defn add-comment-req
-  [username circle-id body]
-  (let [url (str (:server cfg) "/api/circles/" circle-id "/comments")
-        data {:name username :comment-body body}]
-    (http/post url data)))
+(defn react-to-comment
+  [comment]
+  (swap! d/state update :comments merge comment))
 
-(defn add-comment
+(defn add-comment-req
   []
-  (let [username (get-in @d/state [:session :username])
+  (let [name (get-in @d/state [:me :name])
         circle-id (:circle @d/state)
-        author (first (filter #(= username (:name %)) (:participants @d/state)))
         body (fu/get-f :comment)
-        new-comment {:id "x" :body body :author (:id author) :date "xy"}]
-    (add-comment-req username circle-id body)
-    (swap! d/state update :comments conj new-comment)
+        data {:name name :comment-body body}]
+    (http/post (str (:server cfg) "/api/circles/" circle-id "/comments") data)
     (fu/empty-f :comment)))

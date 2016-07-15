@@ -1,6 +1,7 @@
 (ns baoqu.services.sse
   (:require [baoqu.config :refer [cfg]]
-            [baoqu.services.idea :as is]))
+            [baoqu.services.idea :as is]
+            [baoqu.services.comment :as cs]))
 
 (enable-console-print!)
 
@@ -33,6 +34,7 @@
         milis (get data "date")
         date (str (js/Date. milis))
         new-data (assoc data "date" date)]
+    (cs/react-to-comment new-data)
     (println "[SSE] COMMENT > " new-data)))
 
 (defmethod process-message :upvote
