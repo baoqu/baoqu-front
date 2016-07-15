@@ -190,7 +190,7 @@
       [:input {:placeholder "Comenta"
                :on-change (fu/change-in-form :comment)
                :value comment}]
-      [:button.button {:on-click cs/add-comment}
+      [:button.button {:on-click cs/add-comment-req}
        [:i {:class "fa fa-lg fa-plus"}]]]]))
 
 (rum/defc workspace < rum/reactive
