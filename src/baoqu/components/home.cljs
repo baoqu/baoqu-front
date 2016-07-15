@@ -218,7 +218,8 @@
 
 (rum/defc a-circle < rum/static
   [circle]
-  (let [level (get circle "level")
+  (let [users (get circle "users")
+        level (get circle "level")
         circle-size (get-in @d/state [:event :circle-size])
         circles (:circles @d/state)
         percentage (* 100 (/ (:most-popular-idea-votes circle) (* circle-size level)))
@@ -259,8 +260,8 @@
        ]
       ]
      (if (= level 1)
-       (for [participant (:participants circle)]
-         [:div.circle])
+       (repeat users
+           [:div.circle])
        (for [inner-circle inner-circles]
          (let [my-circle? (= (:id inner-circle) (:circle @d/state))]
            (if my-circle?
@@ -270,7 +271,8 @@
 
 (rum/defc my-circle < rum/static
   [circle]
-  (let [level (:level circle)
+  (let [level (get circle "level")
+        users (get circle "users")
         circle-size (get-in @d/state [:event :circle-size])
         circles (:circles @d/state)
         percentage (* 100 (/ (:most-popular-idea-votes circle) circle-size))
@@ -311,17 +313,16 @@
         ]
        ]
       ]
-     (if (= (:level circle) 1)
-       (let [size (get-in @d/state [:event :circle-size])
+     (if (= level 1)
+       (let [;; old stuff in let vvv
+             size (get-in @d/state [:event :circle-size])
              most-popular-idea-votes (apply max (map (comp :votes last) (:ideas @d/state)))
              delta (- size most-popular-idea-votes)
              has-voted-vector (concat (repeat most-popular-idea-votes true) (repeat delta false))]
-         (for [has-voted? has-voted-vector]
-           (if has-voted?
-             [:div.circle.agreed]
-             [:div.circle])))
+;         (repeat users
+;                 [:div.circle])
        (for [inner-circle inner-circles]
-         (a-circle inner-circle)))
+         (a-circle inner-circle))))
      ]))
 
 (rum/defc the-map < rum/reactive
