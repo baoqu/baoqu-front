@@ -16,12 +16,18 @@
     (fu/empty-f :idea)))
 
 (defn react-to-upvote
-  [id]
-  (swap! d/state update-in [:ideas id "votes"] inc))
+  [id user-id]
+  (let [my-id (get-in @d/state [:me :id])]
+    (if (= my-id user-id)
+      (swap! d/state update-in [:ideas id "voted?"] not))
+    (swap! d/state update-in [:ideas id "votes"] inc)))
 
 (defn react-to-downvote
-  [id]
-  (swap! d/state update-in [:ideas id "votes"] dec))
+  [id user-id]
+  (let [my-id (get-in @d/state [:me :id])]
+    (if (= my-id user-id)
+      (swap! d/state update-in [:ideas id "voted?"] not))
+    (swap! d/state update-in [:ideas id "votes"] dec)))
 
 (defn toggle-idea-vote
   [id]
@@ -32,5 +38,4 @@
           data {:user-id user-id :idea-name idea-name}]
       (if voted?
         (http/post (str (:server cfg) "/api/ideas/downvote") data)
-        (http/post (str (:server cfg) "/api/ideas/upvote") data))
-      (swap! d/state update-in [:ideas id "voted?"] not))))
+        (http/post (str (:server cfg) "/api/ideas/upvote") data)))))

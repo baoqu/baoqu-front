@@ -44,15 +44,17 @@
 (defmethod process-message :upvote
   [msg]
   (let [data (:data msg)
-        idea-id (get-in data ["idea" "id"])]
-    (is/react-to-upvote idea-id)
+        idea-id (get-in data ["idea" "id"])
+        user-id (get-in data ["user" "id"])]
+    (is/react-to-upvote idea-id user-id)
     (println "[SSE] UPVOTE > " data)))
 
 (defmethod process-message :downvote
   [msg]
   (let [data (:data msg)
-        idea-id (get-in data ["idea" "id"])]
-    (is/react-to-downvote idea-id)
+        idea-id (get-in data ["idea" "id"])
+        user-id (get-in data ["user" "id"])]
+    (is/react-to-downvote idea-id user-id)
     (println "[SSE] DOWNVOTE > " data)))
 
 (defmethod process-message :default
