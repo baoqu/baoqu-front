@@ -35,17 +35,12 @@
         new-data (assoc data "date" date)]
     (println "[SSE] COMMENT > " new-data)))
 
-(defmethod process-message :new-idea
-  [msg]
-  (->> msg
-       (:data)
-       (println "[SSE] NEW-IDEA > ")))
-
 (defmethod process-message :upvote
   [msg]
   (let [data (:data msg)
         idea-id (get-in data ["idea" "id"])
         user-id (get-in data ["user" "id"])]
+    (is/add-idea-if-new (get data "idea"))
     (is/react-to-upvote idea-id user-id)
     (println "[SSE] UPVOTE > " data)))
 

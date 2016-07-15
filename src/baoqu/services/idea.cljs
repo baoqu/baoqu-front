@@ -6,13 +6,22 @@
 
 (enable-console-print!)
 
-(defn add-idea
+(defn add-idea-if-new
+  [idea]
+  (let [ideas (:ideas @d/state)
+        idea-id (get idea "id")
+        ideas-ids (into #{} (for [[k v] ideas] k))
+        my-id (get-in @d/state [:me :id])
+        mine? (= my-id (get-in idea ["user" "id"]))]
+    (if-not (boolean (ideas-ids idea-id))
+      (swap! d/state update :ideas merge {idea-id idea}))))
+
+(defn add-idea-req
   []
   (let [body (fu/get-f :idea)
-        ideas (:ideas @d/state)
-        new-id (inc (apply max (map first ideas)))
-        new-idea {:id new-id :body body :votes 1 :is-voted true}]
-    (swap! d/state update :ideas merge {new-id new-idea})
+        user-id (get-in @d/state [:me :id])
+        data {:user-id user-id :idea-name body}]
+    (http/post (str (:server cfg) "/api/ideas/upvote") data)
     (fu/empty-f :idea)))
 
 (defn react-to-upvote
@@ -29,7 +38,7 @@
       (swap! d/state update-in [:ideas id "voted?"] not))
     (swap! d/state update-in [:ideas id "votes"] dec)))
 
-(defn toggle-idea-vote
+(defn toggle-idea-vote-req
   [id]
   (fn []
     (let [voted? (get-in @d/state [:ideas id "voted?"])

@@ -129,8 +129,8 @@
                ]
               ]
              (if voted?
-               [:div.btn.btn-success {:on-click (is/toggle-idea-vote idea-id)} "Apoyada"]
-               [:div.btn.btn-gray {:on-click (is/toggle-idea-vote idea-id)} "Apoyar"])
+               [:div.btn.btn-success {:on-click (is/toggle-idea-vote-req idea-id)} "Apoyada"]
+               [:div.btn.btn-gray {:on-click (is/toggle-idea-vote-req idea-id)} "Apoyar"])
              ]
             ]))
        ]
@@ -147,7 +147,7 @@
       [:input {:placeholder "# Añade una nueva idea"
                :on-change (fu/change-in-form :idea)
                :value idea}]
-      [:button.button {:on-click is/add-idea}
+      [:button.button {:on-click is/add-idea-req}
        [:i {:class "fa fa-lg fa-plus"}]]]]))
 
 (rum/defc comments < rum/reactive
