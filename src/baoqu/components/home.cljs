@@ -110,7 +110,7 @@
       [:span {:class "expander js-expand-ideas"}
         [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
       ]
-      [:div.title (str num-ideas " ideas")]
+      [:div.title (str "Ideas (" num-ideas ")")]
         [:span.toggle
           [:i {:class "fa fa-lg fa-chevron-right js-collapse-ideas"}]]]
      [:div.mod-body
@@ -164,7 +164,7 @@
       [:span {:class "expander js-expand-comments"}
         [:i {:class "icon-header fa fa-lg fa-comments"}]
       ]
-      [:div.title (str num-comments " comentarios")]
+      [:div.title (str "Comentarios (" num-comments ")")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right js-collapse-comments"}]]]
 
