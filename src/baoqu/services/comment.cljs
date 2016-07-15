@@ -11,7 +11,7 @@
 (defn add-comment-req
   []
   (let [name (get-in @d/state [:me :name])
-        circle-id (:circle @d/state)
+        circle-id (get-in @d/state [:circle "id"])
         body (fu/get-f :comment)
         data {:name name :comment-body body}]
     (http/post (str (:server cfg) "/api/circles/" circle-id "/comments") data)
