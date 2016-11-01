@@ -99,20 +99,16 @@
       (ideas/main)
       (comments/main)]]))
 
-(rum/defc container < rum/reactive
-  []
-  (let [state (rum/react d/state)
-        active-section (:active-section state)]
-    [:div.container.event-wrapper {:class (str "mobile-show-" active-section)}
-     (circles/the-map)
-     (workspace)]))
-
 (rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-see-mixin
   "The main component for the home screen"
   []
-  [:div.page
-   (notifications/top)
-   (header)
-   (container)
-   (footer)
-   (notifications/modaltesting)])
+  (let [state (rum/react d/state)
+        active-section (:active-section state)]
+    [:div.page
+     (notifications/top)
+     (header)
+     [:div.container.event-wrapper {:class (str "mobile-show-" active-section)}
+      (circles/the-map)
+      (workspace)]
+     (footer)
+     (notifications/modaltesting)]))
