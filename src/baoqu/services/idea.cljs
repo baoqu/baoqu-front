@@ -26,7 +26,8 @@
   (let [body (fu/get-f :idea)
         user-id (get-in @d/state [:me :id])
         data {:user-id user-id :idea-name body}]
-    (http/post (str (:server cfg) "/api/ideas/upvote") data)
+    (if-not (idea-exists? body)
+      (http/post (str (:server cfg) "/api/ideas/upvote") data))
     (fu/empty-f :idea)))
 
 (defn react-to-upvote
