@@ -1,14 +1,13 @@
 # baoqu
 
-A Clojure library designed to ... well, that part is up to you.
+## Generate assets
 
-## Usage
+```sh
+(cd layout && gulp)
+```
 
-FIXME
+## Compile and run the application
 
-## License
-
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+```sh
+lein figwheel
+```
