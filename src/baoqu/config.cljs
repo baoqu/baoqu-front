@@ -1,3 +1,3 @@
 (ns baoqu.config)
 
-(def cfg {:server "http://10.8.1.117:3030"})
+(def cfg {:server "http://127.0.0.1:3000"})
