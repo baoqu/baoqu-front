@@ -5,12 +5,12 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.8.51"]
-                 [rum "0.10.4"]
-                 [bidi "2.0.9"]
+                 [rum "0.10.7"]
+                 [bidi "2.0.13"]
                  [funcool/httpurr "0.6.1"]
                  [com.cognitect/transit-cljs "0.8.232"]]
-  :plugins [[lein-figwheel "0.5.4-7"]
-            [lein-cljsbuild "1.1.3"]]
+  :plugins [[lein-figwheel "0.5.8"]
+            [lein-cljsbuild "1.1.4"]]
   :cljsbuild {:builds [{:id "dev"
                         :source-paths ["src/"]
                         :figwheel true
