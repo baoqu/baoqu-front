@@ -6,6 +6,11 @@
 
 (enable-console-print!)
 
+(defn idea-exists?
+  [idea-body]
+  (let [ideas (:ideas @d/state)]
+    (some #(= (get (second %) "name") idea-body) ideas)))
+
 (defn add-idea-if-new
   [idea]
   (let [ideas (:ideas @d/state)
