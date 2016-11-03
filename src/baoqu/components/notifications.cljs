@@ -29,7 +29,7 @@
       [:div.modal-inner
        [:div.modal-title (:title notification)]
        [:div.modal-body (:description notification)]
-       [:i.fa.fa-lg.fa-close.modal-close {:on-click ns/clear-notification}]
+       [:i.fa.fa-2x.fa-close.modal-close {:on-click ns/clear-notification}]
        ]
       ]
      ]
