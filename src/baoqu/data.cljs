@@ -6,7 +6,8 @@
    :me {}
    :circles []
    :participants []
-   :active-section "map"})
+   :active-section "map"
+   :notification {}})
 
 (defn get-old-state
   []

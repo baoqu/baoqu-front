@@ -36,7 +36,8 @@
   "The main component for the home screen"
   []
   (let [state (rum/react d/state)
-        active-section (:active-section state)]
+        active-section (:active-section state)
+        notification (:notification state)]
     [:div.page
      (notifications/top)
      (header/main)
@@ -44,4 +45,5 @@
       (circles/the-map)
       (workspace)]
      (footer/main)
-     (notifications/modaltesting)]))
+     (if-not (empty? notification)
+       (notifications/modaltesting))]))

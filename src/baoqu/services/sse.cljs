@@ -2,7 +2,8 @@
   (:require [baoqu.config :refer [cfg]]
             [baoqu.services.idea :as is]
             [baoqu.services.comment :as cs]
-            [baoqu.services.event :as es]))
+            [baoqu.services.event :as es]
+            [baoqu.services.notification :as ns]))
 
 (enable-console-print!)
 
@@ -54,6 +55,17 @@
         user-id (get-in data ["user" "id"])]
     (is/react-to-downvote idea-id user-id)
     (println "[SSE] DOWNVOTE > " data)))
+
+(defmethod process-message :notification
+  [msg]
+  (let [data (:data msg)
+        title (get data "title")
+        description (get data "description")
+        notification {:title title
+                      :description description
+                      :type :modal}]
+    (ns/set-notification notification)
+    (println "[SSE] NOTIFICATION> (" title ") " description)))
 
 (defmethod process-message :grow
   [msg]
