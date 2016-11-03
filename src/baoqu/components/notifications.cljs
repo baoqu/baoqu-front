@@ -29,7 +29,7 @@
       [:div.modal-inner
        [:div.modal-title (:title notification)]
        [:div.modal-body (:description notification)]
-       [:div.btn.btn-primary.btn-large {:on-click ns/clear-notification} "OK!"]
+       [:div.btn.btn-primary {:on-click ns/clear-notification} "OK!"]
        [:i.fa.fa-2x.fa-close.modal-close {:on-click ns/clear-notification}]
        ]
       ]
