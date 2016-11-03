@@ -7,16 +7,6 @@
 
 (enable-console-print!)
 
-(defn join-event
-  [event-id username]
-  (let [uri (str (:server cfg) "/api/events/" event-id "/users")]
-    (-> (http/post uri {:name username})
-        (p/then (fn [res]
-                  (let [me (-> (http/decode res) (->kwrds))]
-                    (swap! d/state assoc :me me)
-                    (get-event-data event-id))))
-        (p/catch #(println (str "[HTTP-ERROR]>> " %))))))
-
 (defn get-event-data
   [event-id]
   (-> (http/get (str (:server cfg) "/api/events/" event-id))
@@ -45,6 +35,16 @@
       (p/then (fn [res]
                 (let [comments (http/decode res)]
                   (swap! d/state assoc :comments comments))))))
+
+(defn join-event
+  [event-id username]
+  (let [uri (str (:server cfg) "/api/events/" event-id "/users")]
+    (-> (http/post uri {:name username})
+        (p/then (fn [res]
+                  (let [me (-> (http/decode res) (->kwrds))]
+                    (swap! d/state assoc :me me)
+                    (get-event-data event-id))))
+        (p/catch #(println (str "[HTTP-ERROR]>> " %))))))
 
 (defn reload-event-data
   []

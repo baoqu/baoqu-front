@@ -1,6 +1,7 @@
 (ns baoqu.components.notifications
   (:require [rum.core :as rum]
-            [baoqu.data :as d]))
+            [baoqu.data :as d]
+            [baoqu.services.notification :as ns]))
 
 (rum/defc top < rum/reactive
   []
@@ -20,18 +21,16 @@
      ]))
 
 (rum/defc modaltesting < rum/reactive
- []
- (let [state (rum/react d/state)
- active-modal (:active-modal state)]
-   (letfn [(change-modal [modal] #(swap! d/state assoc :active-modal modal))]
-     [:div
-       [:div.modal {:class active-modal}
-        [:div.modal-inner
-          [:div.modal-title "Modal title"]
-          [:div.modal-body "Modal body"]
-          [:i.fa.fa-lg.fa-close.modal-close {:on-click (change-modal "")}]
-        ]
+  []
+  (let [state (rum/react d/state)
+        notification (:notification state)]
+    [:div
+     [:div.modal {:class "show"}
+      [:div.modal-inner
+       [:div.modal-title (:title notification)]
+       [:div.modal-body (:description notification)]
+       [:i.fa.fa-lg.fa-close.modal-close {:on-click ns/clear-notification}]
        ]
+      ]
      ]
-   )
- ))
+    ))
