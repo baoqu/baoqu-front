@@ -75,6 +75,10 @@
   [msg]
   (es/reload-event-data))
 
+(defmethod process-message :new-user
+  [msg]
+  (es/reload-event-data))
+
 (defmethod process-message :default
   [msg]
   (println "[SSE] DEFAULT MESSAGE > " msg))
