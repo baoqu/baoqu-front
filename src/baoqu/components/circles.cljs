@@ -49,43 +49,17 @@
         circle-size (get-in @d/state [:event :circle-size])
         circles (:circles @d/state)
         parent (get circle "parent-circle-id")
+        my-circle (= (get circle "id") (get-in @d/state [:circle "id"]))
         inner-circles-ids (into #{} (get circle "inner-circles"))
         inner-circles (when inner-circles-ids
                         (filter (comp inner-circles-ids #(get % "id")) circles))]
-    [:div.circle {:key (get circle "id") :class (str "c-lv" level " " (when (nil? parent) "root js-circle-root"))}
+    [:div.circle {:key (get circle "id") :class (str "c-lv" level " " (when (nil? parent) "root js-circle-root") " " (if my-circle "my-circle"))}
      (circle-context circle)
      (if (= level 1)
        (repeat users
            [:div.circle])
        (for [inner-circle inner-circles]
-         (let [my-circle? (= (:id inner-circle) (:circle @d/state))]
-           (if my-circle?
-             (my-circle inner-circle)
-             (a-circle inner-circle)))))
-     ]))
-
-(rum/defc my-circle < rum/static
-  [circle]
-  (let [level (get circle "level")
-        users (get circle "users")
-        circle-size (get-in @d/state [:event :circle-size])
-        circles (:circles @d/state)
-        parent (:parent-circle circle)
-        inner-circles-ids (into #{} (:inner-circles circle))
-        inner-circles (when inner-circles-ids
-                        (filter (comp inner-circles-ids :id) circles))]
-    [:div.circle.my-circle {:key (get circle "id") :class (str "c-lv" (:level circle) " " (when (nil? parent) "root js-circle-root"))}
-     (circle-context circle)
-     (if (= level 1)
-       (let [;; old stuff in let vvv
-             size (get-in @d/state [:event :circle-size])
-             most-popular-idea-votes (apply max (map (comp :votes last) (:ideas @d/state)))
-             delta (- size most-popular-idea-votes)
-             has-voted-vector (concat (repeat most-popular-idea-votes true) (repeat delta false))]
-;         (repeat users
-;                 [:div.circle])
-       (for [inner-circle inner-circles]
-         (a-circle inner-circle))))
+         (a-circle inner-circle)))
      ]))
 
 (rum/defc the-map < rum/reactive
