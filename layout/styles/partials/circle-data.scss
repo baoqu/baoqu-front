@@ -144,9 +144,6 @@
       font-size: $fs18;
       padding: $space;
       font-weight: bold;
-      &:before {
-        content:"# ";
-      }
     }
     .voting-block {
       display: flex;

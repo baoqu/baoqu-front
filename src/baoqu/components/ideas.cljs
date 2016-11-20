@@ -54,7 +54,7 @@
        ]
       ]
      [:div.mod-add-box
-      [:input {:placeholder "# Añade una nueva idea"
+      [:input {:placeholder "Añade una nueva idea"
                :on-change (fu/change-in-form :idea)
                :value idea}]
       [:button.button {:on-click is/add-idea-req}
