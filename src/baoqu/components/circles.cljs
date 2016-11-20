@@ -4,49 +4,56 @@
 
 (declare my-circle)
 
+(rum/defc circle-context < rum/static
+  [circle]
+  (let [level (get circle "level")
+        circle-size (get-in @d/state [:event :circle-size])
+        percentage (* 100 (/ (:most-popular-idea-votes circle) (* circle-size level)))]
+    [:div.context-info.js-context-info
+     [:div.circle-title (get circle "name")
+      [:span.tag (str "Nivel " level)]
+      ]
+     [:div.mod-idea
+      [:div.intro "Idea más apoyada"]
+      [:div.idea (:most-popular-idea circle)]
+      [:div.voting-block
+       [:div.votes
+        [:div.votes-count (str (:most-popular-idea-votes circle) "/" (* circle-size level) " apoyos para promocionar")]
+        [:div.progress-bar
+         [:div.inner {:style {:width (str percentage "%")}}]
+         ]
+        ]
+       ]
+      ]
+     [:div.mod-meta
+      [:div.item
+       [:i {:class "icon-header fa fa-lightbulb-o"}]
+       [:span "33"]
+       ]
+      [:div.item
+       [:i {:class "icon-header fa fa-comments"}]
+       [:span "33"]
+       ]
+      [:div.item
+       [:i {:class "icon-header fa fa-lightbulb-o"}]
+       [:span "33"]
+       ]
+      ]
+     ]
+    ))
+
 (rum/defc a-circle < rum/static
   [circle]
   (let [users (get circle "users")
         level (get circle "level")
         circle-size (get-in @d/state [:event :circle-size])
         circles (:circles @d/state)
-        percentage (* 100 (/ (:most-popular-idea-votes circle) (* circle-size level)))
         parent (get circle "parent-circle-id")
         inner-circles-ids (into #{} (get circle "inner-circles"))
         inner-circles (when inner-circles-ids
                         (filter (comp inner-circles-ids #(get % "id")) circles))]
-    [:div.circle {:class (str "c-lv" level " " (when (nil? parent) "root js-circle-root"))}
-     [:div.context-info.js-context-info
-      [:div.circle-title (get circle "name")
-       [:span.tag (str "Nivel " level)]
-       ]
-      [:div.mod-idea
-       [:div.intro "Idea más apoyada"]
-       [:div.idea (:most-popular-idea circle)]
-       [:div.voting-block
-        [:div.votes
-         [:div.votes-count (str (:most-popular-idea-votes circle) "/" (* circle-size level) " apoyos para promocionar")]
-         [:div.progress-bar
-          [:div.inner {:style {:width (str percentage "%")}}]
-          ]
-         ]
-        ]
-       ]
-      [:div.mod-meta
-       [:div.item
-        [:i {:class "icon-header fa fa-lightbulb-o"}]
-        [:span "33"]
-        ]
-       [:div.item
-        [:i {:class "icon-header fa fa-comments"}]
-        [:span "33"]
-        ]
-       [:div.item
-        [:i {:class "icon-header fa fa-lightbulb-o"}]
-        [:span "33"]
-        ]
-       ]
-      ]
+    [:div.circle {:key (get circle "id") :class (str "c-lv" level " " (when (nil? parent) "root js-circle-root"))}
+     (circle-context circle)
      (if (= level 1)
        (repeat users
            [:div.circle])
@@ -63,44 +70,12 @@
         users (get circle "users")
         circle-size (get-in @d/state [:event :circle-size])
         circles (:circles @d/state)
-        percentage (* 100 (/ (:most-popular-idea-votes circle) circle-size))
         parent (:parent-circle circle)
         inner-circles-ids (into #{} (:inner-circles circle))
         inner-circles (when inner-circles-ids
                         (filter (comp inner-circles-ids :id) circles))]
-    [:div.circle.my-circle {:class (str "c-lv" (:level circle) " " (when (nil? parent) "root js-circle-root"))
-                  :key (str (:id circle))}
-     [:div.context-info.js-context-info
-      [:div.circle-title (:name circle)
-       [:span.tag (str "Nivel " (:level circle))]
-       ]
-      [:div.mod-idea
-       [:div.intro "Idea más apoyada"]
-       [:div.idea (:most-voted-idea circle)]
-       [:div.voting-block
-        [:div.votes
-         [:div.votes-count (str (:most-popular-idea-votes circle) "/" circle-size " apoyos para promocionar")]
-         [:div.progress-bar
-          [:div.inner {:style {:width (str percentage "%")}}]
-          ]
-         ]
-        ]
-       ]
-      [:div.mod-meta
-       [:div.item
-        [:i {:class "icon-header fa fa-lightbulb-o"}]
-        [:span "33"]
-        ]
-       [:div.item
-        [:i {:class "icon-header fa fa-comments"}]
-        [:span "33"]
-        ]
-       [:div.item
-        [:i {:class "icon-header fa fa-lightbulb-o"}]
-        [:span "33"]
-        ]
-       ]
-      ]
+    [:div.circle.my-circle {:key (get circle "id") :class (str "c-lv" (:level circle) " " (when (nil? parent) "root js-circle-root"))}
+     (circle-context circle)
      (if (= level 1)
        (let [;; old stuff in let vvv
              size (get-in @d/state [:event :circle-size])
