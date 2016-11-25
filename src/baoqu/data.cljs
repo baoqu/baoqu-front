@@ -12,7 +12,7 @@
 (defn get-old-state
   []
   {:event {:id 1
-           :name "Ciclismo en la Guindalera, una discusión abierta."
+           :name "Probando Baoqu"
            :circle-size 3
            :approval-factor 2
            :circles [1 2]}

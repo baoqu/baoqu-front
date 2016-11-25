@@ -39,7 +39,7 @@
       ]
 
      [:div.header-event-info.js-event-info
-      [:div.inner "El Ayuntamiento (Urbanismo y Transportes), Vecinos y Colectivos se han de reunir para trazar un plan a largo plazo para la progresiva incorporación de la bicicleta como medio de transporte"]
+      [:div.inner "Y aquí irá la descripción del evento"]
       ]
 
      (letfn [(change-section [section] #(swap! d/state assoc :active-section section))]
@@ -54,7 +54,7 @@
          ]
         [:li {:class (if (= active-section "comments") "active" "") :on-click (change-section "comments")}
          [:i {:class "icon-header fa fa-lg fa-comments"}]
-         [:span.title (str num-comments " comentarios")]
+         [:span.title (str num-comments " Chat")]
          ]
         ])
      ]))

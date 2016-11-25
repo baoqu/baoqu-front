@@ -314,9 +314,9 @@ Default is 3 because rythm with Andres
     .idea {
       font-size: $fs14;
       font-weight: bold;
-      &:before {
+      /*&:before {
         content:"# ";
-      }
+      }*/
     }
     .info {
       color: $color-gray-medium;

@@ -19,7 +19,7 @@
       [:span {:class "expander js-expand-comments"}
         [:i {:class "icon-header fa fa-lg fa-comments"}]
       ]
-      [:div.title (str "Comentarios (" num-comments ")")]
+      [:div.title (str "Chat (" num-comments ")")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right js-collapse-comments"}]]]
 
@@ -42,7 +42,7 @@
        ]
       ]
      [:div.mod-add-box
-      [:input {:placeholder "Comenta"
+      [:input {:placeholder "Escribe aquí"
                :on-change (fu/change-in-form :comment)
                :value comment}]
       [:button.button {:on-click cs/add-comment-req}
