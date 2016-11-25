@@ -79,13 +79,12 @@
 
   // user area
   #user {
-    bottom: auto;
-    left: auto;
     bottom: $space;
     left: $space;
     .thumb {
       height: 2.8rem;
       width: 2.8rem;
+      margin-bottom: 2px;
     }
   }
   .mod-add-box input, .mod-comments .mod-add-box input {
@@ -101,6 +100,30 @@
 
   #mainHeader {
     height: 2.6rem;
+    .event-name, #mainFooter .event-name { padding: 0.8rem 1rem; }
+  }
+
+  // user area
+  #user {
+    bottom: $space-s;
+    left: $space-s;
+    .thumb {
+      height: 2.2rem;
+      width: 2.2rem;
+    }
+  }
+  .mod-ideas .mod-add-box, .mod-comments .mod-add-box,
+  .mod-add-box input, .mod-comments .mod-add-box input {
+    padding: $space-s;
+  }
+  .mod-ideas .mod-add-box .button, .mod-comments .mod-add-box .button {
+    top: $space-s;
+    bottom: $space-s;
+    right: $space-s;
+  }
+  .mod-add-box input, .mod-comments .mod-add-box input {
+    width: calc(100% - 2.8rem) !important;
+    margin-left: 2.8rem;
   }
 
   .mobile-menu li {
