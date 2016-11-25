@@ -97,8 +97,9 @@
       width: 100%;
       padding-right: 2.6rem;
     }
+    input:focus,
     input:focus + .button {
-      border-color: $color-gray-medium;
+      border-color: $color-success;
     }
     .button {
       width: 2.6rem;
@@ -108,7 +109,7 @@
       top: $space;
       bottom: $space;
       border-radius: 0 $radius $radius 0;
-      border: 2px solid $color-gray-light;
+      border: 1px solid $color-gray-light;
       display: flex;
       align-items: center;
       justify-content: center;
