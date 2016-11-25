@@ -9,10 +9,9 @@
   (swap! d/state update :comments merge comment))
 
 (defn add-comment-req
-  []
+  [body]
   (let [name (get-in @d/state [:me :name])
         circle-id (get-in @d/state [:circle "id"])
-        body (fu/get-f :comment)
         data {:name name :comment-body body}]
     (http/post (str (:server cfg) "/api/circles/" circle-id "/comments") data)
     (fu/empty-f :comment)))
