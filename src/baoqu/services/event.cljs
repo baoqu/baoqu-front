@@ -11,13 +11,9 @@
   [event-id]
   (-> (http/get (str (:server cfg) "/api/events/" event-id))
       (p/then (fn [res]
-                (let [event (-> (http/decode res) (->kwrds))]
-                  (swap! d/state assoc :event event)
-                  (http/get (str (:server cfg) "/api/events/" event-id "/circles")))))
-      (p/then (fn [res]
-                (let [circles (http/decode res)
+                (let [event (-> (http/decode res) (->kwrds))
                       user-id (get-in @d/state [:me :id])]
-                  (swap! d/state assoc :circles circles)
+                  (swap! d/state assoc :event event)
                   (http/get (str (:server cfg) "/api/user-circle/" user-id)))))
       (p/then (fn [res]
                 (let [my-circle (http/decode res)
@@ -34,7 +30,12 @@
                   (http/get (str (:server cfg) "/api/circles/" circle-id "/comments")))))
       (p/then (fn [res]
                 (let [comments (http/decode res)]
-                  (swap! d/state assoc :comments comments))))))
+                  (swap! d/state assoc :comments comments)
+                  (http/get (str (:server cfg) "/api/events/" event-id "/circles")))))
+      (p/then (fn [res]
+                (let [circles (http/decode res)]
+                  (swap! d/state assoc :circles circles))))
+      ))
 
 (defn join-event
   [event-id username]

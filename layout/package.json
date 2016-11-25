@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "author": "myfunnyandy <andres.gonzalez79@gmail.com>",
   "scripts": {
+    "postinstall": "bower install",
     "dist": "gulp dist",
     "watch": "gulp"
   },
@@ -17,5 +18,8 @@
     "gulp-plumber": "^1.0.1",
     "gulp-sass": "^2.0.1",
     "gulp-watch": "^4.2.4"
-    }
+  },
+  "devDependencies": {
+    "bower": "^1.8.0"
+  }
 }
