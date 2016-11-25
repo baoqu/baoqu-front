@@ -1,5 +1,6 @@
 (ns baoqu.services.sse
   (:require [baoqu.config :refer [cfg]]
+            [baoqu.data :as d]
             [baoqu.services.idea :as is]
             [baoqu.services.comment :as cs]
             [baoqu.services.event :as es]
@@ -33,39 +34,59 @@
 (defmethod process-message :comment
   [msg]
   (let [data (:data msg)
+        current-circle-id (get-in @d/state [:circle "id"])
+        message-circle-id (get data "circle-id")
         milis (get data "date")
         date (str (js/Date. milis))
         new-data (assoc data "date" date)]
-    (cs/react-to-comment new-data)
-    (println "[SSE] COMMENT > " new-data)))
+    (if (= current-circle-id message-circle-id)
+      (do
+        (cs/react-to-comment new-data)
+        (println "[SSE] COMMENT > " new-data))
+      (println "COMMENT NOT FOR ME"))))
 
 (defmethod process-message :upvote
   [msg]
   (let [data (:data msg)
+        current-circle-id (get-in @d/state [:circle "id"])
+        message-circle-id (get data "circle-id")
         idea-id (get-in data ["idea" "id"])
         user-id (get-in data ["user" "id"])]
-    (is/add-idea-if-new (get data "idea"))
-    (is/react-to-upvote idea-id user-id)
-    (println "[SSE] UPVOTE > " data)))
+    (if (= current-circle-id message-circle-id)
+      (do
+        (is/add-idea-if-new (get data "idea"))
+        (is/react-to-upvote idea-id user-id)
+        (println "[SSE] UPVOTE > " data)))
+    (println "UPVOTE NOT FOR ME")))
 
 (defmethod process-message :downvote
   [msg]
   (let [data (:data msg)
+        current-circle-id (get-in @d/state [:circle "id"])
+        message-circle-id (get data "circle-id")
         idea-id (get-in data ["idea" "id"])
         user-id (get-in data ["user" "id"])]
-    (is/react-to-downvote idea-id user-id)
-    (println "[SSE] DOWNVOTE > " data)))
+    (if (= current-circle-id message-circle-id)
+      (do
+        (is/react-to-downvote idea-id user-id)
+        (println "[SSE] DOWNVOTE > " data))
+      (println "UPVOTE NOT FOR ME"))))
 
 (defmethod process-message :notification
   [msg]
   (let [data (:data msg)
+        current-circle-id (get-in @d/state [:circle "id"])
+        message-circle-id (get data "circle-id")
         title (get data "title")
         description (get data "description")
         notification {:title title
                       :description description
                       :type :modal}]
-    (ns/set-notification notification)
-    (println "[SSE] NOTIFICATION> (" title ") " description)))
+    (if (= current-circle-id message-circle-id)
+      (do
+        (ns/set-notification notification)
+        (println "[SSE] NOTIFICATION> (" title ") " description))
+      (println "NOTIFICATION NOT FOR ME"))))
 
 (defmethod process-message :grow
   [msg]
