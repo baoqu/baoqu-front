@@ -137,8 +137,9 @@
   }
   .mod-idea {
     margin-bottom: $space;
-    border-radius: $radius;
-    border: 2px solid $color-gray-light;
+    /*border-radius: $radius;*/
+    /*border: 1px solid $color-gray-light;*/
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
     background-color: $color-white;
     .idea {
       font-size: $fs18;
