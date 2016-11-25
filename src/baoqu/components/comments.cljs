@@ -2,6 +2,7 @@
   (:require [rum.core :as rum]
             [baoqu.data :as d]
             [baoqu.form-utils :as fu]
+            [baoqu.mixins :as mixins]
             [baoqu.services.comment :as cs]
             [clojure.string :as s]))
 
@@ -24,17 +25,8 @@
        [:button.button
         [:i {:class "fa fa-lg fa-plus"}]]])))
 
-(def scroll-on-insert
-  {:did-update
-   (fn [state]
-     (let [node (rum/dom-node state)
-           scrollHeight (.-scrollHeight node)]
-       (set! (.-scrollTop node) scrollHeight)
-       state))
-   })
-
 (rum/defc comments-box < rum/reactive
-                         scroll-on-insert
+                         mixins/scroll-on-insert
   []
   (let [state (rum/react d/state)
         comments (:comments state)]

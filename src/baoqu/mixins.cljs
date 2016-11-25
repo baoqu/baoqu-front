@@ -1,5 +1,6 @@
 (ns baoqu.mixins
-  (:require [baoqu.services.sse :as sse]
+  (:require [rum.core :as rum]
+            [baoqu.services.sse :as sse]
             [baoqu.routes :as routes]
             [baoqu.data :as d]
             [baoqu.services.security :as sec]))
@@ -18,3 +19,12 @@
                      (println "[SSE] CONNECTED > " sse)
                      (swap! d/state assoc :sse sse)))
                  own)})
+
+(def scroll-on-insert
+  {:did-update
+   (fn [state]
+     (let [node (rum/dom-node state)
+           scrollHeight (.-scrollHeight node)]
+       (set! (.-scrollTop node) scrollHeight)
+       state))
+   })
