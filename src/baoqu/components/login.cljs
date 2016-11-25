@@ -17,7 +17,8 @@
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
-        username (get-in state [:form :username] "")]
+        username (get-in state [:form :username] "")
+        submit-action (comp login-action #(.preventDefault %))]
     [:div.login-wrapper
       [:div#mainHeader
         [:div.logo-icon]
@@ -29,8 +30,8 @@
         [:h2 "Probando Baoqu!"]
         [:p ""]
       ]
-      [:div.input-box
+      [:form.input-box {:on-submit submit-action}
        [:input {:class "bt" :placeholder "Aquí tu nombre"
                 :on-change (fu/change-in-form :username)
                 :value username}]
-       [:button {:on-click login-action} "Participar"]]]]))
+       [:button "Participar"]]]]))
