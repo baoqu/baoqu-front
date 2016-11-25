@@ -7,6 +7,23 @@
 
 (enable-console-print!)
 
+(rum/defcs comment-form < (rum/local {:comment ""})
+  [state]
+  (let [local-atom (:rum/local state)
+        comment (:comment @local-atom)]
+    (letfn [(submit-action [e]
+              (.preventDefault e)
+              (cs/add-comment-req comment)
+              (reset! local-atom {:comment ""}))
+            (change-action [e]
+              (swap! local-atom assoc :comment (.. e -target -value)))]
+      [:form.mod-add-box {:on-submit submit-action}
+       [:input {:placeholder "Escribe aquí"
+                :on-change change-action
+                :value comment}]
+       [:button.button
+        [:i {:class "fa fa-lg fa-plus"}]]])))
+
 (rum/defc comments-box < rum/reactive
   []
   (let [state (rum/react d/state)
@@ -25,7 +42,6 @@
             [:div.username author]
             [:div.comment body]
             ]
-
            ])
         )
       ]
@@ -34,13 +50,11 @@
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
-        comment (fu/get-f :comment)
         event (:event state)
         circle (:circle state)
         circles (:circles state)
         comments (:comments state)
-        num-comments (count comments)
-        submit-action (comp cs/add-comment-req #(.preventDefault %))]
+        num-comments (count comments)]
     [:div.mod-comments
      [:div.mod-header
       [:span {:class "expander js-expand-comments"}
@@ -51,9 +65,5 @@
        [:i {:class "fa fa-lg fa-chevron-right js-collapse-comments"}]]]
 
      (comments-box)
-     [:form.mod-add-box {:on-submit submit-action}
-      [:input {:placeholder "Escribe aquí"
-               :on-change (fu/change-in-form :comment)
-               :value comment}]
-      [:button.button
-       [:i {:class "fa fa-lg fa-plus"}]]]]))
+     (comment-form)
+     ]))
