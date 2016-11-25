@@ -23,7 +23,7 @@
     flex: 1;
     justify-content: center;
     text-align: center;
-    padding: $space 0;
+    padding: $space-s 0;
     cursor: pointer;
     border-bottom: 1px solid $color-gray-light;
     background-color: white;
@@ -98,6 +98,10 @@
 @include bp(small) {
   .hide-small { display: none !important}
   .show-small { display: block !important}
+
+  #mainHeader {
+    height: 2.6rem;
+  }
 
   .mobile-menu li {
     cursor: pointer;
