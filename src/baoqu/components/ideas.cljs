@@ -4,6 +4,8 @@
             [baoqu.form-utils :as fu]
             [baoqu.services.idea :as is]))
 
+(enable-console-print!)
+
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
@@ -14,7 +16,8 @@
         circles (:circles state)
         circle-level (get circle "level")
         circle-size (Math.pow (get circle "size") circle-level)
-        num-ideas (count ideas)]
+        num-ideas (count ideas)
+        submit-action (comp is/add-idea-req #(.preventDefault %))]
     [:div.mod-ideas
      [:div.mod-header
       [:span {:class "expander js-expand-ideas"}
@@ -53,9 +56,9 @@
         ]
        ]
       ]
-     [:div.mod-add-box
+     [:form.mod-add-box {:on-submit submit-action}
       [:input {:placeholder "Añade una nueva idea"
                :on-change (fu/change-in-form :idea)
                :value idea}]
-      [:button.button {:on-click is/add-idea-req}
+      [:button.button
        [:i {:class "fa fa-lg fa-plus"}]]]]))
