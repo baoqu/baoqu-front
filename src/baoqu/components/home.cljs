@@ -19,10 +19,12 @@
      [:div.circle-header
       [:div.circle-header-title (str "Círculo " (get circle "id"))
         [:span.tag
-          [:span "Nivel "]
-          [:span (get circle "level")]
+          [:span.label "Nivel "]
+          [:span.value (get circle "level")]
         ]
-        [:span.tag.my-circle "Mi círculo"]
+        [:span.tag.my-circle
+          [:span.label "Mi círculo"]
+        ]
       ]
       [:span.circle-header-exit
         [:span "Salir "]

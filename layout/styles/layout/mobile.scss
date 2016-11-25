@@ -92,6 +92,7 @@
     width: calc(100% - 3.8rem) !important;
     margin-left: 3.8rem;
   }
+
 }
 
 @include bp(small) {
@@ -104,4 +105,7 @@
       display: none;
     }
   }
+  .circle-header .circle-header-title .tag .label { display:none; }
+  .circle-header .circle-header-title .tag.my-circle .label { display:none }
+  .circle-header .circle-header-title .tag.my-circle:after { content:"o" }
 }
