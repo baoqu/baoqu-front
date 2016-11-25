@@ -54,7 +54,7 @@
         inner-circles (when inner-circles-ids
                         (filter (comp inner-circles-ids #(get % "id")) circles))]
     [:div.circle {:key (get circle "id") :class (str "c-lv" level " " (when (nil? parent) "root js-circle-root") " " (if my-circle "my-circle"))}
-     (circle-context circle)
+     ;; (circle-context circle)
      (if (= level 1)
        (repeat users
            [:div.circle])
