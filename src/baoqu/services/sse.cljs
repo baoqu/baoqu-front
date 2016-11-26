@@ -51,7 +51,7 @@
         ideas-as-list (into [] (map #(second %) ideas))
         any-at-9? (some #(= 9 (get % "votes")) ideas-as-list)
         notification {:title "Se ha llegado a un consenso"
-                      :description (str "La idea \"" idea "\" ha sido apoyada por todos los usuarios.")
+                      :description (str "La idea \"" idea "\" ha sido apoyada por todos los usuarios. El evento ha terminado.")
                       :type :modal}]
     (if any-at-9?
       (do
