@@ -45,6 +45,20 @@
         (println "[SSE] COMMENT > " new-data))
       (println "COMMENT NOT FOR ME"))))
 
+(defn end-if-idea-at-9
+  [idea]
+  (let [ideas (:ideas @d/state)
+        ideas-as-list (into [] (map #(second %) ideas))
+        any-at-9? (some #(= 9 (get % "votes")) ideas-as-list)
+        notification {:title "Se ha llegado a un consenso"
+                      :description (str "La idea \"" idea "\" ha sido apoyada por todos los usuarios. El evento ha terminado.")
+                      :type :modal}]
+    (if any-at-9?
+      (do
+        (println "TERMINAMOS")
+        (ns/set-notification notification))
+      (println "AUN NO"))))
+
 (defmethod process-message :upvote
   [msg]
   (let [data (:data msg)
@@ -56,8 +70,10 @@
       (do
         (is/add-idea-if-new (get data "idea"))
         (is/react-to-upvote idea-id user-id)
-        (println "[SSE] UPVOTE > " data)))
-    (println "UPVOTE NOT FOR ME")))
+        (println "[SSE] UPVOTE > " data))
+      (println "UPVOTE NOT FOR ME"))
+
+    (.setTimeout js/window (partial end-if-idea-at-9 (get-in data ["idea" "name"])) 2000)))
 
 (defmethod process-message :downvote
   [msg]

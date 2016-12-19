@@ -65,7 +65,6 @@
       [:div.title (str "Chat (" num-comments ")")]
       [:span.toggle
        [:i {:class "fa fa-lg fa-chevron-right js-collapse-comments"}]]]
-
      (comments-box)
      (comment-form)
      ]))
