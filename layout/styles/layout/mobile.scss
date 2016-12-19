@@ -23,7 +23,7 @@
     flex: 1;
     justify-content: center;
     text-align: center;
-    padding: $space-s 0;
+    padding: $space 0;
     cursor: pointer;
     border-bottom: 1px solid $color-gray-light;
     background-color: white;
@@ -128,10 +128,12 @@
 
   .mobile-menu li {
     cursor: pointer;
+    padding: $space-s 0;
     .title {
       display: none;
     }
   }
+
   .circle-header .circle-header-title .tag .label { display:none; }
   .circle-header .circle-header-title .tag.my-circle .label { display:none }
   .circle-header .circle-header-title .tag.my-circle:after { content:"o" }
