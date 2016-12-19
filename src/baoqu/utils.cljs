@@ -4,4 +4,6 @@
   [m]
   (into {}
         (for [[k v] m]
-          [(keyword k) v])))
+          (if (map? v)
+            [(keyword k) (->kwrds v)]
+            [(keyword k) v]))))
