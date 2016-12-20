@@ -25,20 +25,24 @@
       ]
       [:div.title (str "Ideas (" num-ideas ")")]
         [:span.action
-          [:i {:class "fa fa-eye"}]]
+          [:i {:class "fa fa-eye active"}]]
         [:span.action
           [:i {:class "fa fa-sort-amount-desc"}]]
         [:span.toggle.hide-medium.js-collapse-ideas
           [:i {:class "fa fa-lg fa-angle-right"}]]]
 
           [:div.mod-dropdown
-            [:ul.mod-users-list
-              [:li.user
-               [:label.content [:input.username {:type "radio"}]]
+            [:ul.mod-options-list
+              [:li.option
+               [:label.content [:input {:type "radio" :name "view-type"}]
+                "Sólo ideas apoyadas"
+               ]
               ]
-
-
-
+              [:li.option
+                [:label.content [:input {:type "radio" :name "view-type"}]
+                 "Todas las ideas"
+                ]
+              ]
              ]
             ]
      [:div.mod-body
