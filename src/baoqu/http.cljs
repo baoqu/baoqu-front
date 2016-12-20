@@ -1,5 +1,6 @@
 (ns baoqu.http
-  (:require [httpurr.client.xhr :as c]))
+  (:require [httpurr.client.xhr :as c]
+            [baoqu.utils :refer [->kwrds]]))
 
 (def default-opts {:headers {"Content-Type" "application/json"}})
 
@@ -28,5 +29,5 @@
 
 (defn res->kwrds
   [res]
-  (-> (http/decode res)
+  (-> (decode res)
       (->kwrds)))
