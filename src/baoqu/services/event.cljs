@@ -7,16 +7,11 @@
 
 (enable-console-print!)
 
-(defn res->kwrds
-  [res]
-  (-> (http/decode res)
-      (->kwrds)))
-
 (defn get-event-data
   [event-id]
   (-> (api/get-event event-id)
       (p/then (fn [res]
-                (let [event (res->kwrds res)
+                (let [event (http/res->kwrds res)
                       user-id (get-in @d/state [:me :id])]
                   (swap! d/state assoc :event event)
                   (api/get-user-circle user-id))))
@@ -45,7 +40,7 @@
   [event-id username]
   (-> (api/join-event event-id username)
       (p/then (fn [res]
-                  (let [me (res->kwrds res)]
+                  (let [me (http/res->kwrds res)]
                     (swap! d/state assoc :me me)
                     (get-event-data event-id))))
         (p/catch #(println (str "[HTTP-ERROR]>> " %)))))

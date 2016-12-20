@@ -25,3 +25,8 @@
   (let [encoded-body (encode body)
         opts (merge default-opts {:body encoded-body})]
     (c/post url opts)))
+
+(defn res->kwrds
+  [res]
+  (-> (http/decode res)
+      (->kwrds)))
