@@ -26,3 +26,9 @@
        (str base-url path)
        (let [params-string (get-params-string params)]
          (str base-url path "?" params-string))))))
+
+(defn list->map
+  ([data key]
+   (into {} (map #(do {(get % key) %}) data)))
+  ([data]
+   (into {} (map #(do {(:id %) %}) data))))
