@@ -60,11 +60,11 @@
     [:div.mod-comments
      [:div.mod-header
       [:span {:class "expander js-expand-comments"}
-       [:i {:class "icon-header fa fa-lg fa-comments"}]
+       [:i {:class "icon-header fa fa-lg fa-comments-o"}]
        ]
       [:div.title (str "Chat (" num-comments ")")]
-      [:span.toggle
-       [:i {:class "fa fa-lg fa-chevron-right js-collapse-comments"}]]]
+      [:span.toggle.js-collapse-comments
+       [:i {:class "fa fa-lg fa-angle-right"}]]]
      (comments-box)
      (comment-form)
      ]))

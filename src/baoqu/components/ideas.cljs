@@ -24,8 +24,8 @@
         [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
       ]
       [:div.title (str "Ideas (" num-ideas ")")]
-        [:span.toggle
-          [:i {:class "fa fa-lg fa-chevron-right js-collapse-ideas"}]]]
+        [:span.toggle.js-collapse-ideas
+          [:i {:class "fa fa-lg fa-angle-right"}]]]
      [:div.mod-body
       [:ul
        (for [[idea-id idea] ideas]

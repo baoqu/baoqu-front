@@ -72,13 +72,21 @@
     .toggle {
       cursor: pointer;
       color: $color-gray-medium;
+      width: 2rem;
+      margin-top: -1rem;
+      margin-bottom: -1rem;
+      margin-right: -1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       &:hover {
-        color: $color-gray-dark;
+        // color: $color-gray-dark;
+        background-color: $color-bg-highlight;
       }
     }
     .icon-header {
+      display: none;
       margin-right: $space-s;
-      pointer-events: none;
     }
   }
   .mod-body {
@@ -231,7 +239,10 @@
       right: 0;
       text-align: center;
       .icon-header {
+        display: block;
         margin-top: 1.2rem;
+        margin-right: 0;
+        pointer-events: none;
       }
     }:hover {
       background: $color-bg-highlight;
@@ -254,6 +265,12 @@
     .circle-header {
       display: none;
     }
+  }
+  .ideas-collapsed .mod-ideas .title {
+    display: none;
+  }
+  .comments-collapsed .mod-comments .title {
+    display: none;
   }
 }
 
