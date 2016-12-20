@@ -62,7 +62,9 @@
       [:span {:class "expander js-expand-comments"}
        [:i {:class "icon-header fa fa-lg fa-comments-o"}]
        ]
-      [:div.title (str "Chat (" num-comments ")")]
+      [:div.title (str "Chat")]
+        [:span.action
+          [:i {:class "fa fa-users"}]]
       [:span.toggle.hide-medium.js-collapse-comments
        [:i {:class "fa fa-lg fa-angle-right"}]]]
      (comments-box)
