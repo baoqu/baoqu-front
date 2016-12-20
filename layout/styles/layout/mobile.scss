@@ -62,9 +62,8 @@
     .mod-comments   { flex:1; overflow:auto; }
   }
 
-  // hiding things
-  .mod-header .toggle {
-    display:none
+  .mod-header {
+    padding-right: 0;
   }
 
   // circle header
@@ -74,8 +73,27 @@
     z-index: 3;
     text-align: right;
     background: transparent;
+    // width: calc(100% - 6rem);
+    position: fixed;
+    top: 0;
+    background-color: $color-primary;
+    box-sizing: border-box;
+    z-index: 10;
+    left: 4rem;
+    margin-left: 1px;
+    margin-top: 3px;
+    .circle-header-title {
+      color: $color-white;
+    }
+    .circle-header-exit {
+      color: $color-gray-lighter;
+    }
   }
 
+  .mod-ideas .mod-header .title,
+  .mod-comments .mod-header .title {
+    flex: -1;
+  }
 
   // user area
   #user {
@@ -133,7 +151,10 @@
       display: none;
     }
   }
-
+  .circle-header {
+  padding: $space-s;
+    border: 0;
+  }
   .circle-header .circle-header-title .tag .label { display:none; }
   .circle-header .circle-header-title .tag.my-circle .label { display:none }
   .circle-header .circle-header-title .tag.my-circle:after { content:"o" }

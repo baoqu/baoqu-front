@@ -63,7 +63,7 @@
        [:i {:class "icon-header fa fa-lg fa-comments-o"}]
        ]
       [:div.title (str "Chat (" num-comments ")")]
-      [:span.toggle.js-collapse-comments
+      [:span.toggle.hide-medium.js-collapse-comments
        [:i {:class "fa fa-lg fa-angle-right"}]]]
      (comments-box)
      (comment-form)

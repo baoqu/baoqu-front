@@ -69,20 +69,25 @@
     .title {
       flex: 1;
     }
+    .action,
     .toggle {
       cursor: pointer;
       color: $color-gray-medium;
-      width: 2rem;
+      width: 3rem;
       margin-top: -1rem;
       margin-bottom: -1rem;
-      margin-right: -1rem;
+      margin-right: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       &:hover {
-        // color: $color-gray-dark;
+        color: $color-gray-dark;
         background-color: $color-bg-highlight;
       }
+    }
+    .toggle {
+      margin-right: -1rem;
+      border-left: 1px solid $color-gray-light;
     }
     .icon-header {
       display: none;
