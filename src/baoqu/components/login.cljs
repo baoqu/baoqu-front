@@ -31,7 +31,7 @@
         [:p ""]
       ]
       [:form.input-box {:on-submit submit-action}
-       [:input {:class "bt" :placeholder "Aquí tu nombre"
+       [:input {:class "bt input-text" :placeholder "Aquí tu nombre"
                 :on-change (fu/change-in-form :username)
                 :value username}]
        [:button "Participar"]]]]))

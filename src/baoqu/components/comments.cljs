@@ -19,7 +19,8 @@
             (change-action [e]
               (swap! local-atom assoc :comment (.. e -target -value)))]
       [:form.mod-add-box {:on-submit submit-action}
-       [:input {:placeholder "Escribe aquí"
+       [:input {:class "input-text"
+                :placeholder "Escribe aquí"
                 :on-change change-action
                 :value comment}]
        [:button.button
@@ -92,14 +93,12 @@
            [:div.avatar [:div.thumb "A"]]
            [:div.content [:div.username "Adelino"]]
           ]
-        
+
 
 
          ]
         ]
       ]
-
-["hola"]
 
      (comments-box)
      (comment-form)

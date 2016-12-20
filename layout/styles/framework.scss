@@ -216,16 +216,6 @@
 
 input,
 select {
-  background-color: $color-white;
-  box-sizing: border-box;
-  color: $color-gray-dark;
-  font-family: "sourcesanspro", sans-serif;
-  font-size: $fs16;
-  border: 1px solid $color-gray-light;
-  border-radius: $radius;
-  padding: 12px 8px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   &:focus {
     border-color: $color-gray-medium;
   }
@@ -252,28 +242,32 @@ input[type="checkbox"]:focus {
 // Input text
 
 .input-text {
-  border: none;
-  box-shadow: none;
-  outline: none;
-  padding: $padding $padding-big $padding $padding ;
-
-  &:focus {
-    box-shadow: 0px 4px 1px $color-primary;
-  }
-
-  &.success {
-    background-color: $color-success;
-    border-color: $color-success;
-    color: $color-success;
-  }
-
-  &.invalid {
-    background-color: $color-danger;
-    border-color: $color-danger;
-    color: $color-danger;
-  }
-
+  background-color: $color-white;
+  box-sizing: border-box;
+  color: $color-gray-dark;
+  font-family: "sourcesanspro", sans-serif;
+  font-size: $fs16;
+  border: 1px solid $color-gray-light;
+  border-radius: $radius;
+  padding: 12px 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
+
+
+  // &.success {
+  //   background-color: $color-success;
+  //   border-color: $color-success;
+  //   color: $color-success;
+  // }
+  //
+  // &.invalid {
+  //   background-color: $color-danger;
+  //   border-color: $color-danger;
+  //   color: $color-danger;
+  // }
+
+
 
 // Input select
 

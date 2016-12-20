@@ -30,6 +30,17 @@
           [:i {:class "fa fa-sort-amount-desc"}]]
         [:span.toggle.hide-medium.js-collapse-ideas
           [:i {:class "fa fa-lg fa-angle-right"}]]]
+
+          [:div.mod-dropdown
+            [:ul.mod-users-list
+              [:li.user
+               [:label.content [:input.username {:type "radio"}]]
+              ]
+
+
+
+             ]
+            ]
      [:div.mod-body
       [:ul
        (for [[idea-id idea] ideas]
@@ -61,7 +72,8 @@
        ]
       ]
      [:form.mod-add-box {:on-submit submit-action}
-      [:input {:placeholder "Añade una nueva idea"
+      [:input {:class "input-text"
+               :placeholder "Añade una nueva idea"
                :on-change (fu/change-in-form :idea)
                :value idea}]
       [:button.button
