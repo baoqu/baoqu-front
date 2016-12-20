@@ -66,7 +66,41 @@
         [:span.action
           [:i {:class "fa fa-users"}]]
       [:span.toggle.hide-medium.js-collapse-comments
-       [:i {:class "fa fa-lg fa-angle-right"}]]]
+       [:i {:class "fa fa-lg fa-angle-right"}]
+      ]
+
+      [:div.mod-dropdown
+        [:ul.mod-users-list
+          [:li.user
+           [:div.avatar [:div.thumb "A"]]
+           [:div.content [:div.username "Adelino"]]
+          ]
+          [:li.user
+           [:div.avatar [:div.thumb "A"]]
+           [:div.content [:div.username "Adelino"]]
+          ]
+          [:li.user
+           [:div.avatar [:div.thumb "A"]]
+           [:div.content [:div.username "Adelino"]]
+          ]
+
+          [:li.user
+           [:div.avatar [:div.thumb "A"]]
+           [:div.content [:div.username "Adelino"]]
+          ]
+          [:li.user
+           [:div.avatar [:div.thumb "A"]]
+           [:div.content [:div.username "Adelino"]]
+          ]
+        
+
+
+         ]
+        ]
+      ]
+
+["hola"]
+
      (comments-box)
      (comment-form)
      ]))

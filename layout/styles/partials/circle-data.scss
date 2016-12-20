@@ -43,11 +43,52 @@
       color: $color-gray-dark;
     }
   }
+
 }
 
 .circle-content {
   flex: 1;
   display: flex;
+
+
+  // DROPDOWN
+  .mod-dropdown {
+    position: absolute;
+    right: $space-s;
+    top: 3.4rem;
+    background: $color-white;
+    padding: 1rem;
+    border: 1px solid $color-gray-light;
+    overflow-y: scroll;
+    max-height: 40%;
+    width: 50%;
+  }
+
+  .mod-users-list {
+    max-height: 50%;
+    margin-bottom: 0;
+    .user {
+      display: flex;
+      align-items: center;
+      margin-bottom: $space;
+      .avatar .thumb {
+        margin-right: $space-s;
+        height: 1.8rem;
+        width: 1.8rem;
+        font-size: 1rem;
+      }
+      .content {
+        flex: 1;
+        .username {
+          font-weight: bold;
+          font-size: $fs14;
+        }
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 // IDEAS & COMMENTS common base
@@ -64,6 +105,7 @@
     display: flex;
     font-size: $fs16;
     font-weight: bold;
+    border-bottom: 1px solid $color-gray-light;
     box-shadow: 0px 2px 2px rgba(0,0,0,0.08);
     z-index: 2;
     .title {
@@ -106,6 +148,7 @@
     padding: $space;
     box-shadow: 0px -2px 2px rgba(0,0,0,0.08);
     position: relative;
+    border-top: 1px solid $color-gray-light;
     input {
       width: 100%;
       padding-right: 2.6rem;
@@ -278,8 +321,6 @@
     display: none;
   }
 }
-
-
 
 
 // COMMENTS
