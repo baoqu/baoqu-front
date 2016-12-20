@@ -1,4 +1,4 @@
-(ns baoqu.services.http
+(ns baoqu.http
   (:require [httpurr.client.xhr :as c]))
 
 (def default-opts {:headers {"Content-Type" "application/json"}})

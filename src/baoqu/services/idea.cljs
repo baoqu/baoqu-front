@@ -1,8 +1,7 @@
 (ns baoqu.services.idea
   (:require [baoqu.data :as d]
             [baoqu.form-utils :as fu]
-            [baoqu.services.http :as http]
-            [baoqu.config :refer [cfg]]))
+            [baoqu.api :as api]))
 
 (enable-console-print!)
 
@@ -24,12 +23,11 @@
 (defn add-idea-req
   []
   (let [body (fu/get-f :idea)
-        user-id (get-in @d/state [:me :id])
-        data {:user-id user-id :idea-name body}]
-    (if-not (= body "")
+        user-id (get-in @d/state [:me :id])]
+    (if-not (empty? body)
       (do
         (if-not (idea-exists? body)
-          (http/post (str (:server cfg) "/api/ideas/upvote") data))
+          (api/upvote-idea user-id body))
         (fu/empty-f :idea)))))
 
 (defn react-to-upvote
@@ -51,8 +49,7 @@
   (fn []
     (let [voted? (get-in @d/state [:ideas id "voted?"])
           user-id (get-in @d/state [:me :id])
-          idea-name (get-in @d/state [:ideas id "name"])
-          data {:user-id user-id :idea-name idea-name}]
+          idea-name (get-in @d/state [:ideas id "name"])]
       (if voted?
-        (http/post (str (:server cfg) "/api/ideas/downvote") data)
-        (http/post (str (:server cfg) "/api/ideas/upvote") data)))))
+        (api/upvote-idea user-id idea-name)
+        (api/downvote-idea user-id idea-name)))))
