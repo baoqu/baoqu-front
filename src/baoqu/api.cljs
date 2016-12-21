@@ -21,6 +21,30 @@
         url (->url path)]
     (http/get url)))
 
+(defn get-event-circles
+  [event-id]
+  (let [path (str "/api/events/" event-id "/circles")
+        url (->url path)]
+    (http/get url)))
+
+(defn get-event-users
+  [event-id]
+  (let [path (str "/api/events/" event-id "/users")
+        url (->url path)]
+    (http/get url)))
+
+(defn get-event-ideas
+  [event-id]
+  (let [path (str "/api/events/" event-id "/ideas")
+        url (->url path)]
+    (http/get url)))
+
+(defn get-event-comments
+  [event-id]
+  (let [path (str "/api/events/" event-id "/comments")
+        url (->url path)]
+    (http/get url)))
+
 ;;--------------------
 ;; CIRCLE
 ;;--------------------
@@ -40,12 +64,6 @@
 (defn get-comments-for-circle
   [circle-id]
   (let [path (str "/api/circles/" circle-id "/comments")
-        url (->url path)]
-    (http/get url)))
-
-(defn get-event-circles
-  [event-id]
-  (let [path (str "/api/events/" event-id "/circles")
         url (->url path)]
     (http/get url)))
 
@@ -73,3 +91,12 @@
         url (->url path)
         data {:name name :comment-body body}]
     (http/post url data)))
+
+;;--------------------
+;; USER
+;;--------------------
+(defn get-user-path
+  [user-id]
+  (let [path (str "/api/user/" user-id "/path")
+        url (->url path)]
+    (http/get url)))

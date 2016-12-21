@@ -4,14 +4,6 @@
 
 (enable-console-print!)
 
-(defn ->kwrds
-  [m]
-  (into {}
-        (for [[k v] m]
-          (if (map? v)
-            [(keyword k) (->kwrds v)]
-            [(keyword k) v]))))
-
 (defn get-params-string
   [params]
   (join "&" (for [[k v] params]
