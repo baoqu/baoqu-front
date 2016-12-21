@@ -37,7 +37,11 @@
                 (idea-r/set-ideas res)
                 (api/get-event-comments event-id)))
 
-      (p/then comment-r/set-comments)))
+      (p/then (fn [res]
+                (comment-r/set-comments res)
+                (api/get-event-votes event-id)))
+
+      (p/then idea-r/set-votes)))
 
 (defn join-event
   [event-id username]

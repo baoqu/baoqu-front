@@ -82,6 +82,12 @@
         data {:user-id user-id :idea-name body}]
     (http/post url data)))
 
+(defn get-event-votes
+  [id]
+  (let [path (str "/api/events/" id "/votes")
+        url (->url path)]
+    (http/get url)))
+
 ;;--------------------
 ;; COMMENT
 ;;--------------------

@@ -21,3 +21,11 @@
 (defn get-all-ideas-for-user
   [user-id]
   (get-ideas))
+
+(defn set-votes
+  [votes]
+  (swap! d/state assoc :votes votes))
+
+(defn get-votes
+  []
+  (:votes @d/state))
