@@ -2,48 +2,50 @@
   (:require [baoqu.http :as http]
             [promesa.core :as p]
             [baoqu.data :as d]
-            [baoqu.utils :refer [->kwrds]]
-            [baoqu.api :as api]))
+            [baoqu.api :as api]
+            [baoqu.repos.user :as user-r]
+            [baoqu.repos.idea :as idea-r]
+            [baoqu.repos.comment :as comment-r]
+            [baoqu.repos.circle :as circle-r]
+            [baoqu.repos.event :as event-r]))
 
 (enable-console-print!)
 
 (defn get-event-data
   [event-id]
   (-> (api/get-event event-id)
+
+      (p/then (fn [{:keys [id name agreement-factor circle-size]}]
+                (event-r/set-event id name agreement-factor circle-size)
+                (api/get-event-circles event-id)))
+
       (p/then (fn [res]
-                (let [event (http/res->kwrds res)
-                      user-id (get-in @d/state [:me :id])]
-                  (swap! d/state assoc :event event)
-                  (api/get-user-circle user-id))))
+                (let [user-id (:id (user-r/get-me))]
+                  (circle-r/set-circles res)
+                  (api/get-user-path user-id))))
+
       (p/then (fn [res]
-                (let [my-circle (http/decode res)
-                      circle-id (get my-circle "id")
-                      user-id (get-in @d/state [:me :id])]
-                  (swap! d/state assoc :circle my-circle)
-                  (api/get-circle-ideas-for-user circle-id user-id))))
+                (user-r/set-my-path res)
+                (user-r/set-active-circle (first res))
+                (api/get-event-users event-id)))
+
       (p/then (fn [res]
-                (let [ideas (http/decode res)
-                      circle-id (get-in @d/state [:circle "id"])
-                      ideas-map (into {} (for [idea ideas]
-                                           [(get idea "id") idea]))]
-                  (swap! d/state assoc :ideas ideas-map)
-                  (api/get-comments-for-circle circle-id))))
+                (user-r/set-users res)
+                (api/get-event-ideas event-id)))
+
       (p/then (fn [res]
-                (let [comments (http/decode res)]
-                  (swap! d/state assoc :comments comments)
-                  (api/get-event-circles event-id))))
-      (p/then (fn [res]
-                (let [circles (http/decode res)]
-                  (swap! d/state assoc :circles circles))))))
+                (idea-r/set-ideas res)
+                (api/get-event-comments event-id)))
+
+      (p/then comment-r/set-comments)))
 
 (defn join-event
   [event-id username]
   (-> (api/join-event event-id username)
-      (p/then (fn [res]
-                  (let [me (http/res->kwrds res)]
-                    (swap! d/state assoc :me me)
-                    (get-event-data event-id))))
-        (p/catch #(println (str "[HTTP-ERROR]>> " %)))))
+      (p/then (fn [{:keys [id name]}]
+                (user-r/set-me id name)
+                (get-event-data event-id)))
+      (p/catch #(println (str "[HTTP-ERROR]>> " %)))))
 
 (defn reload-event-data
   []
