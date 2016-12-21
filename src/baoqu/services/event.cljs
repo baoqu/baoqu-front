@@ -11,7 +11,7 @@
 
 (enable-console-print!)
 
-(defn get-event-data
+(defn fetch-event-data
   [event-id]
   (-> (api/get-event event-id)
 
@@ -44,10 +44,10 @@
   (-> (api/join-event event-id username)
       (p/then (fn [{:keys [id name]}]
                 (user-r/set-me id name)
-                (get-event-data event-id)))
+                (fetch-event-data event-id)))
       (p/catch #(println (str "[HTTP-ERROR]>> " %)))))
 
 (defn reload-event-data
   []
   (let [event-id (get-in @d/state [:event :id])]
-    (get-event-data event-id)))
+    (fetch-event-data event-id)))
