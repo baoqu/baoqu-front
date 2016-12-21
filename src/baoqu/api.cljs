@@ -97,6 +97,6 @@
 ;;--------------------
 (defn get-user-path
   [user-id]
-  (let [path (str "/api/user/" user-id "/path")
+  (let [path (str "/api/users/" user-id "/path")
         url (->url path)]
     (http/get url)))

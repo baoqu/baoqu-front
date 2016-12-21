@@ -1,7 +1,10 @@
 (ns baoqu.services.idea
-  (:require [baoqu.data :as d]
+  (:require [clojure.set :as set]
+            [baoqu.data :as d]
             [baoqu.form-utils :as fu]
-            [baoqu.api :as api]))
+            [baoqu.api :as api]
+            [baoqu.repos.user :as user-r]
+            [baoqu.repos.idea :as idea-r]))
 
 (enable-console-print!)
 
@@ -21,9 +24,8 @@
       (swap! d/state update :ideas merge {idea-id idea}))))
 
 (defn add-idea-req
-  []
-  (let [body (fu/get-f :idea)
-        user-id (get-in @d/state [:me :id])]
+  [body]
+  (let [user-id (get-in @d/state [:me :id])]
     (if-not (empty? body)
       (do
         (if-not (idea-exists? body)
@@ -53,3 +55,39 @@
       (if voted?
         (api/upvote-idea user-id idea-name)
         (api/downvote-idea user-id idea-name)))))
+
+(defn votes
+  [{:keys [id]}]
+  ;; as a list of maps user-vote
+  [{}])
+
+(defn vote-count
+  [{:keys [id] :as idea}]
+  (count (votes idea)))
+
+(defn voted?
+  [{:keys [id]}]
+  false)
+
+(defn approval-percentage
+  [{:keys [id] :as idea}]
+  ;; get active circle size
+  ;; get idea votes ;; (get-idea-votes idea)
+  ;; (* 100 (/ votes active-circle-size))
+  )
+
+(defn sort-ideas
+  []
+  ;; get ideas
+  ;; sort
+  ;; swap atom
+  )
+
+(defn get-all-for-circle
+  [id]
+  (let [users (user-r/get-all-for-circle id)
+        idea-ids (reduce (fn [acc {:keys [ideas]}]
+                           (set/union acc (into #{} ideas)))
+                         #{}
+                         users)]
+    (mapv idea-r/get-idea-by-id idea-ids)))

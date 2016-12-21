@@ -4,7 +4,7 @@
             [baoqu.services.idea :as is]
             [baoqu.services.comment :as cs]
             [baoqu.services.event :as es]
-            [baoqu.services.notification :as ns]))
+            [baoqu.repos.notification :as nr]))
 
 (enable-console-print!)
 
@@ -56,7 +56,7 @@
     (if any-at-9?
       (do
         (println "TERMINAMOS")
-        (ns/set-notification notification))
+        (nr/set-notification notification))
       (println "AUN NO"))))
 
 (defmethod process-message :upvote
@@ -100,7 +100,7 @@
                       :type :modal}]
     (if (= current-circle-id message-circle-id)
       (do
-        (ns/set-notification notification)
+        (nr/set-notification notification)
         (println "[SSE] NOTIFICATION> (" title ") " description))
       (println "NOTIFICATION NOT FOR ME"))))
 

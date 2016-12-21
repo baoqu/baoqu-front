@@ -4,6 +4,7 @@
             [baoqu.form-utils :as fu]
             [baoqu.mixins :as mixins]
             [baoqu.services.comment :as cs]
+            [baoqu.repos.user :as ur]
             [clojure.string :as s]))
 
 (enable-console-print!)
@@ -32,20 +33,20 @@
                          mixins/scroll-on-insert
   []
   (let [state (rum/react d/state)
-        comments (:comments state)]
+        active-circle (ur/get-active-circle)
+        comments (cs/get-all-for-circle (:id active-circle))]
     [:div.mod-body
      [:ul
       (for [comment comments]
-        (let [author (get comment "name")
-              initial (s/upper-case (first author))
-              body (get comment "body")]
+        (let [author (:name comment)
+              initial (s/upper-case (first author))]
           [:li.mod-comment
            [:div.avatar
             [:div.thumb initial]
             ]
            [:div.content
             [:div.username author]
-            [:div.comment body]
+            [:div.comment (:body comment)]
             ]
            ])
         )
@@ -55,53 +56,49 @@
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
-        event (:event state)
-        circle (:circle state)
-        circles (:circles state)
-        comments (:comments state)
-        num-comments (count comments)]
+        active-circle (ur/get-active-circle)
+        comments (cs/get-all-for-circle (:id active-circle))
+
+        ;; circle (:circle state)
+        ;; circles (:circles state)
+        ]
     [:div.mod-comments
      [:div.mod-header
       [:span {:class "expander js-expand-comments"}
        [:i {:class "icon-header fa fa-lg fa-comments-o"}]
        ]
       [:div.title (str "Chat")]
-        [:span.action
-          [:i {:class "fa fa-users"}]]
+      [:span.action
+       [:i {:class "fa fa-users"}]]
       [:span.toggle.hide-medium.js-collapse-comments
        [:i {:class "fa fa-lg fa-angle-right"}]
-      ]
-
+       ]
       [:div.mod-dropdown
-        [:ul.mod-users-list
-          [:li.user
-           [:div.avatar [:div.thumb "A"]]
-           [:div.content [:div.username "Adelino"]]
-          ]
-          [:li.user
-           [:div.avatar [:div.thumb "A"]]
-           [:div.content [:div.username "Adelino"]]
-          ]
-          [:li.user
-           [:div.avatar [:div.thumb "A"]]
-           [:div.content [:div.username "Adelino"]]
-          ]
+       [:ul.mod-users-list
+        [:li.user
+         [:div.avatar [:div.thumb "A"]]
+         [:div.content [:div.username "Adelino"]]
+         ]
+        [:li.user
+         [:div.avatar [:div.thumb "A"]]
+         [:div.content [:div.username "Adelino"]]
+         ]
+        [:li.user
+         [:div.avatar [:div.thumb "A"]]
+         [:div.content [:div.username "Adelino"]]
+         ]
 
-          [:li.user
-           [:div.avatar [:div.thumb "A"]]
-           [:div.content [:div.username "Adelino"]]
-          ]
-          [:li.user
-           [:div.avatar [:div.thumb "A"]]
-           [:div.content [:div.username "Adelino"]]
-          ]
-
-
-
+        [:li.user
+         [:div.avatar [:div.thumb "A"]]
+         [:div.content [:div.username "Adelino"]]
+         ]
+        [:li.user
+         [:div.avatar [:div.thumb "A"]]
+         [:div.content [:div.username "Adelino"]]
          ]
         ]
+       ]
       ]
-
      (comments-box)
      (comment-form)
      ]))

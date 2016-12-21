@@ -2,6 +2,9 @@
   (:require [rum.core :as rum]
             [baoqu.data :as d]
             [baoqu.mixins :as mixins]
+            [baoqu.services.circle :as circle-s]
+            [baoqu.repos.user :as user-r]
+            [baoqu.repos.notification :as notification-r]
             [baoqu.components.header :as header]
             [baoqu.components.footer :as footer]
             [baoqu.components.comments :as comments]
@@ -14,13 +17,13 @@
 (rum/defc workspace < rum/reactive
   []
   (let [state (rum/react d/state)
-        circle (:circle state)]
+        my-circle (circle-s/get-my-circle)]
     [:div.circle-wrapper
      [:div.circle-header
-      [:div.circle-header-title (str "Círculo " (get circle "id"))
+      [:div.circle-header-title (str "Círculo " (:id my-circle))
         [:span.tag
           [:span.label "Nivel "]
-          [:span.value (get circle "level")]
+          [:span.value (:level my-circle)]
         ]
         [:span.tag.my-circle
           [:span.label "Mi círculo"]
@@ -38,8 +41,8 @@
   "The main component for the home screen"
   []
   (let [state (rum/react d/state)
-        active-section (:active-section state)
-        notification (:notification state)]
+        active-section (user-r/get-active-section)
+        notification (notification-r/get-notification)]
     [:div.page
      (notifications/top)
      (header/main)

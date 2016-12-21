@@ -2,28 +2,44 @@
   (:require [rum.core :as rum]
             [baoqu.data :as d]
             [baoqu.form-utils :as fu]
-            [baoqu.services.idea :as is]))
+            [baoqu.services.idea :as is]
+            [baoqu.repos.user :as ur]))
 
 (enable-console-print!)
+
+(rum/defcs idea-form < (rum/local {:idea ""})
+  [state]
+  (let [local-atom (:rum/local state)
+        idea (:idea @local-atom)]
+    (letfn [(submit-action [e]
+              (.preventDefault e)
+              (is/add-idea-req idea)
+              (reset! local-atom {:idea ""}))
+            (change-action [e]
+              (swap! local-atom assoc :idea (.. e -target -value)))]
+      [:form.mod-add-box {:on-submit submit-action}
+       [:textarea { :class "input-text js-autoexpand"
+                   :id "autoResize"
+                   :rows "1"
+                   :data-min-rows "1"
+                   :placeholder "Añade una nueva idea"
+                   :on-change change-action
+                   :value idea}]
+       [:button.button
+        [:i {:class "fa fa-lg fa-plus"}]]])))
 
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
-        idea (fu/get-f :idea)
-        ideas (:ideas state)
-        event (:event state)
-        circle (:circle state)
-        circles (:circles state)
-        circle-level (get circle "level")
-        circle-size (Math.pow (get circle "size") circle-level)
-        num-ideas (count ideas)
-        submit-action (comp is/add-idea-req #(.preventDefault %))]
+        active-circle (ur/get-active-circle)
+        ideas (is/get-all-for-circle (:id active-circle))]
     [:div.mod-ideas
      [:div.mod-header
       [:span {:class "expander js-expand-ideas"}
         [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
       ]
-      [:div.title (str "Ideas (" num-ideas ")")]
+
+      [:div.title (str "Ideas (" (count ideas) ")")]
         [:span.action.active
           [:i {:class "fa fa-eye"}]]
         [:span.action
@@ -63,22 +79,22 @@
           ]
         ]
 
-       (for [[idea-id idea] ideas]
-         (let [votes (get idea "votes")
-               voted? (get idea "voted?")
-               approval-percentage (* 100 (/ votes circle-size))]
-           [:li.mod-idea {:key idea-id}
+       (for [idea ideas]
+         (let [votes (is/vote-count idea)
+               voted? (is/voted? idea)
+               approval-percentage (* 100 (/ votes (:size active-circle)))]
+           [:li.mod-idea {:key (:id idea)}
             [:div.idea (:name idea)]
             [:div.voting-block
              [:div.votes
-              [:div.votes-count (str votes "/" circle-size " apoyos necesarios")]
+              [:div.votes-count (str votes "/" (:size active-circle) " apoyos necesarios")]
               [:div.progress-bar
                [:div.inner {:style {:width (str approval-percentage "%")}}]
                ]
               ]
              (if voted?
-               [:div.btn.btn-success {:on-click (is/toggle-idea-vote-req idea-id)} "Apoyada"]
-               [:div.btn.btn-gray {:on-click (is/toggle-idea-vote-req idea-id)} "Apoyar"])
+               [:div.btn.btn-success {:on-click (is/toggle-idea-vote-req (:id idea))} "Apoyada"]
+               [:div.btn.btn-gray {:on-click (is/toggle-idea-vote-req (:id idea))} "Apoyar"])
              ]
             ]))
        ]
@@ -91,13 +107,5 @@
         ]
        ]
       ]
-     [:form.mod-add-box {:on-submit submit-action}
-      [:textarea { :class "input-text js-autoexpand"
-      :id "autoResize"
-                   :rows "1"
-                   :data-min-rows "1"
-                   :placeholder "Añade una nueva idea"
-                   :on-change (fu/change-in-form :idea)
-                   :value idea}]
-      [:button.button
-       [:i {:class "fa fa-lg fa-plus"}]]]]))
+     (idea-form)
+     ]))
