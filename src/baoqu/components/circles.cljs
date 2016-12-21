@@ -1,6 +1,10 @@
 (ns baoqu.components.circles
   (:require [rum.core :as rum]
-            [baoqu.data :as d]))
+            [baoqu.data :as d]
+            [baoqu.repos.circle :as cr]
+            [baoqu.repos.idea :as ir]
+            [baoqu.services.idea :as is]
+            [baoqu.services.circle :as cs]))
 
 (declare my-circle)
 
@@ -43,21 +47,15 @@
     ))
 
 (rum/defc a-circle < rum/static
-  [circle]
-  (let [users (get circle "users")
-        level (get circle "level")
-        circle-size (get-in @d/state [:event :circle-size])
-        circles (:circles @d/state)
-        parent (get circle "parent-circle-id")
-        my-circle (= (get circle "id") (get-in @d/state [:circle "id"]))
-        inner-circles-ids (into #{} (get circle "inner-circles"))
-        inner-circles (when inner-circles-ids
-                        (filter (comp inner-circles-ids #(get % "id")) circles))]
-    [:div.circle {:key (get circle "id") :class (str "c-lv" level " " (when (nil? parent) "root js-circle-root") " " (if my-circle "my-circle"))}
-     ;; (circle-context circle)
+  [{:keys [users level parent-circle-id] :as circle}]
+  (let [my-circle? (cs/is-my-circle? circle)
+        inner-circles (cs/get-inner-circles-for-circle circle)]
+    [:div.circle {:key (:id circle)
+                  :class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if my-circle? "my-circle"))}
+     (circle-context circle)
      (if (= level 1)
-       (repeat users
-           [:div.circle])
+       (for [key users]
+         [:div.circle {:key key}])
        (for [inner-circle inner-circles]
          (a-circle inner-circle)))
      ]))
@@ -65,39 +63,38 @@
 (rum/defc the-map < rum/reactive
   []
   (let [state (rum/react d/state)
-        all-circles (:circles state)
-        ideas (:ideas state)]
+        ideas (ir/get-ideas)]
     [:div.map
-      [:div {:class "map-toggle-view js-map-toggle-view"}
-        [:div {:class "map-toggle map-toggle-map" :data-balloon-pos "left" :data-balloon "Mapa de acuerdos"}
-          [:i {:class "icon-header fa fa-lg fa-map"}]
-        ]
-        [:div {:class "map-toggle map-toggle-list" :data-balloon-pos "left" :data-balloon "Ideas más votadas"}
-          [:i {:class "icon-header fa fa-lg fa-list"}]
-        ]
+     [:div {:class "map-toggle-view js-map-toggle-view"}
+      [:div {:class "map-toggle map-toggle-map" :data-balloon-pos "left" :data-balloon "Mapa de acuerdos"}
+       [:i {:class "icon-header fa fa-lg fa-map"}]
+       ]
+      [:div {:class "map-toggle map-toggle-list" :data-balloon-pos "left" :data-balloon "Ideas más votadas"}
+       [:i {:class "icon-header fa fa-lg fa-list"}]
+       ]
       ]
-      [:div {:class "map-list-view"}
-        [:div.header "Ideas más apoyadas"]
-        [:div.ideas-list
-         (for [[_ idea] ideas]
-           [:div.mod-idea {:key (:id idea)}
-            [:div.supports
-             [:div.value (get idea "votes")]
-             [:div.label " apoyos"]
-             ]
-            [:div.body
-             [:div.idea (get idea "name")]
-             [:div.info  "Círculo " (:circle idea) " | " "nivel " (:level idea)]
-             (if (get idea "voted?")
-               [:span.badge "la apoyaste"])
-             ]
-            ])
-        ]
-      ]
-      [:div {:class "map-circles-view"}
-     (for [level (reverse (range 1 4))]
-       (let [parent-circles (filter #(and (= (get % "level") level) (nil? (get % "parent-circle-id"))) all-circles)]
-         (for [circle parent-circles]
-           (a-circle circle))))
+     [:div {:class "map-list-view"}
+      [:div.header "Ideas más apoyadas"]
+      [:div.ideas-list
+       (for [idea ideas]
+         [:div.mod-idea {:key (:id idea)}
+          [:div.supports
+           [:div.value (is/vote-count idea)]
+           [:div.label " apoyos"]
            ]
+          [:div.body
+           [:div.idea (:name idea)]
+           [:div.info  "Círculo " (:circle idea) " | " "nivel " (:level idea)]
+           (if (get idea "voted?")
+             [:span.badge "la apoyaste"])
+           ]
+          ])
+       ]
+      ]
+     [:div {:class "map-circles-view"}
+      (for [level (cs/get-level-range)]
+        (let [parent-circles (cs/get-parent-circles-for-level level)]
+          (for [circle parent-circles]
+            (a-circle circle))))
+      ]
      ]))

@@ -6,7 +6,7 @@
 
 (defn get-circles
   []
-  (:circles @d/state))
+  (vals (:circles @d/state)))
 
 (defn set-circles
   [circles]
@@ -14,5 +14,5 @@
 
 (defn get-by-id
   [circle-id]
-  (-> (get-circles)
+  (-> (:circles @d/state)
       (get circle-id)))
