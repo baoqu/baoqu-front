@@ -51,7 +51,8 @@
   (let [my-circle? (cs/is-my-circle? circle)
         inner-circles (cs/get-inner-circles-for-circle circle)]
     [:div.circle {:key (:id circle)
-                  :class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if my-circle? "my-circle"))}
+                  :class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if my-circle? "my-circle"))
+                  :on-click #(cs/visit-circle % circle)}
      (circle-context circle)
      (if (= level 1)
        (for [key users]

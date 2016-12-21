@@ -40,3 +40,9 @@
   (let [inner-ids (into #{} (:inner-circles circle))]
     (when (seq inner-ids)
       (filter (comp inner-ids :id) (cr/get-circles)))))
+
+(defn visit-circle
+  [e {:keys [id]}]
+  (.preventDefault e)
+  (.stopPropagation e)
+  (ur/set-active-circle id))
