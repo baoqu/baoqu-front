@@ -112,6 +112,7 @@
 
 // IDEAS & COMMENTS common base
 .mod-ideas, .mod-comments {
+  width: 0; // to fix long words
   flex: 1;
   display: flex;
   @extend .bg-white;
@@ -169,12 +170,12 @@
     box-shadow: 0px -2px 2px rgba(0,0,0,0.08);
     position: relative;
     border-top: 1px solid $color-gray-light;
-    textarea.input-text {
+    .input-text {
       width: 100%;
       padding-right: 2.6rem;
       max-height: 11rem;
     }
-    textarea.input-text:focus {
+    .input-text:focus {
       border-color: $color-primary;
       box-shadow: 0px 0 4px $color-primary;
     }
@@ -222,6 +223,9 @@
       font-size: $fs18;
       padding: $space;
       font-weight: bold;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      hyphens: auto;
     }
     .voting-block {
       display: flex;
