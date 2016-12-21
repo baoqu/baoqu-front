@@ -84,7 +84,7 @@ $circle-margin: 2%;
     box-shadow: 0 0 0 4px rgba(249,120, 163, 0.2) !important; //#c2288a
     border-color: #f978a3;
   }
-  &.my-circle.agreed {
+  &.active-circle {
     box-shadow: 0 0 0 4px rgba(249,120, 163, 0.4), inset 0 0 0 3px $color-success !important; //#c2288a
   }
 }
