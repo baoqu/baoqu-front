@@ -55,5 +55,19 @@ $(document).ready(function(){
     });*/
   });
 
+// AUTO RESIZING TEXT AREA
+// https://stephanwagner.me/auto-resizing-textarea
+  $("body").delegate("textarea", "focus", function() {
+  //jQuery.each(jQuery('textarea'), function() {
+
+      if (jQuery(this).data('autoresizeAttached')) return;
+
+      var offset = this.offsetHeight - this.clientHeight;
+
+      var resizeTextarea = function(el) {
+          jQuery(el).css('height', 'auto').css('height', el.scrollHeight + offset);
+      };
+      jQuery(this).on('keyup input', function() { resizeTextarea(this); }).data('autoresizeAttached', true);
+  });
 
 });

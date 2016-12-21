@@ -19,10 +19,12 @@
             (change-action [e]
               (swap! local-atom assoc :comment (.. e -target -value)))]
       [:form.mod-add-box {:on-submit submit-action}
-       [:input {:class "input-text"
-                :placeholder "Escribe aquí"
-                :on-change change-action
-                :value comment}]
+       [:input { :class "input-text js-autoexpand"
+                    :rows "1"
+                    :data-min-rows "1"
+                    :placeholder "Escribe aquí"
+                    :on-change change-action
+                    :value comment}]
        [:button.button
         [:i {:class "fa fa-lg fa-plus"}]]])))
 

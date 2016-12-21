@@ -76,9 +76,12 @@
        ]
       ]
      [:form.mod-add-box {:on-submit submit-action}
-      [:input {:class "input-text"
-               :placeholder "Añade una nueva idea"
-               :on-change (fu/change-in-form :idea)
-               :value idea}]
+      [:textarea { :class "input-text js-autoexpand"
+      :id "autoResize"
+                   :rows "1"
+                   :data-min-rows "1"
+                   :placeholder "Añade una nueva idea"
+                   :on-change (fu/change-in-form :idea)
+                   :value idea}]
       [:button.button
        [:i {:class "fa fa-lg fa-plus"}]]]]))
