@@ -67,13 +67,8 @@
          (let [votes (get idea "votes")
                voted? (get idea "voted?")
                approval-percentage (* 100 (/ votes circle-size))]
-           [:li.mod-idea
-          ; [:div.idea (get idea "name")]
-            [:div.idea ""
-              [:input.read-more-state {:type "checkbox" :id "read-more"}]
-              [:div.read-more-wrapper (get idea "name")]
-              [:label.read-more-trigger {:for "read-more"}]
-            ]
+           [:li.mod-idea {:key idea-id}
+            [:div.idea (:name idea)]
             [:div.voting-block
              [:div.votes
               [:div.votes-count (str votes "/" circle-size " apoyos necesarios")]

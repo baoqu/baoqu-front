@@ -80,7 +80,7 @@
         [:div.header "Ideas más apoyadas"]
         [:div.ideas-list
          (for [[_ idea] ideas]
-           [:div.mod-idea
+           [:div.mod-idea {:key (:id idea)}
             [:div.supports
              [:div.value (get idea "votes")]
              [:div.label " apoyos"]
