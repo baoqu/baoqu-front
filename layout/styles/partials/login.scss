@@ -84,14 +84,14 @@
       font-size: $fs24;
       border-width: 2px;
       &:focus {
-        border-color: $color-success-dark;
+        border-color: $color-primary;
       }
     }
     button {
       width: 30%;
       height: 4.4rem;
       margin-left: $space;
-      background-color: $color-success-dark;
+      background-color: $color-primary;
       color: $color-white;
       font-size: $fs24;
       font-weight: bold;
@@ -100,7 +100,7 @@
       border-radius: $radius;
       cursor: pointer;
       &:hover {
-        background-color: $color-success;
+        background-color: $color-primary;
       }
     }
 

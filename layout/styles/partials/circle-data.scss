@@ -172,19 +172,21 @@
       width: 100%;
       padding-right: 2.6rem;
     }
-    .input-text:focus,
-    .input-text:focus + .button {
-      border-color: $color-success;
+    .input-text:focus {
+      border-color: $color-primary;
+      box-shadow: 0px 0 4px $color-primary;
     }
+    // .input-text:focus + .button
     .button {
       width: 2.6rem;
+      margin: 1px;
       background: $color-white;
       position: absolute;
       right: $space;
       top: $space;
       bottom: $space;
       border-radius: 0 $radius $radius 0;
-      border: 1px solid $color-gray-light;
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -194,8 +196,8 @@
       }
       &:hover,
       &:focus {
-        background: $color-success;
-        border-color: $color-success !important;
+        background: $color-primary;
+        border-color: $color-primary !important;
         .fa {
           color: $color-white;
         }
