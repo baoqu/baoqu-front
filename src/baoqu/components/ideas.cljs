@@ -47,12 +47,33 @@
             ]
      [:div.mod-body
       [:ul
+
+        [:li.mod-idea
+          [:div.idea ""
+            [:input.read-more-state {:type "checkbox" :id "read-more"}]
+            [:div.read-more-wrapper "can demore denauer dore jore can demore denauer dore jore can demore denauer dore jorecan demore denauer dore jore can demore denauer dore jore can demore denauer dore jorecan demore denauer dore jore can demore denauer dore jore can demore denauer dore jorecan demore denauer dore jore can demore denauer dore jore can demore denauer dore jore"]
+            [:label.read-more-trigger {:for "read-more"}]
+          ]
+        ]
+
+        [:li.mod-idea
+          [:div.idea ""
+            [:div.read-more-wrapper "can demore denauer dore jore can demore denauer dore jore can demore denauer dore jorecan demore denauer dore jore can demore denauer dore jore can demore denauer dore jorecan demore denauer dore jore can demore denauer dore jore can demore denauer dore jorecan demore denauer dore jore can demore denauer dore jore can demore denauer dore jore"]
+            [:label.read-more-trigger {:for "read-more"}]
+          ]
+        ]
+
        (for [[idea-id idea] ideas]
          (let [votes (get idea "votes")
                voted? (get idea "voted?")
                approval-percentage (* 100 (/ votes circle-size))]
            [:li.mod-idea
-            [:div.idea (get idea "name")]
+          ; [:div.idea (get idea "name")]
+            [:div.idea ""
+              [:input.read-more-state {:type "checkbox" :id "read-more"}]
+              [:div.read-more-wrapper (get idea "name")]
+              [:label.read-more-trigger {:for "read-more"}]
+            ]
             [:div.voting-block
              [:div.votes
               [:div.votes-count (str votes "/" circle-size " apoyos necesarios")]

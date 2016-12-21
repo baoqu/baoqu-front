@@ -371,3 +371,57 @@
     }
   }
 }
+
+
+/* mixin for multiline */
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
+  overflow: hidden;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  margin-right: 0;
+  padding-right: 1rem;
+  &:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: $bgColor;
+  }
+}
+.read-more-wrapper {
+  @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 4, $bgColor: white);
+}
+.read-more-state { display: none; }
+.read-more-state:checked ~ .read-more-wrapper {
+  overflow: auto;
+  line-height: 1.2em;
+  max-height: initial;
+  padding-right: 0;
+  &:before {
+    display: none;
+  }
+  &:after {
+    display: none;
+  }
+}
+.read-more-trigger {
+  font-size: $fs12;
+  color: $color-gray-medium;
+  font-weight: normal;
+  cursor: pointer;
+}
+.read-more-state ~ .read-more-trigger:before {
+  content: 'Mostrar más';
+}
+.read-more-state:checked ~ .read-more-trigger:before {
+  content: 'Mostrar menos';
+}
