@@ -3,8 +3,8 @@
             [baoqu.data :as d]
             [baoqu.form-utils :as fu]
             [baoqu.api :as api]
-            [baoqu.repos.user :as user-r]
-            [baoqu.repos.idea :as idea-r]))
+            [baoqu.repos.user :as ur]
+            [baoqu.repos.idea :as ir]))
 
 (enable-console-print!)
 
@@ -58,16 +58,27 @@
 
 (defn votes
   [{:keys [id]}]
-  ;; as a list of maps user-vote
-  [{}])
+  (filter #(= id (:idea-id %)) (ir/get-votes)))
+
+(defn votes-for-circle
+  [idea {circle-id :id}]
+  (let [circle-users (ur/get-all-for-circle circle-id)
+        user-ids (into #{} (map :id) circle-users)
+        idea-votes (votes idea)]
+    (filter #(user-ids (:user-id %)) idea-votes)))
 
 (defn vote-count
   [{:keys [id] :as idea}]
   (count (votes idea)))
 
+(defn vote-count-for-circle
+  [idea circle]
+  (count (votes-for-circle idea circle)))
+
 (defn voted?
-  [{:keys [id]}]
-  false)
+  [idea]
+  (let [me (ur/get-me)]
+    (some #(= (:user-id %) (:id me)) (votes idea))))
 
 (defn approval-percentage
   [{:keys [id] :as idea}]
@@ -78,16 +89,14 @@
 
 (defn sort-ideas
   []
-  ;; get ideas
-  ;; sort
-  ;; swap atom
+  ;;(ir/get-ideas))
   )
 
 (defn get-all-for-circle
   [id]
-  (let [users (user-r/get-all-for-circle id)
+  (let [users (ur/get-all-for-circle id)
         idea-ids (reduce (fn [acc {:keys [ideas]}]
                            (set/union acc (into #{} ideas)))
                          #{}
                          users)]
-    (mapv idea-r/get-idea-by-id idea-ids)))
+    (mapv ir/get-idea-by-id idea-ids)))

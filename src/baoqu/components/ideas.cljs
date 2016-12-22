@@ -80,7 +80,7 @@
         ]
 
        (for [idea ideas]
-         (let [votes (is/vote-count idea)
+         (let [votes (is/vote-count-for-circle idea active-circle)
                voted? (is/voted? idea)
                approval-percentage (* 100 (/ votes (:size active-circle)))]
            [:li.mod-idea {:key (:id idea)}
