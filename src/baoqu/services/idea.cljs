@@ -8,6 +8,8 @@
 
 (enable-console-print!)
 
+(declare voted?)
+
 (defn idea-exists?
   [idea-body]
   (let [ideas (:ideas @d/state)]
@@ -46,15 +48,17 @@
       (swap! d/state update-in [:ideas id "voted?"] not))
     (swap! d/state update-in [:ideas id "votes"] dec)))
 
-(defn toggle-idea-vote-req
+(defn get-by-id
   [id]
-  (fn []
-    (let [voted? (get-in @d/state [:ideas id "voted?"])
-          user-id (get-in @d/state [:me :id])
-          idea-name (get-in @d/state [:ideas id "name"])]
-      (if voted?
-        (api/upvote-idea user-id idea-name)
-        (api/downvote-idea user-id idea-name)))))
+  (ir/get-idea-by-id id))
+
+(defn toggle-idea-vote-req
+  [e {:keys [name] :as idea}]
+  (.preventDefault e)
+  (let [{user-id :id} (ur/get-me)]
+    (if (voted? idea)
+      (api/downvote-idea user-id name)
+      (api/upvote-idea user-id name))))
 
 (defn all-ideas
   []
