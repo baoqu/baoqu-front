@@ -38,7 +38,9 @@
               (swap! local-atom not))]
       [:div.action-wrapper
        [:span.action {:class (str "" (if show? "active"))
-                      :on-click click-action}
+                      :on-click click-action
+                      :data-balloon-pos "left"
+                      :data-balloon "Filtrar ideas"}
         [:i {:class "fa fa-eye"}]]
        (if show?
          [:div.mod-dropdown
@@ -73,7 +75,9 @@
       [:div.title (str "Ideas (" (count ideas) ")")]
       (idea-filter-menu)
         [:span.action
-          [:i {:class "fa fa-sort-amount-desc"}]]
+          [:i {:class "fa fa-sort-amount-desc"
+               :data-balloon-pos "left"
+               :data-balloon "Ordenar ideas"}]]
         [:span.toggle.hide-medium.js-collapse-ideas
           [:i {:class "fa fa-lg fa-angle-right"}]]]
 

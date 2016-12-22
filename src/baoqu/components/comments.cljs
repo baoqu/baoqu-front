@@ -99,7 +99,9 @@
               (swap! local-atom not))]
       [:div.action-wrapper
        [:span.action {:class (str "" (if show? "active"))
-                      :on-click click-action}
+                      :on-click click-action
+                      :data-balloon-pos "left"
+                      :data-balloon "Participantes en este círculo"}
         [:i {:class "fa fa-users"}]]
        (if show?
          [:div.mod-dropdown
