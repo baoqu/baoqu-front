@@ -54,12 +54,12 @@
         in-path? (cs/circle-in-path? circle)
         active-circle? (cs/is-active-circle? circle)
         inner-circles (cs/get-inner-circles-for-circle circle)]
-    [:div.circle {:class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if in-path? "my-circle") " " (if active-circle? "active-circle"))
+    [:div.circle.js-circle-w-context {:class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if in-path? "my-circle") " " (if active-circle? "active-circle"))
                   :on-click #(cs/visit-circle % circle)}
      (circle-context circle)
      (if (= level 1)
        (for [key users]
-         [:div.circle {:key key}])
+         [:div.circle.circle-user {:key key}])
        (for [{inner-id :id :as inner-circle} inner-circles]
          (-> (a-circle inner-circle)
              (rum/with-key inner-id))))

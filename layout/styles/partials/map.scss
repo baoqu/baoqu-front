@@ -96,6 +96,9 @@ $circle-margin: 2%;
     box-shadow: 0px 0 0px 4px rgba(49,178,197,0.30) !important;
     border-color: #f978a3;
   }
+  &.circle-user {
+    pointer-events: none;
+  }
 }
 // hover state only in root, wich is the one that will show the info window
 .circle.root:hover {
@@ -235,7 +238,8 @@ Default is 3 because rythm with Andres
   }
 }
 /*.circle.root:hover > .context-info {*/
-.circle.root > .context-info.info-shown {
+//.circle.root > .context-info.info-shown {
+.circle > .context-info.info-shown {
   opacity: 1;
   transition-delay:0.3s;
   pointer-events: auto;

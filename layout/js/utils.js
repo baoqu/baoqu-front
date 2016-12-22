@@ -24,23 +24,25 @@ $(document).ready(function(){
   });
 
   // Show circles info
-  $('body').delegate('.js-circle-root','mouseenter mouseleave', function(e) {
-
+  $('body').delegate('.js-circle-w-context','mouseenter mouseleave', function(e) {
+// mouseover mouseout
     // time
 
     // position
     if (e.type == 'mouseenter') {
-
+      // console.log('enter');
+      $('.js-context-info').removeClass('info-shown');
       $(this).find('> .js-context-info').addClass('info-shown')
-        .position({
-          my: "center bottom+5%",
-          at: "center top+5%",
-          of: $(this),
-          collision: "flipfit flipfit",
-          within: ".map-circles-view"
-        });
+      .position({
+        my: "center bottom+5%",
+        at: "center top+5%",
+        of: $(this),
+        collision: "flipfit flipfit",
+        within: ".map-circles-view"
+      });
 
     } else {
+      // console.log('out');
       $(this).find('> .js-context-info').removeClass('info-shown');
       //.css('top','').css('bottom','').css('left','').css('right','');
     }
