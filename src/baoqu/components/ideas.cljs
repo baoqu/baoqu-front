@@ -77,7 +77,7 @@
         big? (> length limit)
         active-circle (ur/get-active-circle)
         participant-count (cs/get-participants-count active-circle)
-        votes (is/vote-count-for-circle idea active-circle)
+        votes (is/vote-count-for-idea-and-circle idea active-circle)
         approval-percentage (* 100 (/ votes participant-count))]
     (letfn [(click-action [e]
               (.preventDefault e)

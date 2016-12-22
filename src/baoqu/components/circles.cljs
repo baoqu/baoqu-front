@@ -86,7 +86,7 @@
        (for [idea ideas]
          [:div.mod-idea {:key (:id idea)}
           [:div.supports
-           [:div.value (is/vote-count idea)]
+           [:div.value (is/vote-count-for-idea idea)]
            [:div.label " apoyos"]
            ]
           [:div.body

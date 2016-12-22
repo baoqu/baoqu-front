@@ -56,9 +56,13 @@
         (api/upvote-idea user-id idea-name)
         (api/downvote-idea user-id idea-name)))))
 
+(defn all-ideas
+  []
+  (ir/get-ideas))
+
 (defn all-ideas-count
   []
-  (count (ir/get-ideas)))
+  (count (all-ideas)))
 
 (defn all-votes
   []
@@ -75,11 +79,11 @@
         idea-votes (votes-for-idea idea)]
     (filter #(user-ids (:user-id %)) idea-votes)))
 
-(defn vote-count
+(defn vote-count-for-idea
   [{:keys [id] :as idea}]
   (count (votes-for-idea idea)))
 
-(defn vote-count-for-circle
+(defn vote-count-for-idea-and-circle
   [idea circle]
   (count (votes-for-idea-and-circle idea circle)))
 
