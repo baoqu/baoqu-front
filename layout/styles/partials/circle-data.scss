@@ -261,26 +261,56 @@
     }
   }
 }
-.ideas-zero-case {
-  text-align: center;
-  margin-top: 2rem;
-  width: 100%;
-  box-sizing: border-box;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  .inner {
-    max-width: 16rem;
-    display: inline-block;
-    .copy {
-      font-size: $fs16;
-      color: $color-gray-medium-dark;
+.zero-case {
+  padding-top: $space-l;
+  .title {
+    font-size: $fs32;
+  }
+  .description {
+    font-size: $fs18;
+    color: $color-gray-medium;
+    width: 80%;
+    padding-bottom: $space-l;
+  }
+  .mod-idea {
+    padding-top: $space-l;
+    border: none;
+    .idea {
+      span {
+        background-color: $color-gray-light;
+        width: 100%;
+        height: 0.8rem;
+        margin-bottom: 0.6rem;
+        display: block;
+      } & :last-child {
+        width: 70%;
+      }
     }
-    .fa-hand-o-down {
-      color: $color-gray-light;
-      font-size: 3rem;
-      margin-top: 1rem;
-      margin-bottom: 2rem;
+    .voting-block .votes .progress-bar {
+      background-color: $color-gray-light;
+    }
+    .btn-gray {
+      background-color: $color-gray-light;
+      height: 1rem;
+    }
+  }
+  .mod-comment {
+    .avatar {
+      .thumb {
+        background-color: $color-gray-light;
+      }
+    }
+    .content {
+      .username, .comment {
+        background-color: $color-gray-light;
+        width: 100%;
+        height: 0.8rem;
+        margin-bottom: 0.6rem;
+        display: block;
+      }
+      .username {
+        width: 25%;
+      }
     }
   }
 }

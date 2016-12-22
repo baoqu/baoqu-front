@@ -36,6 +36,42 @@
         active-circle (ur/get-active-circle)
         comments (cs/get-all-for-circle (:id active-circle))]
     [:div.mod-body
+
+    [:div.zero-case
+      [:h3.title "Chat"]
+      [:p.description "Aún nadie ha dicho nada, no hay por qué ser tan tímido."]
+      [:ul
+        [:li.mod-comment
+          [:div.avatar
+            [:div.thumb]
+          ]
+          [:div.content
+            [:div.username]
+            [:div.comment]
+          ]
+        ]
+        [:li.mod-comment
+          [:div.avatar
+            [:div.thumb]
+          ]
+          [:div.content
+            [:div.username]
+            [:div.comment]
+          ]
+        ]
+        [:li.mod-comment
+          [:div.avatar
+            [:div.thumb]
+          ]
+          [:div.content
+            [:div.username]
+            [:div.comment]
+          ]
+        ]
+       ]
+    ]
+
+
      [:ul
       (for [comment comments]
         (let [author (:name comment)
