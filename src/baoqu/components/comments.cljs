@@ -4,6 +4,7 @@
             [baoqu.form-utils :as fu]
             [baoqu.mixins :as mixins]
             [baoqu.services.comment :as cs]
+            [baoqu.services.circle :as cis]
             [baoqu.repos.user :as ur]
             [clojure.string :as s]))
 
@@ -57,6 +58,7 @@
   []
   (let [state (rum/react d/state)
         active-circle (ur/get-active-circle)
+        circle-in-path? (cis/circle-in-path? active-circle)
         comments (cs/get-all-for-circle (:id active-circle))
 
         ;; circle (:circle state)
@@ -100,5 +102,6 @@
        ]
       ]
      (comments-box)
-     (comment-form)
+     (if circle-in-path?
+       (comment-form))
      ]))

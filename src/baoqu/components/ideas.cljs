@@ -3,6 +3,7 @@
             [baoqu.data :as d]
             [baoqu.form-utils :as fu]
             [baoqu.services.idea :as is]
+            [baoqu.services.circle :as cs]
             [baoqu.repos.user :as ur]))
 
 (enable-console-print!)
@@ -32,6 +33,7 @@
   []
   (let [state (rum/react d/state)
         active-circle (ur/get-active-circle)
+        circle-in-path? (cs/circle-in-path? active-circle)
         ideas (is/get-all-for-circle (:id active-circle))]
     [:div.mod-ideas
      [:div.mod-header
@@ -107,5 +109,6 @@
         ]
        ]
       ]
-     (idea-form)
+     (if circle-in-path?
+       (idea-form))
      ]))
