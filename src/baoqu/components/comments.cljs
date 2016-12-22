@@ -41,10 +41,11 @@
        [:ul
         (for [comment comments]
           (let [author (:name comment)
+                author-id (:user-id comment)
                 initial (s/upper-case (first author))]
             [:li.mod-comment
              [:div.avatar
-              [:div.thumb initial]
+              [:div.thumb {:class (str "color-" author-id)} author-id initial]
               ]
              [:div.content
               [:div.username author]
@@ -55,7 +56,7 @@
         ]
        [:div.zero-case
         [:h3.title "Chat"]
-        [:p.description "Aún nadie ha dicho nada, no hay por qué ser tan tímido."]
+        [:p.description "Aún nadie ha dicho nada en este círculo."]
         [:ul
          [:li.mod-comment
           [:div.avatar
@@ -113,7 +114,7 @@
                    author (:name user)
                    initial (s/upper-case (first author))]
                [:li.user {:key id}
-                [:div.avatar [:div.thumb initial]]
+                [:div.avatar [:div.thumb {:class (str "color-" id)} initial]]
                 [:div.content [:div.username author]]
                 ]))
            ]
