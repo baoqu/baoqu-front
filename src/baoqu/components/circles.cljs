@@ -12,19 +12,22 @@
 (declare my-circle)
 
 (rum/defc circle-context < rum/reactive
-  [{:keys [level size] :as circle}]
+  [{:keys [id level size] :as circle}]
   (let [state (rum/react d/state)
-        percentage (* 100 (/ (:most-popular-idea-votes circle) (* size level)))]
+        max-participants (cs/get-participants-count circle)
+        {name :name votes :votes :as highest-voted-idea} (is/get-highest-voted-idea-for-circle circle)
+        idea-count (is/count-all-for-circle circle)
+        percentage (* 100 (/ votes max-participants))]
     [:div.context-info.js-context-info
-     [:div.circle-title (get circle "name")
+     [:div.circle-title (str "Círculo " id)
       [:span.tag (str "Nivel " level)]
       ]
      [:div.mod-idea
       [:div.intro "Idea más apoyada"]
-      [:div.idea (:most-popular-idea circle)]
+      [:div.idea name]
       [:div.voting-block
        [:div.votes
-        [:div.votes-count (str (:most-popular-idea-votes circle) "/" (* size level) " apoyos para promocionar")]
+        [:div.votes-count (str votes "/" max-participants " apoyos para promocionar")]
         [:div.progress-bar
          [:div.inner {:style {:width (str percentage "%")}}]
          ]
@@ -34,15 +37,15 @@
      [:div.mod-meta
       [:div.item
        [:i {:class "icon-header fa fa-lightbulb-o"}]
-       [:span "33"]
+       [:span idea-count]
        ]
       [:div.item
        [:i {:class "icon-header fa fa-comments"}]
-       [:span "33"]
+       [:span "??"]
        ]
       [:div.item
        [:i {:class "icon-header fa fa-lightbulb-o"}]
-       [:span "33"]
+       [:span "??"]
        ]
       ]
      ]

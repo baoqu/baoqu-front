@@ -133,6 +133,7 @@
   )
 
 (defn get-all-for-circle
+  "Get all the ideas which have votes in a given circle"
   [{:keys [id]}]
   (let [users (ur/get-all-for-circle id)
         idea-ids (reduce (fn [acc {:keys [ideas]}]
@@ -150,8 +151,8 @@
     (filter #(voted-ideas-ids (:id %)) all-ideas)))
 
 (defn count-all-for-circle
-  [{:keys [id]}]
-  (count (get-all-for-circle id)))
+  [circle]
+  (count (get-all-for-circle circle)))
 
 (defn voted-filter-active?
   []
@@ -160,3 +161,10 @@
 (defn set-voted-filter
   [active?]
   (ir/set-voted-filter active?))
+
+(defn get-highest-voted-idea-for-circle
+  "Returs the highest voted idea of a given circle"
+  [circle]
+  (last (->> (get-all-for-circle circle)
+             (mapv #(assoc % :votes (vote-count-for-idea-and-circle % circle)))
+             (sort-by :votes))))
