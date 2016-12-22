@@ -60,9 +60,10 @@
       (println "AUN NO"))))
 
 (defmethod process-message :upvote
-  [msg]
-  (let [data (:data msg)
-        current-circle-id (get-in @d/state [:circle "id"])
+  [{:keys [data]}]
+  (println ">> UPVOTE")
+  (println data "")
+  (let [current-circle-id (get-in @d/state [:circle "id"])
         message-circle-id (get data "circle-id")
         idea-id (get-in data ["idea" "id"])
         user-id (get-in data ["user" "id"])]
@@ -76,9 +77,10 @@
     (.setTimeout js/window (partial end-if-idea-at-9 (get-in data ["idea" "name"])) 2000)))
 
 (defmethod process-message :downvote
-  [msg]
-  (let [data (:data msg)
-        current-circle-id (get-in @d/state [:circle "id"])
+  [{:keys [data]}]
+  (println ">> DOWNVOTE")
+  (println data "")
+  (let [current-circle-id (get-in @d/state [:circle "id"])
         message-circle-id (get data "circle-id")
         idea-id (get-in data ["idea" "id"])
         user-id (get-in data ["user" "id"])]
@@ -86,7 +88,7 @@
       (do
         (is/react-to-downvote idea-id user-id)
         (println "[SSE] DOWNVOTE > " data))
-      (println "UPVOTE NOT FOR ME"))))
+      (println "DOWNVOTE NOT FOR ME"))))
 
 (defmethod process-message :notification
   [msg]
