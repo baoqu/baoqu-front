@@ -1,7 +1,7 @@
 (ns baoqu.components.notifications
   (:require [rum.core :as rum]
             [baoqu.data :as d]
-            [baoqu.services.notification :as ns]))
+            [baoqu.repos.notification :as nr]))
 
 (rum/defc top < rum/reactive
   []
@@ -29,8 +29,8 @@
       [:div.modal-inner
        [:div.modal-title (:title notification)]
        [:div.modal-body (:description notification)]
-       [:div.btn.btn-primary {:on-click ns/clear-notification} "OK!"]
-       [:i.fa.fa-2x.fa-close.modal-close {:on-click ns/clear-notification}]
+       [:div.btn.btn-primary {:on-click nr/clear-notification} "OK!"]
+       [:i.fa.fa-2x.fa-close.modal-close {:on-click nr/clear-notification}]
        ]
       ]
      ]
