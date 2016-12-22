@@ -68,6 +68,7 @@
         length (count name)
         big? (> length limit)
         active-circle (ur/get-active-circle)
+        circle-in-path? (cs/circle-in-path? active-circle)
         participant-count (cs/get-participants-count active-circle)
         votes (is/vote-count-for-circle idea active-circle)
         approval-percentage (* 100 (/ votes participant-count))]
@@ -93,9 +94,10 @@
           [:div.inner {:style {:width (str approval-percentage "%")}}]
           ]
          ]
-        (if (is/voted? idea)
-          [:div.btn.btn-success {:on-click (is/toggle-idea-vote-req (:id idea))} "Apoyada"]
-          [:div.btn.btn-gray {:on-click (is/toggle-idea-vote-req (:id idea))} "Apoyar"])
+         (if circle-in-path?
+           (if (is/voted? idea)
+             [:div.btn.btn-success {:on-click (is/toggle-idea-vote-req (:id idea))} "Apoyada"]
+             [:div.btn.btn-gray {:on-click (is/toggle-idea-vote-req (:id idea))} "Apoyar"]))
         ]
        ])))
 

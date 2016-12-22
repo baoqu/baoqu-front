@@ -36,7 +36,12 @@
        ]]
      [:div.circle-content
       (ideas/main)
-      (comments/main)]]))
+      (comments/main)
+      ]
+      (if-not circle-in-path?
+        [:div.mod-add-box-fallback
+          [:div "Sólo puedes participar en tus círculos (los morados). " [:a {:href ""} "Llévame a mi círculo"]]
+      ])]))
 
 (rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-see-mixin
   "The main component for the home screen"

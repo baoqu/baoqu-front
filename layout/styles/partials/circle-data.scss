@@ -211,6 +211,14 @@
   }
 
 }
+.mod-add-box-fallback {
+  padding: $space;
+  font-size: $fs12;
+  background: $color-white;
+  text-align: right;
+  color: $color-gray-medium-dark;
+  @extend .line-top;
+}
 
 // IDEAS
 .mod-ideas {
