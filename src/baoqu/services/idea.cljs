@@ -29,16 +29,14 @@
     (ir/add-idea id name)))
 
 (defn add-vote
-  [idea-id]
-  (let [{user-id :id} (ur/get-me)]
-    (ir/add-vote user-id idea-id)
-    (ur/add-idea-to-user user-id idea-id)))
+  [user-id idea-id]
+  (ir/add-vote user-id idea-id)
+  (ur/add-idea-to-user user-id idea-id))
 
 (defn remove-vote
-  [idea-id]
-  (let [{user-id :id} (ur/get-me)]
-    (ir/remove-vote user-id idea-id)
-    (ur/remove-idea-from-user user-id idea-id)))
+  [user-id idea-id]
+  (ir/remove-vote user-id idea-id)
+  (ur/remove-idea-from-user user-id idea-id))
 
 (defn add-idea-req
   [body]

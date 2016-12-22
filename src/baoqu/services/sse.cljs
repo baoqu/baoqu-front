@@ -62,13 +62,10 @@
   (let [{:keys [idea user]} (keywordize-keys data)]
     ;; Find idea, if not exists, create
     (is/add-idea-if-new idea)
+    (is/add-vote (:id user) (:id idea))
 
-    ;; Check that vote doesn't exist, if not:
-    (if-not (is/voted? idea)
-      ;; Add vote to the votes list
-      (do
-        (is/add-vote (:id idea))
-        (.setTimeout js/window (partial end-if-idea-at-9 (get-in data ["idea" "name"])) 2000)))))
+    ;; (.setTimeout js/window (partial end-if-idea-at-9 (get-in data ["idea" "name"])) 2000)
+    ))
 
 (defmethod process-message :downvote
   [{:keys [data]}]
@@ -77,8 +74,7 @@
 
   ;; Remove vote
   (let [{:keys [idea user]} (keywordize-keys data)]
-    (is/remove-vote (:id idea))))
-    ;; Check idea votes, if 0, remove
+    (is/remove-vote (:id user) (:id idea))))
 
 (defmethod process-message :notification
   [msg]
