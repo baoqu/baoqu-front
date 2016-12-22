@@ -68,12 +68,32 @@
              (rum/with-key inner-id))))
      ]))
 
-(rum/defc the-map < rum/reactive
+(rum/defc ideas-resume < rum/reactive
   []
   (let [state (rum/react d/state)
-        ideas (ir/get-ideas)
-        path (ur/get-my-path)
-        {active-circle-id :id} (ur/get-active-circle)]
+        ideas (is/all-with-votes-sorted)]
+    [:div {:class "map-list-view"}
+     [:div.header "Ideas más apoyadas"]
+     [:div.ideas-list
+      (for [idea ideas]
+        [:div.mod-idea {:key (:id idea)}
+         [:div.supports
+          [:div.value (:votes idea)]
+          [:div.label " apoyos"]
+          ]
+         [:div.body
+          [:div.idea (:name idea)]
+          [:div.info  "Círculo " "??" " | " "nivel " "??"]
+          (if (is/voted? idea)
+            [:span.badge "la apoyaste"])
+          ]
+         ])
+      ]
+     ]))
+
+(rum/defc the-map < rum/reactive
+  []
+  (let [state (rum/react d/state)]
     [:div.map
      [:div {:class "map-toggle-view js-map-toggle-view"}
       [:div {:class "map-toggle map-toggle-map" :data-balloon-pos "left" :data-balloon "Mapa de acuerdos"}
@@ -83,24 +103,7 @@
        [:i {:class "icon-header fa fa-lg fa-list"}]
        ]
       ]
-     [:div {:class "map-list-view"}
-      [:div.header "Ideas más apoyadas"]
-      [:div.ideas-list
-       (for [idea ideas]
-         [:div.mod-idea {:key (:id idea)}
-          [:div.supports
-           [:div.value (is/vote-count-for-idea idea)]
-           [:div.label " apoyos"]
-           ]
-          [:div.body
-           [:div.idea (:name idea)]
-           [:div.info  "Círculo " (:circle idea) " | " "nivel " (:level idea)]
-           (if (get idea "voted?")
-             [:span.badge "la apoyaste"])
-           ]
-          ])
-       ]
-      ]
+     (ideas-resume)
      [:div {:class "map-circles-view"}
       (for [level (cs/get-level-range)]
         (let [parent-circles (cs/get-parent-circles-for-level level)]

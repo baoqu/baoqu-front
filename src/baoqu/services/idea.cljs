@@ -98,6 +98,16 @@
   [{:keys [id] :as idea}]
   (count (votes-for-idea idea)))
 
+(defn all-with-votes
+  []
+  (mapv #(assoc % :votes (vote-count-for-idea %)) (all-ideas)))
+
+(defn all-with-votes-sorted
+  []
+  (->> (all-with-votes)
+       (sort-by :votes)
+       (reverse)))
+
 (defn vote-count-for-idea-and-circle
   [idea circle]
   (count (votes-for-idea-and-circle idea circle)))
