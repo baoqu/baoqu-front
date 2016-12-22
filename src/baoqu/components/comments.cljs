@@ -45,7 +45,7 @@
                 initial (s/upper-case (first author))]
             [:li.mod-comment
              [:div.avatar
-              [:div.thumb {:class (str "color-" author-id)} author-id initial]
+              [:div.thumb {:class (str "color-" author-id)} initial]
               ]
              [:div.content
               [:div.username author]
