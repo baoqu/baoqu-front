@@ -265,12 +265,15 @@
   padding-top: $space-l;
   .title {
     font-size: $fs32;
+    font-family: Open Sans;
+    font-weight: bold;
+    color: $color-gray-dark;
   }
   .description {
     font-size: $fs18;
     color: $color-gray-medium;
     width: 80%;
-    padding-bottom: $space-l;
+    padding-bottom: $space;
   }
   .mod-idea {
     padding-top: $space-l;
