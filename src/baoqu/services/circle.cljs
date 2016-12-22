@@ -60,7 +60,7 @@
 (defn get-participants-count
   "Returns the number of participants of a circle"
   [{:keys [size level]}]
-  (* size level))
+  (Math/pow size level))
 
 (defn get-inner-circles-for-circle
   [circle]
