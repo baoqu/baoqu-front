@@ -384,8 +384,9 @@
   .ideas-collapsed .mod-ideas .action,
   .ideas-collapsed .mod-ideas .action-wrapper,
   .comments-collapsed .mod-comments .title,
-  .comments-collapsed .mod-comments .action
-  .comments-collapsed .mod-comments .action-wrapper {
+  .comments-collapsed .mod-comments .action,
+  .comments-collapsed .mod-comments .action-wrapper,
+  .mod-add-box-fallback {
     display: none;
   }
 }
