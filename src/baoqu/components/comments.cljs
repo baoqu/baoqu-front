@@ -37,63 +37,65 @@
         active-circle (ur/get-active-circle)
         comments (cs/get-all-for-circle (:id active-circle))]
     [:div.mod-body
-
-    [:div.zero-case
-      [:h3.title "Chat"]
-      [:p.description "Aún nadie ha dicho nada, parece un círculo de gente tímida."]
-      [:ul
-        [:li.mod-comment
-          [:div.avatar
-            [:div.thumb]
-          ]
-          [:div.content
-            [:div.username]
-            [:div.comment]
-          ]
+     (if-not (empty? comments)
+       [:ul
+        (for [comment comments]
+          (let [author (:name comment)
+                initial (s/upper-case (first author))]
+            [:li.mod-comment
+             [:div.avatar
+              [:div.thumb initial]
+              ]
+             [:div.content
+              [:div.username author]
+              [:div.comment (:body comment)]
+              ]
+             ])
+          )
         ]
-        [:li.mod-comment
+       [:div.zero-case
+        [:h3.title "Chat"]
+        [:p.description "Aún nadie ha dicho nada, no hay por qué ser tan tímido."]
+        [:ul
+         [:li.mod-comment
           [:div.avatar
-            [:div.thumb]
-          ]
+           [:div.thumb]
+           ]
           [:div.content
-            [:div.username]
-            [:div.comment]
+           [:div.username]
+           [:div.comment]
+           ]
           ]
-        ]
-        [:li.mod-comment
+         [:li.mod-comment
           [:div.avatar
-            [:div.thumb]
-          ]
+           [:div.thumb]
+           ]
           [:div.content
-            [:div.username]
-            [:div.comment]
+           [:div.username]
+           [:div.comment]
+           ]
           ]
-        ]
-       ]
-    ]
-
-
-     [:ul
-      (for [comment comments]
-        (let [author (:name comment)
-              initial (s/upper-case (first author))]
-          [:li.mod-comment
-           [:div.avatar
-            [:div.thumb initial]
-            ]
-           [:div.content
-            [:div.username author]
-            [:div.comment (:body comment)]
-            ]
-           ])
-        )
-      ]
+         [:li.mod-comment
+          [:div.avatar
+           [:div.thumb]
+           ]
+          [:div.content
+           [:div.username]
+           [:div.comment]
+           ]
+          ]
+         ]
+        ])
      ]))
 
-(rum/defcs user-list < (rum/local false)
-  [state]
-  (let [local-atom (:rum/local state)
-        show? @local-atom]
+(rum/defcs user-list < rum/reactive
+                       (rum/local false)
+  [local-state]
+  (let [state (rum/react d/state)
+        local-atom (:rum/local local-state)
+        show? @local-atom
+        active-circle (ur/get-active-circle)
+        users (ur/get-all-for-circle (:id active-circle))]
     (letfn [(click-action [e]
               (.preventDefault e)
               (swap! local-atom not))]
@@ -106,27 +108,14 @@
        (if show?
          [:div.mod-dropdown
           [:ul.mod-users-list
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
-
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
+           (for [user users]
+             (let [id (:id user)
+                   author (:name user)
+                   initial (s/upper-case (first author))]
+               [:li.user {:key id}
+                [:div.avatar [:div.thumb initial]]
+                [:div.content [:div.username author]]
+                ]))
            ]
           ])
        ])))
