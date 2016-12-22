@@ -60,29 +60,39 @@
   []
   (count (ir/get-ideas)))
 
-(defn votes
+(defn all-votes
+  []
+  (ir/get-votes))
+
+(defn votes-for-idea
   [{:keys [id]}]
   (filter #(= id (:idea-id %)) (ir/get-votes)))
 
-(defn votes-for-circle
+(defn votes-for-idea-and-circle
   [idea {circle-id :id}]
   (let [circle-users (ur/get-all-for-circle circle-id)
         user-ids (into #{} (map :id) circle-users)
-        idea-votes (votes idea)]
+        idea-votes (votes-for-idea idea)]
     (filter #(user-ids (:user-id %)) idea-votes)))
 
 (defn vote-count
   [{:keys [id] :as idea}]
-  (count (votes idea)))
+  (count (votes-for-idea idea)))
 
 (defn vote-count-for-circle
   [idea circle]
-  (count (votes-for-circle idea circle)))
+  (count (votes-for-idea-and-circle idea circle)))
 
 (defn voted?
   [idea]
   (let [me (ur/get-me)]
-    (some #(= (:user-id %) (:id me)) (votes idea))))
+    (some #(= (:user-id %) (:id me)) (votes-for-idea idea))))
+
+(defn my-votes
+  []
+  (let [all-votes (all-votes)
+        {user-id :id} (ur/get-me)]
+    (filter #(= (:user-id %) user-id) all-votes)))
 
 (defn approval-percentage
   [{:keys [id] :as idea}]
@@ -104,6 +114,14 @@
                          #{}
                          users)]
     (mapv ir/get-idea-by-id idea-ids)))
+
+(defn get-all-voted-for-circle
+  [circle]
+  (let [{:keys [id]} (ur/get-me)
+        all-ideas (get-all-for-circle circle)
+        my-votes (my-votes)
+        voted-ideas-ids (into #{} (map :idea-id my-votes))]
+    (filter #(voted-ideas-ids (:id %)) all-ideas)))
 
 (defn count-all-for-circle
   [{:keys [id]}]

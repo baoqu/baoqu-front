@@ -104,12 +104,14 @@
   (let [state (rum/react d/state)
         active-circle (ur/get-active-circle)
         circle-in-path? (cs/circle-in-path? active-circle)
-        ideas (is/get-all-for-circle (:id active-circle))]
+        ideas (is/get-all-for-circle active-circle)
+        filtered-ideas (if (is/voted-filter-active?)
+                         (is/get-all-voted-for-circle active-circle)
+                         ideas)]
     [:div.mod-ideas
      [:div.mod-header
       [:span {:class "expander js-expand-ideas"}
-       [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]
-       ]
+       [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]]
 
       [:div.title (str "Ideas (" (count ideas) ")")]
       (idea-filter-menu)
@@ -121,11 +123,8 @@
        [:i {:class "fa fa-lg fa-angle-right"}]]]
 
      [:div.mod-body
-      (if-not (empty? ideas)
-        [:ul
-         (for [idea ideas]
-           (show idea))
-         ]
+      (cond
+        (empty? ideas)
         [:div.zero-case
          [:h3.title "Ideas"]
          [:p.description "Aquí aparecerán las ideas que se propongan en este círculo"]
@@ -142,6 +141,16 @@
             ]
            ]
           ]
+         ]
+        (and
+         (not (empty? ideas))
+         (empty? filtered-ideas))
+        [:div.zero-case
+         "HAS FILTRADO PERO NO HAS VOTADO NADA, GAÑÁN"]
+        :else
+        [:ul
+         (for [idea filtered-ideas]
+           (show idea))
          ])
       ]
      (if circle-in-path?
