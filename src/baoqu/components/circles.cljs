@@ -2,17 +2,19 @@
   (:require [rum.core :as rum]
             [baoqu.data :as d]
             [baoqu.repos.circle :as cr]
+            [baoqu.repos.user :as ur]
             [baoqu.repos.idea :as ir]
             [baoqu.services.idea :as is]
             [baoqu.services.circle :as cs]))
 
+(enable-console-print!)
+
 (declare my-circle)
 
-(rum/defc circle-context < rum/static
-  [circle]
-  (let [level (get circle "level")
-        circle-size (get-in @d/state [:event :circle-size])
-        percentage (* 100 (/ (:most-popular-idea-votes circle) (* circle-size level)))]
+(rum/defc circle-context < rum/reactive
+  [{:keys [level size] :as circle}]
+  (let [state (rum/react d/state)
+        percentage (* 100 (/ (:most-popular-idea-votes circle) (* size level)))]
     [:div.context-info.js-context-info
      [:div.circle-title (get circle "name")
       [:span.tag (str "Nivel " level)]
@@ -22,7 +24,7 @@
       [:div.idea (:most-popular-idea circle)]
       [:div.voting-block
        [:div.votes
-        [:div.votes-count (str (:most-popular-idea-votes circle) "/" (* circle-size level) " apoyos para promocionar")]
+        [:div.votes-count (str (:most-popular-idea-votes circle) "/" (* size level) " apoyos para promocionar")]
         [:div.progress-bar
          [:div.inner {:style {:width (str percentage "%")}}]
          ]
@@ -46,14 +48,16 @@
      ]
     ))
 
-(rum/defc a-circle < rum/static
-  [{:keys [users level parent-circle-id] :as circle}]
-  (let [my-circle? (cs/is-my-circle? circle)
+(rum/defc a-circle < rum/reactive
+  [{:keys [id users level parent-circle-id] :as circle}]
+  (let [state (rum/react d/state)
+        in-path? (cs/circle-in-path? circle)
+        active-circle? (cs/is-active-circle? circle)
         inner-circles (cs/get-inner-circles-for-circle circle)]
-    [:div.circle {:key (:id circle)
-                  :class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if my-circle? "my-circle"))
+    [:div.circle {:key id
+                  :class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if in-path? "my-circle") " " (if active-circle? "active-circle"))
                   :on-click #(cs/visit-circle % circle)}
-     (circle-context circle)
+     ;;(circle-context circle)
      (if (= level 1)
        (for [key users]
          [:div.circle {:key key}])
@@ -64,7 +68,9 @@
 (rum/defc the-map < rum/reactive
   []
   (let [state (rum/react d/state)
-        ideas (ir/get-ideas)]
+        ideas (ir/get-ideas)
+        path (ur/get-my-path)
+        {active-circle-id :id} (ur/get-active-circle)]
     [:div.map
      [:div {:class "map-toggle-view js-map-toggle-view"}
       [:div {:class "map-toggle map-toggle-map" :data-balloon-pos "left" :data-balloon "Mapa de acuerdos"}

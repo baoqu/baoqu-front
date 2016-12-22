@@ -2,6 +2,8 @@
   (:require [baoqu.repos.circle :as cr]
             [baoqu.repos.user :as ur]))
 
+(enable-console-print!)
+
 (defn get-my-circle
   []
   (-> (ur/get-my-path)
@@ -9,10 +11,24 @@
       (cr/get-by-id)))
 
 (defn is-my-circle?
-  [{circle-id :id}]
+  [{:keys [id]}]
   (-> (get-my-circle)
       (:id)
-      (= circle-id)))
+      (= id)))
+
+(defn get-active-circle
+  []
+  (ur/get-active-circle))
+
+(defn is-active-circle?
+  [{:keys [id]}]
+  (-> (get-active-circle)
+      (:id)
+      (= id)))
+
+(defn circle-in-path?
+  [{:keys [id]}]
+  ((ur/get-my-path) id))
 
 (defn get-highest-level
   []

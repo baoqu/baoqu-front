@@ -19,7 +19,7 @@
 
 (defn get-my-path
   []
-  (get-in @d/state [:me :path]))
+  (into #{} (get-in @d/state [:me :path])))
 
 (defn get-active-circle
   []
