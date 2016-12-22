@@ -1,5 +1,6 @@
 (ns baoqu.services.circle
   (:require [baoqu.repos.circle :as cr]
+            [baoqu.repos.idea :as ir]
             [baoqu.repos.user :as ur]))
 
 (enable-console-print!)
@@ -70,4 +71,5 @@
   [e {:keys [id]}]
   (.preventDefault e)
   (.stopPropagation e)
+  (ir/set-voted-filter false)
   (ur/set-active-circle id))

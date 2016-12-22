@@ -10,6 +10,7 @@
    :comments {}
    :active-section "map"
    :active-circle nil
+   :voted-filter false
    :notification {}})
 
 (defonce state (atom (get-initial-state)))
