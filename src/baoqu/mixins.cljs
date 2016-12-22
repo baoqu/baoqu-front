@@ -15,8 +15,13 @@
 (def connect-see-mixin
   {:will-mount (fn [own]
                  (when (sec/is-authenticated?)
+                   (if-let [old-sse (:sse @d/state)]
+                     (do
+                       (println "[SSE] Old connection found, destroying")
+                       (.close old-sse)
+                       (println "[SSE] Old connection destroyed")))
                    (let [sse (sse/create-sse)]
-                     (println "[SSE] CONNECTED > " sse)
+                     (println "[SSE] Connection established")
                      (swap! d/state assoc :sse sse)))
                  own)})
 

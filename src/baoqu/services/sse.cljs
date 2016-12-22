@@ -62,7 +62,7 @@
 (defmethod process-message :upvote
   [{:keys [data]}]
   (println ">> UPVOTE")
-  (println data "")
+  (println data)
   (let [current-circle-id (get-in @d/state [:circle "id"])
         message-circle-id (get data "circle-id")
         idea-id (get-in data ["idea" "id"])
