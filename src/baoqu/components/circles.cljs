@@ -19,6 +19,7 @@
         {name :name votes :votes :as highest-voted-idea} (is/get-highest-voted-idea-for-circle circle)
         idea-count (is/count-all-for-circle circle)
         comment-count (cs/count-all-for-circle circle)
+        users-count (count (ur/get-all-for-circle (:id circle)))
         percentage (* 100 (/ votes max-participants))]
     [:div.context-info.js-context-info
      [:div.circle-title (str "Círculo " id)
@@ -47,7 +48,7 @@
        ]
       [:div.item
        [:i {:class "icon-header fa fa-lightbulb-o"}]
-       [:span "??"]
+       [:span users-count]
        ]
       ]
      ]
