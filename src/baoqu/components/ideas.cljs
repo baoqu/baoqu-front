@@ -61,6 +61,7 @@
   []
   (let [state (rum/react d/state)
         active-circle (ur/get-active-circle)
+        participant-count (cs/get-participants-count active-circle)
         circle-in-path? (cs/circle-in-path? active-circle)
         ideas (is/get-all-for-circle (:id active-circle))]
     [:div.mod-ideas
@@ -75,7 +76,6 @@
           [:i {:class "fa fa-sort-amount-desc"}]]
         [:span.toggle.hide-medium.js-collapse-ideas
           [:i {:class "fa fa-lg fa-angle-right"}]]]
-
 
      [:div.mod-body
       [:ul
@@ -98,12 +98,12 @@
        (for [idea ideas]
          (let [votes (is/vote-count-for-circle idea active-circle)
                voted? (is/voted? idea)
-               approval-percentage (* 100 (/ votes (:size active-circle)))]
+               approval-percentage (* 100 (/ votes participant-count))]
            [:li.mod-idea {:key (:id idea)}
             [:div.idea (:name idea)]
             [:div.voting-block
              [:div.votes
-              [:div.votes-count (str votes "/" (:size active-circle) " apoyos necesarios")]
+              [:div.votes-count (str votes "/" participant-count " apoyos necesarios")]
               [:div.progress-bar
                [:div.inner {:style {:width (str approval-percentage "%")}}]
                ]

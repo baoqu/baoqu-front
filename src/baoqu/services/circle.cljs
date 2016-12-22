@@ -55,6 +55,11 @@
   (let [circles (cr/get-circles)]
     (filter #(and (= (:level %) level) (nil? (:parent-circle-id %))) circles)))
 
+(defn get-participants-count
+  "Returns the number of participants of a circle"
+  [{:keys [size level]}]
+  (* size level))
+
 (defn get-inner-circles-for-circle
   [circle]
   (let [inner-ids (into #{} (:inner-circles circle))]
