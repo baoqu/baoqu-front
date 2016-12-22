@@ -40,7 +40,7 @@
 
     [:div.zero-case
       [:h3.title "Chat"]
-      [:p.description "Aún nadie ha dicho nada, no hay por qué ser tan tímido."]
+      [:p.description "Aún nadie ha dicho nada, parece un círculo de gente tímida."]
       [:ul
         [:li.mod-comment
           [:div.avatar
