@@ -107,7 +107,14 @@
 
 (defn sort-ideas
   []
-  ;;(ir/get-ideas))
+  ;; Not valid approach
+  ;;
+  ;; (let [active-circle (ur/get-active-circle)
+  ;;       res (->> (all-ideas)
+  ;;                (mapv #(assoc % :votes (vote-count-for-idea-and-circle % active-circle)))
+  ;;                (sort-by :votes)
+  ;;                (reverse))]
+  ;;   (ir/set-ideas res))
   )
 
 (defn get-all-for-circle

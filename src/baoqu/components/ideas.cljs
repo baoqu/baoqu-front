@@ -122,11 +122,16 @@
        [:i {:class "icon-header fa fa-lg fa-lightbulb-o"}]]
 
       [:div.title (str "Ideas (" (count ideas) ")")]
-      (idea-filter-menu)
-      [:span {:class "action"
-              :data-balloon-pos "left"
-              :data-balloon "Ordenar ideas"}
-       [:i {:class "fa fa-sort-amount-desc"}]]
+      (if circle-in-path?
+        (idea-filter-menu))
+      (letfn [(click-action [e]
+                (.preventDefault e)
+                (is/sort-ideas))]
+        [:span {:class "action"
+                :data-balloon-pos "left"
+                :data-balloon "Ordenar ideas"
+                :on-click click-action}
+         [:i {:class "fa fa-sort-amount-desc"}]])
       [:span.toggle.hide-medium.js-collapse-ideas
        [:i {:class "fa fa-lg fa-angle-right"}]]]
 
