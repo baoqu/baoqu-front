@@ -1,8 +1,8 @@
 (ns baoqu.services.comment
   (:require [baoqu.data :as d]
-            [baoqu.repos.comment :as comment-r]
+            [baoqu.repos.comment :as cr]
             [baoqu.form-utils :as fu]
-            [baoqu.repos.user :as user-r]
+            [baoqu.repos.user :as ur]
             [baoqu.api :as api]))
 
 (enable-console-print!)
@@ -13,8 +13,8 @@
 
 (defn add-comment-req
   [body]
-  (let [{name :name} (user-r/get-me)
-        {circle-id :id} (user-r/get-active-circle)]
+  (let [{name :name} (ur/get-me)
+        {circle-id :id} (ur/get-active-circle)]
     (if-not (= body "")
       (do
         (api/create-comment circle-id name body)
@@ -22,4 +22,8 @@
 
 (defn get-all-for-circle
   [id]
-  (comment-r/get-all-for-circle id))
+  (cr/get-all-for-circle id))
+
+(defn add-comment
+  [comment]
+  (cr/add-comment comment))

@@ -17,6 +17,7 @@
 (rum/defc workspace < rum/reactive
   []
   (let [state (rum/react d/state)
+        my-circle (cs/get-my-circle)
         active-circle (cs/get-active-circle)
         circle-in-path? (cs/circle-in-path? active-circle)]
     [:div.circle-wrapper
@@ -38,10 +39,10 @@
       (ideas/main)
       (comments/main)
       ]
-      (if-not circle-in-path?
-        [:div.mod-add-box-fallback
-          [:div "Sólo puedes participar en tus círculos (los morados). " [:a {:href ""} "Llévame a mi círculo"]]
-      ])]))
+     (if-not circle-in-path?
+       [:div.mod-add-box-fallback
+        [:div "Sólo puedes participar en tus círculos (los morados). " [:a {:on-click #(cs/visit-circle % my-circle)} "Llévame a mi círculo"]]
+        ])]))
 
 (rum/defc main < rum/reactive mixins/secured-mixin mixins/connect-see-mixin
   "The main component for the home screen"

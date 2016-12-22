@@ -33,18 +33,12 @@
     (keyword (:type msg))))
 
 (defmethod process-message :comment
-  [msg]
-  (let [data (:data msg)
-        current-circle-id (get-in @d/state [:circle "id"])
-        message-circle-id (get data "circle-id")
-        milis (get data "date")
-        date (str (js/Date. milis))
-        new-data (assoc data "date" date)]
-    (if (= current-circle-id message-circle-id)
-      (do
-        (cs/react-to-comment new-data)
-        (println "[SSE] COMMENT > " new-data))
-      (println "COMMENT NOT FOR ME"))))
+  [{:keys [data]}]
+  (println ">> COMMENT")
+  (println data)
+
+  (let [comment (keywordize-keys data)]
+    (cs/add-comment comment)))
 
 (defn end-if-idea-at-9
   [idea]

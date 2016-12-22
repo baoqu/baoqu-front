@@ -4,7 +4,9 @@
 
 (defn get-comments
   []
-  (vals (:comments d/state)))
+  (-> (:comments d/state)
+      (vals)
+      (sort-by :date)))
 
 (defn set-comments
   [comments]
@@ -15,4 +17,9 @@
   (->> @d/state
        (:comments)
        (vals)
+       (sort-by :date)
        (filter #(= (:circle-id %) id))))
+
+(defn add-comment
+  [{:keys [id] :as comment}]
+  (swap! d/state update :comments merge {id comment}))
