@@ -59,11 +59,7 @@
   (let [state (rum/react d/state)
         active-circle (ur/get-active-circle)
         circle-in-path? (cis/circle-in-path? active-circle)
-        comments (cs/get-all-for-circle (:id active-circle))
-
-        ;; circle (:circle state)
-        ;; circles (:circles state)
-        ]
+        comments (cs/get-all-for-circle (:id active-circle))]
     [:div.mod-comments
      [:div.mod-header
       [:span {:class "expander js-expand-comments"}
