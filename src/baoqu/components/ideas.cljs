@@ -36,10 +36,10 @@
     (letfn [(click-action [e]
               (.preventDefault e)
               (swap! local-atom not))]
-      [:div
-       [:span.action {:class (str "" (if show? "active"))}
-        [:i {:class "fa fa-eye"
-             :on-click click-action}]]
+      [:div.action-wrapper
+       [:span.action {:class (str "" (if show? "active"))
+                      :on-click click-action}
+        [:i {:class "fa fa-eye"}]]
        (if show?
          [:div.mod-dropdown
           [:ul.mod-options-list
@@ -79,7 +79,7 @@
 
      [:div.mod-body
 
-     
+
        [:div.zero-case
          [:h3.title "Ideas"]
          [:p.description "Aquí aparecerán las ideas que se propongan en este círculo"]

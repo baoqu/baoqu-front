@@ -99,6 +99,7 @@
       display: flex;
       align-items: center;
       margin-bottom: $space;
+      font-weight: normal;
       .content {
         flex: 1;
         font-size: $fs14;
@@ -131,6 +132,7 @@
     .title {
       flex: 1;
     }
+    .action-wrapper { display: flex; }
     .action,
     .toggle {
       cursor: pointer;

@@ -97,10 +97,10 @@
     (letfn [(click-action [e]
               (.preventDefault e)
               (swap! local-atom not))]
-      [:div
-       [:span.action {:class (str "" (if show? "active"))}
-        [:i {:class "fa fa-users"
-             :on-click click-action}]]
+      [:div.action-wrapper
+       [:span.action {:class (str "" (if show? "active"))
+                      :on-click click-action}
+        [:i {:class "fa fa-users"}]]
        (if show?
          [:div.mod-dropdown
           [:ul.mod-users-list
