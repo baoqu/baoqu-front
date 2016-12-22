@@ -25,3 +25,11 @@
 (defn get-votes
   []
   (:votes @d/state))
+
+(defn get-voted-filter
+  []
+  (:voted-filter @d/state))
+
+(defn set-voted-filter
+  [active?]
+  (swap! d/state assoc :voted-filter active?))

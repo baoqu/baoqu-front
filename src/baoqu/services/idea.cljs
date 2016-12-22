@@ -97,7 +97,7 @@
   )
 
 (defn get-all-for-circle
-  [id]
+  [{:keys [id]}]
   (let [users (ur/get-all-for-circle id)
         idea-ids (reduce (fn [acc {:keys [ideas]}]
                            (set/union acc (into #{} ideas)))
@@ -108,3 +108,7 @@
 (defn count-all-for-circle
   [{:keys [id]}]
   (count (get-all-for-circle id)))
+
+(defn voted-filter-active?
+  []
+  (ir/get-voted-filter))
