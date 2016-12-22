@@ -54,6 +54,45 @@
       ]
      ]))
 
+(rum/defcs user-list < (rum/local false)
+  [state]
+  (let [local-atom (:rum/local state)
+        show? @local-atom]
+    (letfn [(click-action [e]
+              (.preventDefault e)
+              (swap! local-atom not))]
+      [:div
+       [:span.action {:class (str "" (if show? "active"))}
+        [:i {:class "fa fa-users"
+             :on-click click-action}]]
+       (if show?
+         [:div.mod-dropdown
+          [:ul.mod-users-list
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+           ]
+          ])
+       ])))
+
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
@@ -66,36 +105,11 @@
        [:i {:class "icon-header fa fa-lg fa-comments-o"}]
        ]
       [:div.title (str "Chat")]
-      [:span.action
-       [:i {:class "fa fa-users"}]]
+      (user-list)
       [:span.toggle.hide-medium.js-collapse-comments
        [:i {:class "fa fa-lg fa-angle-right"}]
        ]
-      [:div.mod-dropdown
-       [:ul.mod-users-list
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
 
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
-        ]
-       ]
       ]
      (comments-box)
      (if circle-in-path?
