@@ -372,10 +372,12 @@
       display: none;
     }
   }
-  .ideas-collapsed .mod-ideas .title {
-    display: none;
-  }
-  .comments-collapsed .mod-comments .title {
+  .ideas-collapsed .mod-ideas .title,
+  .ideas-collapsed .mod-ideas .action,
+  .ideas-collapsed .mod-ideas .action-wrapper,
+  .comments-collapsed .mod-comments .title,
+  .comments-collapsed .mod-comments .action
+  .comments-collapsed .mod-comments .action-wrapper {
     display: none;
   }
 }
