@@ -34,7 +34,15 @@
   (let [show? @local]
     (letfn [(click-action [e]
               (.preventDefault e)
-              (swap! local not))]
+              (swap! local not))
+            (change-action [e filter]
+              (.preventDefault e)
+              (cond
+                (= filter :none)
+                (is/set-voted-filter false)
+                (= filter :voted)
+                (is/set-voted-filter true)
+                :else nil))]
       [:div.action-wrapper
        [:span.action {:class (str "" (if show? "active"))
                       :on-click click-action
@@ -44,13 +52,13 @@
        (if show?
          [:div.mod-dropdown
           [:ul.mod-options-list
-           [:li.option
-            [:label.content [:input {:type "radio" :name "view-type"}]
+           [:li.option {:on-click #(change-action % :voted)}
+            [:label.content [:input {:type "radio" :name "view-type" :checked (is/voted-filter-active?)}]
              "Sólo ideas apoyadas"
              ]
             ]
-           [:li.option
-            [:label.content [:input {:type "radio" :name "view-type"}]
+           [:li.option {:on-click #(change-action % :none)}
+            [:label.content [:input {:type "radio" :name "view-type" :checked (not (is/voted-filter-active?))}]
              "Todas las ideas"
              ]
             ]

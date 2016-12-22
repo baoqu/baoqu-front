@@ -130,3 +130,7 @@
 (defn voted-filter-active?
   []
   (ir/get-voted-filter))
+
+(defn set-voted-filter
+  [active?]
+  (ir/set-voted-filter active?))
