@@ -14,6 +14,12 @@
   [id]
   (get-in @d/state [:ideas id]))
 
+(defn get-idea-by-name
+  [name]
+  (->> (get-ideas)
+       (filter #(= name (:name %)))
+       (first)))
+
 (defn get-all-ideas-for-user
   [user-id]
   (get-ideas))
@@ -33,3 +39,21 @@
 (defn set-voted-filter
   [active?]
   (swap! d/state assoc :voted-filter active?))
+
+(defn add-idea
+  [id name]
+  (let [idea {id {:id id :name name}}]
+    (swap! d/state update :ideas merge idea)))
+
+(defn add-vote
+  [user-id idea-id]
+  (let [vote {:user-id user-id :idea-id idea-id}]
+    (swap! d/state update :votes merge vote)))
+
+(defn remove-vote
+  [user-id idea-id]
+  (swap! d/state
+         (fn [state]
+           (let [votes (:votes @d/state)
+                 votes (into [] (remove #(and (= user-id (:user-id %)) (= idea-id (:idea-id %))) votes))]
+             (assoc state :votes votes)))))

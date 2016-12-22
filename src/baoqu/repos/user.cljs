@@ -50,3 +50,15 @@
 (defn get-all-for-circle
   [circle-id]
   (filter #((into #{} (:circles %)) circle-id) (get-users)))
+
+(defn add-idea-to-user
+  [user-id idea-id]
+  (swap! d/state update-in [:users user-id :ideas] conj idea-id))
+
+(defn remove-idea-from-user
+  [user-id idea-id]
+  (swap! d/state
+         (fn [state]
+           (let [ideas (get-in state [:users user-id :ideas])
+                 ideas (into [] (remove #(= % idea-id)) ideas)]
+             (assoc-in state [:users user-id :ideas] ideas)))))

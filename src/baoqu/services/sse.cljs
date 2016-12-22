@@ -1,5 +1,6 @@
 (ns baoqu.services.sse
-  (:require [baoqu.config :refer [cfg]]
+  (:require [clojure.walk :refer [keywordize-keys]]
+            [baoqu.config :refer [cfg]]
             [baoqu.data :as d]
             [baoqu.services.idea :as is]
             [baoqu.services.comment :as cs]
@@ -63,32 +64,27 @@
   [{:keys [data]}]
   (println ">> UPVOTE")
   (println data)
-  (let [current-circle-id (get-in @d/state [:circle "id"])
-        message-circle-id (get data "circle-id")
-        idea-id (get-in data ["idea" "id"])
-        user-id (get-in data ["user" "id"])]
-    (if (= current-circle-id message-circle-id)
-      (do
-        (is/add-idea-if-new (get data "idea"))
-        (is/react-to-upvote idea-id user-id)
-        (println "[SSE] UPVOTE > " data))
-      (println "UPVOTE NOT FOR ME"))
 
-    (.setTimeout js/window (partial end-if-idea-at-9 (get-in data ["idea" "name"])) 2000)))
+  (let [{:keys [idea user]} (keywordize-keys data)]
+    ;; Find idea, if not exists, create
+    (is/add-idea-if-new idea)
+
+    ;; Check that vote doesn't exist, if not:
+    (if-not (is/voted? idea)
+      ;; Add vote to the votes list
+      (do
+        (is/add-vote (:id idea))
+        (.setTimeout js/window (partial end-if-idea-at-9 (get-in data ["idea" "name"])) 2000)))))
 
 (defmethod process-message :downvote
   [{:keys [data]}]
   (println ">> DOWNVOTE")
-  (println data "")
-  (let [current-circle-id (get-in @d/state [:circle "id"])
-        message-circle-id (get data "circle-id")
-        idea-id (get-in data ["idea" "id"])
-        user-id (get-in data ["user" "id"])]
-    (if (= current-circle-id message-circle-id)
-      (do
-        (is/react-to-downvote idea-id user-id)
-        (println "[SSE] DOWNVOTE > " data))
-      (println "DOWNVOTE NOT FOR ME"))))
+  (println data)
+
+  ;; Remove vote
+  (let [{:keys [idea user]} (keywordize-keys data)]
+    (is/remove-vote (:id idea))))
+    ;; Check idea votes, if 0, remove
 
 (defmethod process-message :notification
   [msg]

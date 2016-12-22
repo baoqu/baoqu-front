@@ -10,20 +10,35 @@
 
 (declare voted?)
 
+(defn get-by-id
+  [id]
+  (ir/get-idea-by-id id))
+
+(defn get-by-name
+  [name]
+  (ir/get-idea-by-name name))
+
 (defn idea-exists?
   [idea-body]
   (let [ideas (:ideas @d/state)]
     (some #(= (get (second %) "name") idea-body) ideas)))
 
 (defn add-idea-if-new
-  [idea]
-  (let [ideas (:ideas @d/state)
-        idea-id (get idea "id")
-        ideas-ids (into #{} (for [[k v] ideas] k))
-        my-id (get-in @d/state [:me :id])
-        mine? (= my-id (get-in idea ["user" "id"]))]
-    (if-not (boolean (ideas-ids idea-id))
-      (swap! d/state update :ideas merge {idea-id idea}))))
+  [{:keys [id name]}]
+  (if-not (get-by-name name)
+    (ir/add-idea id name)))
+
+(defn add-vote
+  [idea-id]
+  (let [{user-id :id} (ur/get-me)]
+    (ir/add-vote user-id idea-id)
+    (ur/add-idea-to-user user-id idea-id)))
+
+(defn remove-vote
+  [idea-id]
+  (let [{user-id :id} (ur/get-me)]
+    (ir/remove-vote user-id idea-id)
+    (ur/remove-idea-from-user user-id idea-id)))
 
 (defn add-idea-req
   [body]
@@ -47,10 +62,6 @@
     (if (= my-id user-id)
       (swap! d/state update-in [:ideas id "voted?"] not))
     (swap! d/state update-in [:ideas id "votes"] dec)))
-
-(defn get-by-id
-  [id]
-  (ir/get-idea-by-id id))
 
 (defn toggle-idea-vote-req
   [e {:keys [name] :as idea}]
