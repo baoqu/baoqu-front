@@ -54,15 +54,15 @@
         in-path? (cs/circle-in-path? circle)
         active-circle? (cs/is-active-circle? circle)
         inner-circles (cs/get-inner-circles-for-circle circle)]
-    [:div.circle {:key id
-                  :class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if in-path? "my-circle") " " (if active-circle? "active-circle"))
+    [:div.circle {:class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if in-path? "my-circle") " " (if active-circle? "active-circle"))
                   :on-click #(cs/visit-circle % circle)}
      ;;(circle-context circle)
      (if (= level 1)
        (for [key users]
          [:div.circle {:key key}])
-       (for [inner-circle inner-circles]
-         (a-circle inner-circle)))
+       (for [{inner-id :id :as inner-circle} inner-circles]
+         (-> (a-circle inner-circle)
+             (rum/with-key inner-id))))
      ]))
 
 (rum/defc the-map < rum/reactive
@@ -102,6 +102,7 @@
       (for [level (cs/get-level-range)]
         (let [parent-circles (cs/get-parent-circles-for-level level)]
           (for [circle parent-circles]
-            (a-circle circle))))
+            (-> (a-circle circle)
+                (rum/with-key (:id circle))))))
       ]
      ]))
