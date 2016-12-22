@@ -90,10 +90,14 @@
       ]
      ]))
 
-(rum/defcs user-list < (rum/local false)
-  [state]
-  (let [local-atom (:rum/local state)
-        show? @local-atom]
+(rum/defcs user-list < rum/reactive
+                       (rum/local false)
+  [local-state]
+  (let [state (rum/react d/state)
+        local-atom (:rum/local local-state)
+        show? @local-atom
+        active-circle (ur/get-active-circle)
+        users (ur/get-all-for-circle (:id active-circle))]
     (letfn [(click-action [e]
               (.preventDefault e)
               (swap! local-atom not))]
@@ -104,27 +108,14 @@
        (if show?
          [:div.mod-dropdown
           [:ul.mod-users-list
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
-
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
-           [:li.user
-            [:div.avatar [:div.thumb "A"]]
-            [:div.content [:div.username "Adelino"]]
-            ]
+           (for [user users]
+             (let [id (:id user)
+                   author (:name user)
+                   initial (s/upper-case (first author))]
+               [:li.user {:key id}
+                [:div.avatar [:div.thumb initial]]
+                [:div.content [:div.username author]]
+                ]))
            ]
           ])
        ])))
