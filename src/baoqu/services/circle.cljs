@@ -8,6 +8,7 @@
 (defn get-my-circle
   []
   (-> (ur/get-my-path)
+      (sort)
       (last)
       (cr/get-by-id)))
 
