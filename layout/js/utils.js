@@ -71,3 +71,17 @@ $(document).ready(function(){
   });
 
 });
+
+// TEXTAREA SUBMIT
+$("body").delegate(".js-ideas-textarea", "keypress", function(e) {
+  if(e.which == 13) {
+    $('#form-ideas .button').click();
+    e.preventDefault();
+  }
+});
+$("body").delegate(".js-comments-textarea", "keypress", function(e) {
+  if(e.which == 13) {
+    $('#form-comments .button').click();
+    e.preventDefault();
+  }
+});

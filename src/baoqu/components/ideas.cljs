@@ -18,13 +18,16 @@
               (reset! local {:idea ""}))
             (change-action [e]
               (swap! local assoc :idea (.. e -target -value)))]
-      [:form.mod-add-box {:on-submit submit-action}
-       [:textarea { :class "input-text js-autoexpand"
+      [:form {:on-submit submit-action
+              :id "form-ideas"
+              :class "mod-add-box"}
+       [:textarea { :class "input-text js-autoexpand js-ideas-textarea"
                    :id "autoResize"
                    :rows "1"
                    :data-min-rows "1"
                    :placeholder "Añade una nueva idea"
                    :on-change change-action
+                   :on-submit submit-action
                    :value idea}]
        [:button.button
         [:i {:class "fa fa-lg fa-plus"}]]])))

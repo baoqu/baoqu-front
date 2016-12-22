@@ -20,8 +20,10 @@
               (reset! local-atom {:comment ""}))
             (change-action [e]
               (swap! local-atom assoc :comment (.. e -target -value)))]
-      [:form.mod-add-box {:on-submit submit-action}
-       [:input { :class "input-text js-autoexpand"
+      [:form {:on-submit submit-action
+              :id "form-comments"
+              :class "mod-add-box"}
+       [:input { :class "input-text js-autoexpand js-comments-textarea"
                     :rows "1"
                     :data-min-rows "1"
                     :placeholder "Escribe aquí"
