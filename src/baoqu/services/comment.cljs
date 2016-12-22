@@ -21,8 +21,12 @@
         (fu/empty-f :comment)))))
 
 (defn get-all-for-circle
-  [id]
+  [{:keys [id]}]
   (cr/get-all-for-circle id))
+
+(defn count-all-for-circle
+  [circle]
+  (count (get-all-for-circle circle)))
 
 (defn add-comment
   [comment]

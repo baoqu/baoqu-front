@@ -5,7 +5,8 @@
             [baoqu.repos.user :as ur]
             [baoqu.repos.idea :as ir]
             [baoqu.services.idea :as is]
-            [baoqu.services.circle :as cs]))
+            [baoqu.services.circle :as cis]
+            [baoqu.services.comment :as cs]))
 
 (enable-console-print!)
 
@@ -14,9 +15,10 @@
 (rum/defc circle-context < rum/reactive
   [{:keys [id level size] :as circle}]
   (let [state (rum/react d/state)
-        max-participants (cs/get-participants-count circle)
+        max-participants (cis/get-participants-count circle)
         {name :name votes :votes :as highest-voted-idea} (is/get-highest-voted-idea-for-circle circle)
         idea-count (is/count-all-for-circle circle)
+        comment-count (cs/count-all-for-circle circle)
         percentage (* 100 (/ votes max-participants))]
     [:div.context-info.js-context-info
      [:div.circle-title (str "Círculo " id)
@@ -41,7 +43,7 @@
        ]
       [:div.item
        [:i {:class "icon-header fa fa-comments"}]
-       [:span "??"]
+       [:span comment-count]
        ]
       [:div.item
        [:i {:class "icon-header fa fa-lightbulb-o"}]
@@ -54,11 +56,11 @@
 (rum/defc a-circle < rum/reactive
   [{:keys [id users level parent-circle-id] :as circle}]
   (let [state (rum/react d/state)
-        in-path? (cs/circle-in-path? circle)
-        active-circle? (cs/is-active-circle? circle)
-        inner-circles (cs/get-inner-circles-for-circle circle)]
+        in-path? (cis/circle-in-path? circle)
+        active-circle? (cis/is-active-circle? circle)
+        inner-circles (cis/get-inner-circles-for-circle circle)]
     [:div.circle.js-circle-w-context {:class (str "c-lv" level " " (when (nil? parent-circle-id) "root js-circle-root") " " (if in-path? "my-circle") " " (if active-circle? "active-circle"))
-                  :on-click #(cs/visit-circle % circle)}
+                  :on-click #(cis/visit-circle % circle)}
      (circle-context circle)
      (if (= level 1)
        (for [key users]
@@ -105,8 +107,8 @@
       ]
      (ideas-resume)
      [:div {:class "map-circles-view"}
-      (for [level (cs/get-level-range)]
-        (let [parent-circles (cs/get-parent-circles-for-level level)]
+      (for [level (cis/get-level-range)]
+        (let [parent-circles (cis/get-parent-circles-for-level level)]
           (for [circle parent-circles]
             (-> (a-circle circle)
                 (rum/with-key (:id circle))))))

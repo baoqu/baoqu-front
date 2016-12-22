@@ -37,7 +37,7 @@
   []
   (let [state (rum/react d/state)
         active-circle (ur/get-active-circle)
-        comments (cs/get-all-for-circle (:id active-circle))]
+        comments (cs/get-all-for-circle active-circle)]
     [:div.mod-body
      (if-not (empty? comments)
        [:ul
