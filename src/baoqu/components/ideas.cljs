@@ -115,27 +115,28 @@
        [:i {:class "fa fa-lg fa-angle-right"}]]]
 
      [:div.mod-body
-      [:ul
-       (for [idea ideas]
-         (show idea))
-       ]
-      [:div.zero-case
-       [:h3.title "Ideas"]
-       [:p.description "Aquí aparecerán las ideas que se propongan en este círculo"]
-       [:ul
-        [:li.mod-idea
-         [:div.idea
-          [:span]
-          [:span]
-          [:span]
-          ]
-         [:div.voting-block
-          [:div.votes [:div.progress-bar]]
-          [:div.btn.btn-gray]
-          ]
+      (if-not (empty? ideas)
+        [:ul
+         (for [idea ideas]
+           (show idea))
          ]
-        ]
-       ]
+        [:div.zero-case
+         [:h3.title "Ideas"]
+         [:p.description "Aquí aparecerán las ideas que se propongan en este círculo"]
+         [:ul
+          [:li.mod-idea
+           [:div.idea
+            [:span]
+            [:span]
+            [:span]
+            ]
+           [:div.voting-block
+            [:div.votes [:div.progress-bar]]
+            [:div.btn.btn-gray]
+            ]
+           ]
+          ]
+         ])
       ]
      (if circle-in-path?
        (idea-form))
