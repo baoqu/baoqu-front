@@ -3,6 +3,7 @@
             [baoqu.data :as d]
             [baoqu.form-utils :as fu]
             [baoqu.services.idea :as is]
+            [baoqu.services.circle :as cs]
             [baoqu.repos.user :as ur]))
 
 (enable-console-print!)
@@ -28,10 +29,40 @@
        [:button.button
         [:i {:class "fa fa-lg fa-plus"}]]])))
 
+(rum/defcs idea-filter-menu < (rum/local false)
+  [state]
+  (let [local-atom (:rum/local state)
+        show? @local-atom]
+    (letfn [(click-action [e]
+              (.preventDefault e)
+              (swap! local-atom not))]
+      [:div
+       [:span.action {:class (str "" (if show? "active"))}
+        [:i {:class "fa fa-eye"
+             :on-click click-action}]]
+       (if show?
+         [:div.mod-dropdown
+          [:ul.mod-options-list
+           [:li.option
+            [:label.content [:input {:type "radio" :name "view-type"}]
+             "Sólo ideas apoyadas"
+             ]
+            ]
+           [:li.option
+            [:label.content [:input {:type "radio" :name "view-type"}]
+             "Todas las ideas"
+             ]
+            ]
+           ]
+          ])
+       ])))
+
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
         active-circle (ur/get-active-circle)
+        participant-count (cs/get-participants-count active-circle)
+        circle-in-path? (cs/circle-in-path? active-circle)
         ideas (is/get-all-for-circle (:id active-circle))]
     [:div.mod-ideas
      [:div.mod-header
@@ -40,27 +71,12 @@
       ]
 
       [:div.title (str "Ideas (" (count ideas) ")")]
-        [:span.action.active
-          [:i {:class "fa fa-eye"}]]
+      (idea-filter-menu)
         [:span.action
           [:i {:class "fa fa-sort-amount-desc"}]]
         [:span.toggle.hide-medium.js-collapse-ideas
           [:i {:class "fa fa-lg fa-angle-right"}]]]
 
-          [:div.mod-dropdown
-            [:ul.mod-options-list
-              [:li.option
-               [:label.content [:input {:type "radio" :name "view-type"}]
-                "Sólo ideas apoyadas"
-               ]
-              ]
-              [:li.option
-                [:label.content [:input {:type "radio" :name "view-type"}]
-                 "Todas las ideas"
-                ]
-              ]
-             ]
-            ]
      [:div.mod-body
 
      
@@ -101,12 +117,12 @@
        (for [idea ideas]
          (let [votes (is/vote-count-for-circle idea active-circle)
                voted? (is/voted? idea)
-               approval-percentage (* 100 (/ votes (:size active-circle)))]
+               approval-percentage (* 100 (/ votes participant-count))]
            [:li.mod-idea {:key (:id idea)}
             [:div.idea (:name idea)]
             [:div.voting-block
              [:div.votes
-              [:div.votes-count (str votes "/" (:size active-circle) " apoyos necesarios")]
+              [:div.votes-count (str votes "/" participant-count " apoyos necesarios")]
               [:div.progress-bar
                [:div.inner {:style {:width (str approval-percentage "%")}}]
                ]
@@ -118,5 +134,6 @@
             ]))
        ]
       ]
-     (idea-form)
+     (if circle-in-path?
+       (idea-form))
      ]))

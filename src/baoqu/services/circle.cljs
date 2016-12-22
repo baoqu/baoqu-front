@@ -26,6 +26,10 @@
       (:id)
       (= id)))
 
+(defn get-circles
+  []
+  (cr/get-circles))
+
 (defn circle-in-path?
   [{:keys [id]}]
   ((ur/get-my-path) id))
@@ -50,6 +54,11 @@
   [level]
   (let [circles (cr/get-circles)]
     (filter #(and (= (:level %) level) (nil? (:parent-circle-id %))) circles)))
+
+(defn get-participants-count
+  "Returns the number of participants of a circle"
+  [{:keys [size level]}]
+  (* size level))
 
 (defn get-inner-circles-for-circle
   [circle]

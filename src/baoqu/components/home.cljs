@@ -2,7 +2,7 @@
   (:require [rum.core :as rum]
             [baoqu.data :as d]
             [baoqu.mixins :as mixins]
-            [baoqu.services.circle :as circle-s]
+            [baoqu.services.circle :as cs]
             [baoqu.repos.user :as user-r]
             [baoqu.repos.notification :as notification-r]
             [baoqu.components.header :as header]
@@ -17,22 +17,23 @@
 (rum/defc workspace < rum/reactive
   []
   (let [state (rum/react d/state)
-        my-circle (circle-s/get-my-circle)]
+        active-circle (cs/get-active-circle)
+        circle-in-path? (cs/circle-in-path? active-circle)]
     [:div.circle-wrapper
      [:div.circle-header
-      [:div.circle-header-title (str "Círculo " (:id my-circle))
-        [:span.tag
-          [:span.label "Nivel "]
-          [:span.value (:level my-circle)]
+      [:div.circle-header-title (str "Círculo " (:id active-circle))
+       [:span.tag
+        [:span.label "Nivel "]
+        [:span.value (:level active-circle)]
         ]
-        [:span.tag.my-circle
-          [:span.label "Mi círculo"]
-        ]
-      ]
+       (if circle-in-path?
+         [:span.tag.my-circle
+          [:span.label "Mi círculo"]])
+       ]
       [:span.circle-header-exit
-        [:span "Salir "]
-        [:span.hide-medium " de este círculo"]
-      ]]
+       [:span "Salir "]
+       [:span.hide-medium " de este círculo"]
+       ]]
      [:div.circle-content
       (ideas/main)
       (comments/main)]]))

@@ -4,6 +4,7 @@
             [baoqu.form-utils :as fu]
             [baoqu.mixins :as mixins]
             [baoqu.services.comment :as cs]
+            [baoqu.services.circle :as cis]
             [baoqu.repos.user :as ur]
             [clojure.string :as s]))
 
@@ -89,52 +90,64 @@
       ]
      ]))
 
+(rum/defcs user-list < (rum/local false)
+  [state]
+  (let [local-atom (:rum/local state)
+        show? @local-atom]
+    (letfn [(click-action [e]
+              (.preventDefault e)
+              (swap! local-atom not))]
+      [:div
+       [:span.action {:class (str "" (if show? "active"))}
+        [:i {:class "fa fa-users"
+             :on-click click-action}]]
+       (if show?
+         [:div.mod-dropdown
+          [:ul.mod-users-list
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+           [:li.user
+            [:div.avatar [:div.thumb "A"]]
+            [:div.content [:div.username "Adelino"]]
+            ]
+           ]
+          ])
+       ])))
+
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
         active-circle (ur/get-active-circle)
-        comments (cs/get-all-for-circle (:id active-circle))
-
-        ;; circle (:circle state)
-        ;; circles (:circles state)
-        ]
+        circle-in-path? (cis/circle-in-path? active-circle)
+        comments (cs/get-all-for-circle (:id active-circle))]
     [:div.mod-comments
      [:div.mod-header
       [:span {:class "expander js-expand-comments"}
        [:i {:class "icon-header fa fa-lg fa-comments-o"}]
        ]
       [:div.title (str "Chat")]
-      [:span.action
-       [:i {:class "fa fa-users"}]]
+      (user-list)
       [:span.toggle.hide-medium.js-collapse-comments
        [:i {:class "fa fa-lg fa-angle-right"}]
        ]
-      [:div.mod-dropdown
-       [:ul.mod-users-list
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
 
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
-        [:li.user
-         [:div.avatar [:div.thumb "A"]]
-         [:div.content [:div.username "Adelino"]]
-         ]
-        ]
-       ]
       ]
      (comments-box)
-     (comment-form)
+     (if circle-in-path?
+       (comment-form))
      ]))
