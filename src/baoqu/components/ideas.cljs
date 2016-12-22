@@ -58,8 +58,10 @@
 
 (rum/defcs show < (rum/local false)
                   rum/static
+                  rum/reactive
   [{local :rum/local} {:keys [id name] :as idea}]
-  (let [more? @local
+  (let [state (rum/react d/state)
+        more? @local
         limit 200
         length (count name)
         big? (> length limit)
