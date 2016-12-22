@@ -29,6 +29,34 @@
        [:button.button
         [:i {:class "fa fa-lg fa-plus"}]]])))
 
+(rum/defcs idea-filter-menu < (rum/local false)
+  [state]
+  (let [local-atom (:rum/local state)
+        show? @local-atom]
+    (letfn [(click-action [e]
+              (.preventDefault e)
+              (swap! local-atom not))]
+      [:div
+       [:span.action {:class (str "" (if show? "active"))}
+        [:i {:class "fa fa-eye"
+             :on-click click-action}]]
+       (if show?
+         [:div.mod-dropdown
+          [:ul.mod-options-list
+           [:li.option
+            [:label.content [:input {:type "radio" :name "view-type"}]
+             "Sólo ideas apoyadas"
+             ]
+            ]
+           [:li.option
+            [:label.content [:input {:type "radio" :name "view-type"}]
+             "Todas las ideas"
+             ]
+            ]
+           ]
+          ])
+       ])))
+
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
@@ -42,27 +70,13 @@
       ]
 
       [:div.title (str "Ideas (" (count ideas) ")")]
-        [:span.action.active
-          [:i {:class "fa fa-eye"}]]
+      (idea-filter-menu)
         [:span.action
           [:i {:class "fa fa-sort-amount-desc"}]]
         [:span.toggle.hide-medium.js-collapse-ideas
           [:i {:class "fa fa-lg fa-angle-right"}]]]
 
-          [:div.mod-dropdown
-            [:ul.mod-options-list
-              [:li.option
-               [:label.content [:input {:type "radio" :name "view-type"}]
-                "Sólo ideas apoyadas"
-               ]
-              ]
-              [:li.option
-                [:label.content [:input {:type "radio" :name "view-type"}]
-                 "Todas las ideas"
-                ]
-              ]
-             ]
-            ]
+
      [:div.mod-body
       [:ul
 
