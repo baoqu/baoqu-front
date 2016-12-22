@@ -26,6 +26,10 @@
       (:id)
       (= id)))
 
+(defn get-circles
+  []
+  (cr/get-circles))
+
 (defn circle-in-path?
   [{:keys [id]}]
   ((ur/get-my-path) id))

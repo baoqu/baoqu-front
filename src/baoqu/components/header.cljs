@@ -1,16 +1,16 @@
 (ns baoqu.components.header
   (:require [rum.core :as rum]
+            [baoqu.services.circle :as cs]
+            [baoqu.services.idea :as is]
             [baoqu.data :as d]))
 
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
         event (:event state)
-        circle-id (:circle state)
-        circles (:circles state)
-        circle (first (filter #(= circle-id (:id %)) circles))
-        num-ideas (count (:ideas state))
-        num-comments (count (:comments state))
+        {circle-id :id :as circle} (cs/get-active-circle)
+        circles (cs/get-circles)
+        num-ideas (is/count-all-for-circle circle)
         active-section (:active-section state)
         active-modal (:active-modal state)]
 
@@ -54,7 +54,7 @@
          ]
         [:li {:class (if (= active-section "comments") "active" "") :on-click (change-section "comments")}
          [:i {:class "icon-header fa fa-lg fa-comments"}]
-         [:span.title (str num-comments " Chat")]
+         [:span.title "Chat"]
          ]
         ])
      ]))

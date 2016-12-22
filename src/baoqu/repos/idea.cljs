@@ -14,10 +14,6 @@
   [id]
   (get-in @d/state [:ideas id]))
 
-(defn get-ideas-by-circle
-  []
-  (vals (:ideas @d/state)))
-
 (defn get-all-ideas-for-user
   [user-id]
   (get-ideas))

@@ -56,6 +56,10 @@
         (api/upvote-idea user-id idea-name)
         (api/downvote-idea user-id idea-name)))))
 
+(defn all-ideas-count
+  []
+  (count (ir/get-ideas)))
+
 (defn votes
   [{:keys [id]}]
   (filter #(= id (:idea-id %)) (ir/get-votes)))
@@ -100,3 +104,7 @@
                          #{}
                          users)]
     (mapv ir/get-idea-by-id idea-ids)))
+
+(defn count-all-for-circle
+  [{:keys [id]}]
+  (count (get-all-for-circle id)))
