@@ -191,8 +191,9 @@
         (and
          (not (empty? ideas))
          (empty? filtered-ideas))
-        [:div.zero-case
-         "HAS FILTRADO PERO NO HAS VOTADO NADA, GAÑÁN"]
+        [:div.zero-case]
+          [:h3.title "No hay ideas apoyadas por ti"]
+          [:p.description "No has apoyado ninguna idea en este círculo, puedes crear una nueva o cambiar el filtro."]
         :else
         [:ul
          (for [idea filtered-ideas]
