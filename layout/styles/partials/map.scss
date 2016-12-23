@@ -22,7 +22,7 @@
   text-align: center;
   background: #cde1e8;
   /**/
-  // display: flex;
+  display: flex; // @todo: not good with large amounts of circles
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
