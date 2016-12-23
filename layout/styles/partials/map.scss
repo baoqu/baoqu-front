@@ -342,8 +342,9 @@ Default is 3 because rythm with Andres
       font-size: $fs11;
     }
     .badge {
-      border: 1px solid $color-success-dark;
-      color: $color-success;
+      color: $color-white;
+      background-color: $color-success;
+      font-weight: bold;
       font-size: $fs11;
       border-radius: 4px;
       padding: 0.2rem 0.4rem;
