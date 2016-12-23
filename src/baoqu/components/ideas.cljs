@@ -87,7 +87,7 @@
        [:span.action {:class (str "" (if show? "active"))
                       :on-click click-action
                       :data-balloon-pos "left"
-                      :data-balloon "Filtrar ideas"}
+                      :data-balloon "Ordenar ideas"}
         [:i {:class "fa fa-sort-amount-desc"}]]
        (if show?
          [:div.mod-dropdown
