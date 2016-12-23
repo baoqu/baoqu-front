@@ -69,6 +69,30 @@
           ])
        ])))
 
+       (rum/defcs idea-sort-filter-menu < (rum/local false)
+         [{local :rum/local}]
+
+             [:div.action-wrapper
+              [:span.action {:data-balloon-pos "left"
+                             :data-balloon "Filtrar ideas"}
+               [:i {:class "fa fa-eye"}]]
+
+                [:div.mod-dropdown
+                 [:ul.mod-options-list
+                  [:li.option
+                   [:label.content [:input {:type "radio" :name "view-type"}]
+                    "Más apoyos primero"
+                    ]
+                   ]
+                  [:li.option
+                   [:label.content [:input {:type "radio" :name "view-type"}]
+                    "Más recientes primero"
+                    ]
+                   ]
+                  ]
+                 ]
+              ])
+
 (rum/defcs show < (rum/local false)
                   rum/static
                   rum/reactive
@@ -128,7 +152,9 @@
 
       [:div.title (str "Ideas (" (count ideas) ")")]
       (if circle-in-path?
-        (idea-filter-menu))
+        (do
+          (idea-filter-menu)
+          (idea-sort-filter-menu)))
       (letfn [(click-action [e]
                 (.preventDefault e)
                 (is/sort-ideas))]
