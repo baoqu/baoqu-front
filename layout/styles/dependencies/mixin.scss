@@ -125,6 +125,7 @@
   &:hover {
     .icon-tooltip {
       display: block;
+      pointer-events: none;
       left: 2rem;
       animation: tooltipAppear .2s linear ;
     }
