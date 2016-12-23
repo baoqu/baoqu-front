@@ -47,7 +47,7 @@
        [:span comment-count]
        ]
       [:div.item
-       [:i {:class "icon-header fa fa-lightbulb-o"}]
+       [:i {:class "icon-header fa fa-users"}]
        [:span users-count]
        ]
       ]
