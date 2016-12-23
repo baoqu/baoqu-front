@@ -86,7 +86,7 @@
           ]
          [:div.body
           [:div.idea (:name idea)]
-          [:div.info  "Círculo " "??" " | " "nivel " "??"]
+          ; [:div.info  "Círculo " "??" " | " "nivel " "??"]
           (if (is/voted? idea)
             [:span.badge "la apoyaste"])
           ]
