@@ -98,11 +98,16 @@
     .option {
       display: flex;
       align-items: center;
-      margin-bottom: $space;
       font-weight: normal;
       .content {
         flex: 1;
         font-size: $fs14;
+      }
+      label {
+        padding: $space-s 0;
+        cursor: pointer;
+      } & :hover {
+        background-color: $color-gray-lighter;
       }
       &:last-child {
         margin-bottom: 0;
