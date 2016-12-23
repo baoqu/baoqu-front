@@ -320,18 +320,18 @@ Default is 3 because rythm with Andres
   .supports {
     padding-right: $space;
     .value {
-      color: $color-gray-medium-dark;
+      color: $color-gray-dark;
       font-weight: bold;
     }
     .label {
-      color: $color-gray-medium-dark;
+      color: $color-gray-dark;
       font-size: $fs11;
     }
   }
   .body {
     flex: 1;
     .idea {
-      font-size: $fs14;
+      font-size: $fs16;
       font-weight: bold;
       /*&:before {
         content:"# ";
@@ -352,58 +352,50 @@ Default is 3 because rythm with Andres
 }
 .map-list-view .mod-idea:nth-child(0) {
   .body .idea {
-    font-size: $fs26;
+    font-size: $fs30;
   }
   .supports .value {
-    font-size: $fs26;
+    font-size: $fs30;
   }
 }
 .map-list-view .mod-idea:nth-child(1) {
   .body .idea {
-    font-size: $fs24;
+    font-size: $fs26;
   }
   .supports .value {
-    font-size: $fs24;
+    font-size: $fs26;
   }
 }
 .map-list-view .mod-idea:nth-child(2) {
   .body .idea {
-    font-size: $fs22;
+    font-size: $fs24;
   }
   .supports .value {
-    font-size: $fs22;
-  }
-}
-.map-list-view .mod-idea:nth-child(2) {
-  .body .idea {
-    font-size: $fs22;
-  }
-  .supports .value {
-    font-size: $fs22;
+    font-size: $fs24;
   }
 }
 .map-list-view .mod-idea:nth-child(3) {
   .body .idea {
-    font-size: $fs20;
+    font-size: $fs22;
   }
   .supports .value {
-    font-size: $fs20;
+    font-size: $fs22;
   }
 }
 .map-list-view .mod-idea:nth-child(4) {
   .body .idea {
-    font-size: $fs18;
+    font-size: $fs20;
   }
   .supports .value {
-    font-size: $fs18;
+    font-size: $fs20;
   }
 }
 .map-list-view .mod-idea:nth-child(5) {
   .body .idea {
-    font-size: $fs16;
+    font-size: $fs18;
   }
   .supports .value {
-    font-size: $fs16;
+    font-size: $fs18;
   }
 }
 
