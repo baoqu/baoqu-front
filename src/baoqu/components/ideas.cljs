@@ -141,7 +141,9 @@
   (let [state (rum/react d/state)
         active-circle (ur/get-active-circle)
         circle-in-path? (cs/circle-in-path? active-circle)
-        ideas (is/get-all-for-circle active-circle)
+        ideas (if (is/sorted-filter-active?)
+                (is/get-all-for-circle-with-votes-sorted active-circle)
+                (is/get-all-for-circle active-circle))
         filtered-ideas (if (is/voted-filter-active?)
                          (is/get-all-voted-for-circle active-circle)
                          ideas)]

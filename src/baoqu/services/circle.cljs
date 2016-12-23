@@ -73,4 +73,5 @@
   (.preventDefault e)
   (.stopPropagation e)
   (ir/set-voted-filter false)
+  (ir/set-sorted-filter false)
   (ur/set-active-circle id))
