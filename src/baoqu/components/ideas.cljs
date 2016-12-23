@@ -69,29 +69,42 @@
           ])
        ])))
 
-       (rum/defcs idea-sort-filter-menu < (rum/local false)
-         [{local :rum/local}]
-
-             [:div.action-wrapper
-              [:span.action {:data-balloon-pos "left"
-                             :data-balloon "Filtrar ideas"}
-               [:i {:class "fa fa-eye"}]]
-
-                [:div.mod-dropdown
-                 [:ul.mod-options-list
-                  [:li.option
-                   [:label.content [:input {:type "radio" :name "view-type"}]
-                    "Más apoyos primero"
-                    ]
-                   ]
-                  [:li.option
-                   [:label.content [:input {:type "radio" :name "view-type"}]
-                    "Más recientes primero"
-                    ]
-                   ]
-                  ]
-                 ]
-              ])
+(rum/defcs idea-sort-filter-menu < (rum/local false)
+  [{local :rum/local}]
+  (let [show? @local]
+    (letfn [(click-action [e]
+              (.preventDefault e)
+              (swap! local not))
+            (change-action [e filter]
+              (.preventDefault e)
+              (cond
+                (= filter :none)
+                (is/set-sorted-filter false)
+                (= filter :sorted)
+                (is/set-sorted-filter true)
+                :else nil))]
+      [:div.action-wrapper
+       [:span.action {:class (str "" (if show? "active"))
+                      :on-click click-action
+                      :data-balloon-pos "left"
+                      :data-balloon "Filtrar ideas"}
+        [:i {:class "fa fa-sort-amount-desc"}]]
+       (if show?
+         [:div.mod-dropdown
+          [:ul.mod-options-list
+           [:li.option {:on-click #(change-action % :sorted)}
+            [:label.content [:input {:type "radio" :name "view-type" :checked (is/sorted-filter-active?)}]
+             "Más apoyos primero"
+             ]
+            ]
+           [:li.option {:on-click #(change-action % :none)}
+            [:label.content [:input {:type "radio" :name "view-type" :checked (not (is/sorted-filter-active?))}]
+             "Más recientes primero"
+             ]
+            ]
+           ]
+          ])
+       ])))
 
 (rum/defcs show < (rum/local false)
                   rum/static
@@ -154,17 +167,8 @@
 
       [:div.title (str "Ideas (" (count ideas) ")")]
       (if circle-in-path?
-        (do
-          (idea-filter-menu)
-          (idea-sort-filter-menu)))
-      (letfn [(click-action [e]
-                (.preventDefault e)
-                (is/sort-ideas))]
-        [:span {:class "action"
-                :data-balloon-pos "left"
-                :data-balloon "Ordenar ideas"
-                :on-click click-action}
-         [:i {:class "fa fa-sort-amount-desc"}]])
+        [(-> (idea-filter-menu) (rum/with-key "idea-filter"))
+         (-> (idea-sort-filter-menu) (rum/with-key "idea-sort"))])
       [:span.toggle.hide-medium.js-collapse-ideas
        [:i {:class "fa fa-lg fa-angle-right"}]]]
 
