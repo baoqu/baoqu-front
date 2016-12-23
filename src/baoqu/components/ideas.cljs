@@ -89,7 +89,6 @@
                       :data-balloon-pos "left"
                       :data-balloon "Filtrar ideas"}
         [:i {:class "fa fa-sort-amount-desc"}]]
-       (println "THE FILTER IS" (is/sorted-filter-active?))
        (if show?
          [:div.mod-dropdown
           [:ul.mod-options-list
