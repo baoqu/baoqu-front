@@ -150,6 +150,16 @@
                          users)]
     (mapv ir/get-idea-by-id idea-ids)))
 
+(defn get-all-for-circle-with-votes
+  [circle]
+  (mapv #(assoc % :votes (vote-count-for-idea-and-circle % circle)) (get-all-for-circle circle)))
+
+(defn get-all-for-circle-with-votes-sorted
+  [circle]
+  (->> (get-all-for-circle-with-votes circle)
+       (sort-by :votes)
+       (reverse)))
+
 (defn get-all-voted-for-circle
   [circle]
   (let [{:keys [id]} (ur/get-me)
@@ -169,6 +179,14 @@
 (defn set-voted-filter
   [active?]
   (ir/set-voted-filter active?))
+
+(defn sorted-filter-active?
+  []
+  (ir/get-sorted-filter))
+
+(defn set-sorted-filter
+  [active?]
+  (ir/set-sorted-filter active?))
 
 (defn get-highest-voted-idea-for-circle
   "Returs the highest voted idea of a given circle"

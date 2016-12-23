@@ -40,6 +40,14 @@
   [active?]
   (swap! d/state assoc :voted-filter active?))
 
+(defn get-sorted-filter
+  []
+  (:sorted-filter @d/state))
+
+(defn set-sorted-filter
+  [active?]
+  (swap! d/state assoc :sorted-filter active?))
+
 (defn add-idea
   [id name]
   (let [idea {id {:id id :name name}}]
