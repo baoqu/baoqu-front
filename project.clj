@@ -34,4 +34,5 @@
                                    :closure-defines {"baoqu.config.url" "http://app.baoqu.org"}
                                    :verbose true}}]}
   :figwheel {:css-dirs ["resources/public/css"]}
-  :aliases {"dist" ["cljsbuild" "once"]})
+  :aliases {"dist" ["cljsbuild" "once"]}
+  :clean-targets ^{:protect false} ["target" "resources/public" "dist"])
