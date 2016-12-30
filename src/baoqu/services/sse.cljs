@@ -1,6 +1,6 @@
 (ns baoqu.services.sse
   (:require [clojure.walk :refer [keywordize-keys]]
-            [baoqu.config :refer [cfg]]
+            [baoqu.config :as cfg]
             [baoqu.data :as d]
             [baoqu.services.idea :as is]
             [baoqu.services.comment :as cs]
@@ -118,5 +118,5 @@
   "Connects the frontend with the backend sse. Returns the SSE connection"
   []
   (->>
-   (js/EventSource. (str (:server cfg) "/sse"))
+   (js/EventSource. (str cfg/url "/sse"))
    (add-listeners)))

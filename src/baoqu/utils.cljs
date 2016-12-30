@@ -1,6 +1,6 @@
 (ns baoqu.utils
   (:require [clojure.string :refer [join]]
-            [baoqu.config :refer [cfg]]))
+            [baoqu.config :as cfg]))
 
 (enable-console-print!)
 
@@ -13,7 +13,7 @@
   ([path]
    (->url path {}))
   ([path params]
-   (let [base-url (:server cfg)]
+   (let [base-url cfg/url]
      (if-not (empty? params)
        (str base-url path)
        (let [params-string (get-params-string params)]
