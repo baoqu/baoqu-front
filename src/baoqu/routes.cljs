@@ -5,7 +5,9 @@
 (enable-console-print!)
 
 (def routes ["/" [["home" :home]
-                  ["login" :login]]])
+                  ["login" :login]
+                  ["fakelogin" :fakelogin]
+                  ["fakeevents" :fakeevents]]])
 
 (defn- on-navigate
   [{route :handler}]
