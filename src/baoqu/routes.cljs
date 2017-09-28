@@ -6,8 +6,8 @@
 
 (def routes ["/" [["home" :home]
                   ["login" :login]
-                  ["fakelogin" :fakelogin]
-                  ["fakeevents" :fakeevents]]])
+                  ["events" :events]
+                  ["fakelogin" :fakelogin]]])
 
 (defn- on-navigate
   [{route :handler}]

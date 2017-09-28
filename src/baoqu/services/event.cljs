@@ -11,6 +11,12 @@
 
 (enable-console-print!)
 
+(defn fetch-events
+  []
+  (-> (api/get-all-events)
+      (p/then (fn [res]
+                (event-r/set-events res)))))
+
 (defn fetch-event-data
   [event-id]
   (-> (api/get-event event-id)

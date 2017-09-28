@@ -15,6 +15,12 @@
         body {:name username}]
     (http/post url body)))
 
+(defn get-all-events
+  []
+  (let [path "/api/events/"
+        url (->url path)]
+    (http/get url)))
+
 (defn get-event
   [event-id]
   (let [path (str "/api/events/" event-id)

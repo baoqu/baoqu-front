@@ -1,9 +1,17 @@
 (ns baoqu.repos.event
   (:require [baoqu.data :as d]))
 
+(defn get-events
+  []
+  (:events @d/state))
+
+(defn set-events
+  [events]
+  (swap! d/state assoc :events events))
+
 (defn get-event
   []
-  (:event d/state))
+  (:event @d/state))
 
 (defn set-event
   [id name agreement-factor circle-size]

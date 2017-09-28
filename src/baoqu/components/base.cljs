@@ -4,7 +4,7 @@
             [baoqu.components.home :as home-c]
             [baoqu.components.login :as login-c]
             [baoqu.components.fakelogin :as fakelogin-c]
-            [baoqu.components.fakeevents :as fakeevents-c]
+            [baoqu.components.events :as events-c]
             [sablono.core :refer-macros [html]]
             [baoqu.services.security :as sec]))
 
@@ -20,6 +20,6 @@
     (case route
       :login (login-c/main)
       :home (home-c/main)
+      :events (events-c/main)
       :fakelogin (fakelogin-c/main)
-      :fakeevents (fakeevents-c/main)
       (html [:p "Route not found"]))))
