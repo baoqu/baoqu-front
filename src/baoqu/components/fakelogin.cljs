@@ -5,4 +5,5 @@
 
 (rum/defc main
   []
-  [:div [:h1 "LOGIN!!"]])
+  [:div [:h1 "LOGIN!!"]
+   [:p "aquí irían el form, los inputs y el button... dejo rienda suelta a tu creatividad :)"]])
