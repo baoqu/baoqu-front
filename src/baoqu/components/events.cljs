@@ -6,10 +6,10 @@
 
 (rum/defc event-item
   [{:keys [id name circle-size agreement-factor]}]
-  [:div {:key id}
-   [:hr]
+  [:div.event {:key id}
    [:div [:strong "Id :: "] id]
    [:div [:strong "Name :: "] name]
+   [:div [:strong "ola ke ase"] "jajaj saludos"]
    [:div [:strong "Circle size :: "] circle-size]
    [:div [:strong "Agreement factor :: "] agreement-factor]])
 
@@ -22,6 +22,6 @@
       ;; should be done after login
       (event-s/fetch-events))
 
-    [:div [:h1 "EVENTS!!"]
+    [:div.events-list [:h1 "Eventos en Baoqu"]
      (for [event events]
-       (event-item event))]))
+       [(event-item event)(event-item event)(event-item event)])]))

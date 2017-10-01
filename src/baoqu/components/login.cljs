@@ -24,7 +24,7 @@
         [:div.logo-icon]
         [:h1.logo "Baoqu"]
       ]
-     [:div.login
+     [:div.login.login-evento
       [:div.event-info
         [:h3 "Evento"]
         [:h2 "Probando Baoqu!"]
