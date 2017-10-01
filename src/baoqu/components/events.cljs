@@ -6,12 +6,35 @@
 
 (rum/defc event-item
   [{:keys [id name circle-size agreement-factor]}]
-  [:div.event {:key id}
-   [:div [:strong "Id :: "] id]
-   [:div [:strong "Name :: "] name]
-   [:div [:strong "ola ke ase"] "jajaj saludos"]
-   [:div [:strong "Circle size :: "] circle-size]
-   [:div [:strong "Agreement factor :: "] agreement-factor]])
+  [:li.grid-cell {:key id}
+    [:a.event {:key id}
+     [:div.header
+       [:span.id id]
+       [:span.name name]
+     ]
+     [:div.description "Deberíamos restringir esta cantidad de caracteres a una cantidad parecida a esta que está puesta que no la he contado y cerrar con elipsis ..."]
+     [:div.mod-meta
+       [:div.item
+        [:span
+          [:i {:class "icon-header fa fa-lightbulb-o"}]
+          [:span.value "33"]
+          [:span.label "ideas"]
+        ]
+       ]
+       [:div.item
+        [:span
+          [:i {:class "icon-header fa fa-comments"}]
+          [:span.value "33"]
+          [:span.label "comentarios"]
+        ]
+       ]
+       [:div.item
+        [:span
+          [:i {:class "icon-header fa fa-users"}]
+          [:span.value "33"]
+          [:span.label "participantes"]
+        ]
+       ]]]])
 
 
 (rum/defc main < rum/reactive
@@ -22,6 +45,16 @@
       ;; should be done after login
       (event-s/fetch-events))
 
-    [:div.events-list [:h1 "Eventos en Baoqu"]
-     (for [event events]
-       [(event-item event)(event-item event)(event-item event)])]))
+    [:div.events-list
+      [:div.header-wrapper
+       [:div#mainHeader
+        [:div.logo-icon]
+        [:h1.logo "Baoqu"]]]
+      [:div.mod-body
+       [:h3.title "Eventos en Baoqu"]
+       [:ul.grid
+       (for [event events]
+         [(event-item event)(event-item event)(event-item event)])
+       ]
+      ]
+     ]))
