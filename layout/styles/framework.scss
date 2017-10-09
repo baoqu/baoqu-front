@@ -219,6 +219,9 @@ select {
   &:focus {
     border-color: $color-gray-medium;
   }
+  &:invalid {
+    border-color: $color-danger;
+  }
 }
 
 input[type="radio"],
