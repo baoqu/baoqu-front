@@ -19,6 +19,6 @@
     ]
     [:form.input-box
      [:input {:class "bt input-text" :placeholder "Nombre de usuario"}]
-     [:input {:class "bt input-text" :placeholder "Contraseña"}]
+     [:input {:class "bt input-text" :placeholder "Contraseña" :type "password"}]
      [:button "Entrar"]
      [:a.bottom-link {:href "#register"} "¿No tienes cuenta? Regístrate"]]]])
