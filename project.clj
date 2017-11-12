@@ -23,6 +23,17 @@
                                    :output-to "resources/public/js/main.js"
                                    :output-dir "resources/public/js"
                                    :verbose true}}
+                       {:id "test"
+                        :source-paths ["src/" "test/"]
+                        :compiler {:main baoqu.tests.core
+                                   :pretty-print true
+                                   :optimizations :none
+                                   :target :nodejs
+                                   :language-in :ecmascript5
+                                   :language-out :ecmascript5
+                                   :output-to "out/tests.js"
+                                   :output-dir "out/tests"
+                                   :verbose true}}
                        {:id "dist"
                         :source-paths ["src/"]
                         :compiler {:main baoqu.core
@@ -32,7 +43,8 @@
                                    :output-to "dist/public/js/main.js"
                                    :output-dir "dist/public/js"
                                    :closure-defines {"baoqu.config.url" "http://app.baoqu.org"}
-                                   :verbose true}}]}
+                                   :verbose true}}]
+              :test-commands {"unit-tests" ["node" "out/tests.js"]}}
   :figwheel {:css-dirs ["resources/public/css"]}
   :aliases {"dist" ["cljsbuild" "once"]}
   :clean-targets ^{:protect false} ["target" "resources/public" "dist"])
