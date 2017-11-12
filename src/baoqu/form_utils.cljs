@@ -8,6 +8,10 @@
 
 (def change-in-form (partial change-field :form))
 
+(defn get-form
+  []
+  (:form @d/state))
+
 (defn get-f
   [key]
   (get-in @d/state [:form key] ""))

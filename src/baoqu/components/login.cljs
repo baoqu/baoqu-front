@@ -1,42 +1,46 @@
 (ns baoqu.components.login
   (:require [rum.core :as rum]
-            [httpurr.client :as http]
-            [httpurr.client.xhr :refer [client]]
-            [httpurr.client.xhr :as hc]
+            [promesa.core :as p]
             [baoqu.data :as d]
-            [baoqu.routes :as routes]
             [baoqu.form-utils :as fu]
-            [baoqu.services.event :as event-service]))
+            [baoqu.routes :as routes]
+            [baoqu.services.user :as us]))
 
-(defn login-action []
-  (let [username (fu/get-f :username)]
-    (event-service/join-event 1 username)
-    (routes/go :home)
-    (fu/empty-form)
+(enable-console-print!)
 
-    ;; possible approach
-    ; (-> (event-service/join-event 1 username) ;; replace 1 with id
-    ;     (p/then #(routes/go :home))) ;; reemplazar :home con :event-list? o whatever
-   ))
+(defn login-action
+  [e]
+  (.preventDefault e)
+  (let [{:keys [username password]} (fu/get-form)]
+    (-> (us/login username password)
+        (p/then (fn [_]
+                  (routes/go :events)
+                  (fu/empty-form)))
+        (p/catch (fn [err] (js/alert (str "ERROR: " (.-message err))))))))
 
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
-        username (get-in state [:form :username] "")
-        submit-action (comp login-action #(.preventDefault %))]
+        {:keys [username password]} (fu/get-form)]
     [:div.login-wrapper
-      [:div#mainHeader
-        [:div.logo-icon]
-        [:h1.logo "Baoqu"]
+     [:div#mainHeader
+      [:div.logo-icon]
+      [:h1.logo "Baoqu"]
       ]
-     [:div.login.login-evento
+     [:div.login.login-general
       [:div.event-info
-        [:h3 "Evento"]
-        [:h2 "Probando Baoqu!"]
-        [:p ""]
-      ]
-      [:form.input-box {:on-submit submit-action}
-       [:input {:class "bt input-text" :placeholder "Aquí tu nombre"
+       [:h2 "Entra en Baoqu"]
+       [:p ""]
+       ]
+      [:form.input-box {:on-submit login-action}
+       [:input {:class "bt input-text" :placeholder "Nombre de usuario" :required ""
                 :on-change (fu/change-in-form :username)
-                :value username}]
-       [:button "Participar"]]]]))
+                :value (or username "")}]
+       [:input {:class "bt input-text" :placeholder "Contraseña" :type "password" :required ""
+                :on-change (fu/change-in-form :password)
+                :value (or password "")}]
+       [:button "Entrar"]
+       [:a.bottom-link {:href "/#/register"} "¿No tienes cuenta? Regístrate"] ;; onclick empty form
+       ]
+      ]
+     ]))

@@ -19,7 +19,7 @@
      [:input {:class "bt input-text" :placeholder "Nombre de usuario" :required ""}]
      [:input {:class "bt input-text" :placeholder "Email" :type "email" :required ""}]
      [:button "Registrarse"]
-     [:a.bottom-link {:href "#login"} "¿Ya tienes cuenta? Entra"]
+     [:a.bottom-link {:href "/#/login"} "¿Ya tienes cuenta? Entra"]
      ]
     ]
    ])

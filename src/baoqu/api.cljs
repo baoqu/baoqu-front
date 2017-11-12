@@ -6,6 +6,15 @@
 (enable-console-print!)
 
 ;;--------------------
+;; USER
+;;--------------------
+(defn login
+  [username password]
+  (-> "/api/login"
+      (->url)
+      (http/post {:username username :password password})))
+
+;;--------------------
 ;; EVENT
 ;;--------------------
 (defn join-event

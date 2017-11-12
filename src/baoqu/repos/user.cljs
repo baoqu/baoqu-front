@@ -8,9 +8,13 @@
   []
   (:me @d/state))
 
+(defn get-token
+  []
+  (get-in @d/state [:me :token]))
+
 (defn set-me
-  [id name]
-  (let [me {:id id :name name}]
+  [id username token]
+  (let [me {:id id :username username :token token}]
     (swap! d/state assoc :me me)))
 
 (defn set-my-path

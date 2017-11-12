@@ -7,7 +7,6 @@
 (def routes ["/" [["home" :home]
                   ["login" :login]
                   ["events" :events]
-                  ["fakelogin" :fakelogin]
                   ["register" :register]
                   ["reset-password" :reset-password]]])
 
