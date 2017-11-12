@@ -16,7 +16,8 @@
         (p/then (fn [_]
                   (routes/go :events)
                   (fu/empty-form)))
-        (p/catch (fn [err] (js/alert (str "ERROR: " (.-message err))))))))
+        (p/catch (fn [err]
+                   (js/alert (str "ERROR: " (.-message err))))))))
 
 (rum/defc main < rum/reactive
   []

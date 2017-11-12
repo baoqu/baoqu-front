@@ -22,11 +22,11 @@
       (js/JSON.stringify)))
 
 (defn decode
-  [data]
-  (-> data
-      (:body)
-      (js/JSON.parse)
-      (js->clj :keywordize-keys true)))
+  [{:keys [body]}]
+  (if-not (empty? body)
+    (-> body
+        (js/JSON.parse)
+        (js->clj :keywordize-keys true))))
 
 (defn get
   [url]

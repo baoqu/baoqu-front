@@ -14,6 +14,12 @@
       (->url)
       (http/post {:username username :password password})))
 
+(defn register
+  [username password]
+  (-> "/api/register"
+      (->url)
+      (http/post {:username username :password password})))
+
 ;;--------------------
 ;; EVENT
 ;;--------------------
