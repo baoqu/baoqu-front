@@ -1,4 +1,5 @@
-(ns baoqu.data)
+(ns baoqu.data
+  (:refer-clojure :exclude [get]))
 
 (defn get-initial-state
   []
@@ -15,3 +16,7 @@
    :notification {}})
 
 (defonce state (atom (get-initial-state)))
+
+(defn get
+  []
+  (clj->js @state))
