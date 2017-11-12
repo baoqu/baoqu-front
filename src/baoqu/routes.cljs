@@ -7,7 +7,9 @@
 (def routes ["/" [["home" :home]
                   ["login" :login]
                   ["events" :events]
-                  ["fakelogin" :fakelogin]]])
+                  ["fakelogin" :fakelogin]
+                  ["register" :register]
+                  ["reset-password" :reset-password]]])
 
 (defn- on-navigate
   [{route :handler}]

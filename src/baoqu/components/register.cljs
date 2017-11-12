@@ -1,4 +1,4 @@
-(ns baoqu.components.fakelogin
+(ns baoqu.components.register
   (:require [rum.core :as rum]))
 
 (enable-console-print!)
@@ -12,14 +12,14 @@
     ]
    [:div.login.login-general
     [:div.event-info
-     [:h2 "Entra en Baoqu"]
-     [:p ""]
+     [:h2 "Regístrate en Baoqu"]
+     [:p "Te enviaremos un email con instrucciones"]
      ]
     [:form.input-box
      [:input {:class "bt input-text" :placeholder "Nombre de usuario" :required ""}]
-     [:input {:class "bt input-text" :placeholder "Contraseña" :type "password" :required ""}]
-     [:button "Entrar"]
-     [:a.bottom-link {:href "#register"} "¿No tienes cuenta? Regístrate"]
+     [:input {:class "bt input-text" :placeholder "Email" :type "email" :required ""}]
+     [:button "Registrarse"]
+     [:a.bottom-link {:href "#login"} "¿Ya tienes cuenta? Entra"]
      ]
     ]
    ])

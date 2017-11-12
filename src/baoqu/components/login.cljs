@@ -12,7 +12,12 @@
   (let [username (fu/get-f :username)]
     (event-service/join-event 1 username)
     (routes/go :home)
-    (fu/empty-form)))
+    (fu/empty-form)
+
+    ;; possible approach
+    ; (-> (event-service/join-event 1 username) ;; replace 1 with id
+    ;     (p/then #(routes/go :home))) ;; reemplazar :home con :event-list? o whatever
+   ))
 
 (rum/defc main < rum/reactive
   []
