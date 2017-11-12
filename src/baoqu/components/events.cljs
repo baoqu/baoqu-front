@@ -41,10 +41,6 @@
   []
   (let [state (rum/react d/state)
         events (event-r/get-events)]
-    (if-not (:events @d/state)
-      ;; should be done after login
-      (event-s/fetch-events))
-
     [:div.events-list
       [:div.header-wrapper
        [:div#mainHeader

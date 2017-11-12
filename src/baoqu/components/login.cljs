@@ -4,7 +4,8 @@
             [baoqu.data :as d]
             [baoqu.form-utils :as fu]
             [baoqu.routes :as routes]
-            [baoqu.services.user :as us]))
+            [baoqu.services.user :as us]
+            [baoqu.services.event :as es]))
 
 (enable-console-print!)
 
@@ -13,6 +14,7 @@
   (.preventDefault e)
   (let [{:keys [username password]} (fu/get-form)]
     (-> (us/login username password)
+        (p/then es/fetch-events)
         (p/then (fn [_]
                   (routes/go :events)
                   (fu/empty-form)))
