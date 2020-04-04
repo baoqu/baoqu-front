@@ -1,5 +1,6 @@
 (ns baoqu.components.events
   (:require [rum.core :as rum]
+            [baoqu.mixins :as mixins]
             [baoqu.data :as d]
             [baoqu.repos.event :as event-r]
             [baoqu.services.event :as event-s]))
@@ -34,12 +35,12 @@
           [:span.value "33"]
           [:span.label "participantes"]
         ]
-       ]]]])
+        ]]]])
 
 
-(rum/defc main < rum/reactive {:will-mount (fn [state]
-                                             (event-s/fetch-events)
-                                             state)}
+(rum/defc main < rum/reactive mixins/secured-mixin {:will-mount (fn [state]
+                                                                  (event-s/fetch-events)
+                                                                  state)}
   []
   (let [state (rum/react d/state)
         events (event-r/get-events)]

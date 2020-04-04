@@ -7,8 +7,8 @@
 (rum/defc main < rum/reactive
   []
   (let [state (rum/react d/state)
-        {:keys [id name]} (ur/get-me)
-        initial (s/upper-case (first name))]
+        {:keys [id username]} (ur/get-me)
+        initial (s/upper-case (first username))]
     [:div#user
      [:div.avatar
       [:div.thumb {:class (str "color-" id)} initial]]]))

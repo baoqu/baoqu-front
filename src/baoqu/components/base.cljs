@@ -7,6 +7,7 @@
             [baoqu.components.reset-password :as reset-password-c]
             [baoqu.components.events :as events-c]
             [sablono.core :refer-macros [html]]
+            [baoqu.repos.event :as event-r]
             [baoqu.services.security :as sec]))
 
 (enable-console-print!)
@@ -20,7 +21,7 @@
     ;;      (login-c/main)
     (case route
       :login (login-c/main)
-      :home (home-c/main)
+      :home (home-c/main (:id (event-r/get-event)))
       :events (events-c/main)
       :register (register-c/main)
       :reset-password (reset-password-c/main)

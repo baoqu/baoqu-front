@@ -14,12 +14,14 @@
   (:event @d/state))
 
 (defn set-event
-  [id name agreement-factor circle-size]
-  (let [event {:id id
-               :name name
-               :agreement-factor agreement-factor
-               :circle-size circle-size}]
-   (swap! d/state assoc :event event)))
+  ([{:keys [id name agreement-factor circle-size]}]
+   (set-event id name agreement-factor circle-size))
+  ([id name agreement-factor circle-size]
+   (let [event {:id id
+                :name name
+                :agreement-factor agreement-factor
+                :circle-size circle-size}]
+     (swap! d/state assoc :event event))))
 
 (defn load-event-status
   [event-status]

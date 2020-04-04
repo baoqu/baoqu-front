@@ -3,6 +3,7 @@
             [promesa.core :as p]
             [baoqu.data :as d]
             [baoqu.api :as api]
+            [baoqu.routes :as routes]
             [baoqu.repos.user :as user-r]
             [baoqu.repos.idea :as idea-r]
             [baoqu.repos.comment :as comment-r]
@@ -53,7 +54,7 @@
   [event-id username]
   (-> (api/join-event event-id username)
       (p/then (fn [{:keys [id name]}]
-                (user-r/set-me id name)
+                (user-r/set-me id name "")
                 (fetch-event-data event-id)))
       (p/catch #(println (str "[HTTP-ERROR]>> " %)))))
 
@@ -63,7 +64,9 @@
     (fetch-event-data event-id)))
 
 (defn visit-event
-  [e {:keys [id]}]
+  [e {:keys [id name] :as event}]
   (.preventDefault e)
   (.stopPropagation e)
-  (println (str "Visiting event: " id)))
+  (println (str "Visiting event #" id ": " name))
+  (event-r/set-event event)
+  (routes/go :home))
