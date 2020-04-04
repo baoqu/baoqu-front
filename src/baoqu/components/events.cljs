@@ -5,9 +5,9 @@
             [baoqu.services.event :as event-s]))
 
 (rum/defc event-item
-  [{:keys [id name circle-size agreement-factor]}]
+  [{:keys [id name circle-size agreement-factor] :as event}]
   [:li.grid-cell {:key id}
-    [:a.event {:key id}
+    [:a.event {:key id :on-click #(event-s/visit-event % event)}
      [:div.header
        [:span.id id]
        [:span.name name]
@@ -37,20 +37,22 @@
        ]]]])
 
 
-(rum/defc main < rum/reactive
+(rum/defc main < rum/reactive {:will-mount (fn [state]
+                                             (event-s/fetch-events)
+                                             state)}
   []
   (let [state (rum/react d/state)
         events (event-r/get-events)]
     [:div.events-list
-      [:div.header-wrapper
-       [:div#mainHeader
-        [:div.logo-icon]
-        [:h1.logo "Baoqu"]]]
-      [:div.mod-body
-       [:h3.title "Eventos en Baoqu"]
-       [:ul.grid
+     [:div.header-wrapper
+      [:div#mainHeader
+       [:div.logo-icon]
+       [:h1.logo "Baoqu"]]]
+     [:div.mod-body
+      [:h3.title "Eventos en Baoqu"]
+      [:ul.grid
        (for [event events]
-         [(event-item event)(event-item event)(event-item event)])
+         [(event-item event)])
        ]
       ]
      ]))

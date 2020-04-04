@@ -61,3 +61,9 @@
   []
   (let [event-id (get-in @d/state [:event :id])]
     (fetch-event-data event-id)))
+
+(defn visit-event
+  [e {:keys [id]}]
+  (.preventDefault e)
+  (.stopPropagation e)
+  (println (str "Visiting event: " id)))
