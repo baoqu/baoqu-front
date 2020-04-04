@@ -10,8 +10,6 @@
             [baoqu.repos.circle :as circle-r]
             [baoqu.repos.event :as event-r]))
 
-(enable-console-print!)
-
 (defn fetch-events
   []
   (-> (api/get-all-events)
@@ -53,8 +51,8 @@
 (defn join-event
   [event-id username]
   (-> (api/join-event event-id username)
-      (p/then (fn [{:keys [id name]}]
-                (user-r/set-me id name "")
+      (p/then (fn [{:keys [id username]}]
+                (user-r/set-me id username "")
                 (fetch-event-data event-id)))
       (p/catch #(println (str "[HTTP-ERROR]>> " %)))))
 
@@ -67,6 +65,7 @@
   [e {:keys [id name] :as event}]
   (.preventDefault e)
   (.stopPropagation e)
-  (println (str "Visiting event #" id ": " name))
   (event-r/set-event event)
-  (routes/go :home))
+  (-> (join-event id (:username (user-r/get-me)))
+      (p/then (routes/go :home))
+      (p/catch #(println (str "[JOIN-EVENT-ERROR]>> " %)))))

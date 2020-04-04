@@ -5,15 +5,13 @@
             [baoqu.repos.user :as ur]
             [baoqu.api :as api]))
 
-(enable-console-print!)
-
 (defn react-to-comment
   [comment]
   (swap! d/state update :comments merge comment))
 
 (defn add-comment-req
   [body]
-  (let [{name :name} (ur/get-me)
+  (let [{name :username} (ur/get-me)
         {circle-id :id} (ur/get-active-circle)]
     (if-not (= body "")
       (do

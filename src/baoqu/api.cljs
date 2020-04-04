@@ -92,15 +92,15 @@
 ;; IDEA
 ;;--------------------
 (defn upvote-idea
-  [user-id body]
+  [user-id body event-id]
   (let [url (->url "/api/ideas/upvote")
-        data {:user-id user-id :idea-name body}]
+        data {:user-id user-id :idea-name body :event-id event-id}]
     (http/post url data)))
 
 (defn downvote-idea
-  [user-id body]
+  [user-id body event-id]
   (let [url (->url "/api/ideas/downvote")
-        data {:user-id user-id :idea-name body}]
+        data {:user-id user-id :idea-name body :event-id event-id}]
     (http/post url data)))
 
 (defn get-event-votes

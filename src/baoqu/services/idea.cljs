@@ -40,11 +40,12 @@
 
 (defn add-idea-req
   [body]
-  (let [user-id (get-in @d/state [:me :id])]
+  (let [user-id (get-in @d/state [:me :id])
+        event-id (get-in @d/state [:event :id])]
     (if-not (empty? body)
       (do
         (if-not (idea-exists? body)
-          (api/upvote-idea user-id body))
+          (api/upvote-idea user-id body event-id))
         (fu/empty-f :idea)))))
 
 (defn react-to-upvote
@@ -64,10 +65,11 @@
 (defn toggle-idea-vote-req
   [e {:keys [name] :as idea}]
   (.preventDefault e)
-  (let [{user-id :id} (ur/get-me)]
+  (let [{user-id :id} (ur/get-me)
+        event-id (get-in @d/state [:event :id])]
     (if (voted? idea)
-      (api/downvote-idea user-id name)
-      (api/upvote-idea user-id name))))
+      (api/downvote-idea user-id name event-id)
+      (api/upvote-idea user-id name event-id))))
 
 (defn all-ideas
   []

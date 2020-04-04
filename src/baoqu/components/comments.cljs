@@ -42,7 +42,7 @@
      (if-not (empty? comments)
        [:ul
         (for [comment comments]
-          (let [author (:name comment)
+          (let [author (:username comment)
                 author-id (:user-id comment)
                 initial (s/upper-case (first author))]
             [:li.mod-comment
