@@ -21,7 +21,7 @@
       [:form {:on-submit submit-action
               :id "form-ideas"
               :class "mod-add-box"}
-       [:textarea { :class "input-text js-autoexpand js-ideas-textarea"
+       [:textarea {:class "input-text js-autoexpand js-ideas-textarea"
                    :id "autoResize"
                    :rows "1"
                    :data-min-rows "1"
@@ -142,10 +142,9 @@
           [:div.inner {:style {:width (str approval-percentage "%")}}]
           ]
          ]
-         (if circle-in-path?
-           (if (is/voted? idea)
-             [:div.btn.btn-success {:on-click #(is/toggle-idea-vote-req % idea)} "Apoyada"]
-             [:div.btn.btn-gray {:on-click #(is/toggle-idea-vote-req % idea)} "Apoyar"]))
+        (if (is/voted? idea)
+          [:div.btn.btn-success {:on-click #(is/toggle-idea-vote-req % idea)} "Apoyada"]
+          [:div.btn.btn-gray {:on-click #(is/toggle-idea-vote-req % idea)} "Apoyar"])
         ]
        ])))
 
