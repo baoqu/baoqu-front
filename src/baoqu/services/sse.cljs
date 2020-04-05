@@ -40,15 +40,15 @@
   (let [comment (keywordize-keys data)]
     (cs/add-comment comment)))
 
-(defn end-if-idea-at-9
+(defn end-if-idea-at-27
   [idea]
   (let [ideas (:ideas @d/state)
         ideas-as-list (into [] (map #(second %) ideas))
-        any-at-9? (some #(= 9 (get % "votes")) ideas-as-list)
+        any-at-27? (some #(= 27 (get % "votes")) ideas-as-list)
         notification {:title "Se ha llegado a un consenso"
                       :description (str "La idea \"" idea "\" ha sido apoyada por todos los usuarios. El evento ha terminado.")
                       :type :modal}]
-    (if any-at-9?
+    (if (and any-at-27? (not (nr/get-notification)))
       (do
         (println "TERMINAMOS")
         (nr/set-notification notification))
@@ -64,8 +64,7 @@
     (is/add-idea-if-new idea)
     (is/add-vote (:id user) (:id idea))
 
-    ;; (.setTimeout js/window (partial end-if-idea-at-9 (get-in data ["idea" "name"])) 2000)
-    ))
+    (.setTimeout js/window (partial end-if-idea-at-27 (get-in data ["idea" "name"])) 2000)))
 
 (defmethod process-message :downvote
   [{:keys [data]}]
