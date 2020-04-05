@@ -14,3 +14,11 @@
 (defn clear-notification
   []
   (swap! d/state assoc :notification {}))
+
+(defn set-permission
+  []
+  (swap! d/state assoc :notification-permission :granted))
+
+(defn get-permission
+  []
+  (:notification-permission @d/state))

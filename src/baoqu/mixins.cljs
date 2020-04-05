@@ -1,9 +1,11 @@
 (ns baoqu.mixins
   (:require [rum.core :as rum]
+            [promesa.core :as p]
             [baoqu.services.sse :as sse]
             [baoqu.routes :as routes]
             [baoqu.data :as d]
-            [baoqu.services.security :as sec]))
+            [baoqu.services.security :as sec]
+            [baoqu.repos.notification :as nr]))
 
 (def secured-mixin
   {:will-mount (fn [own]
@@ -23,7 +25,15 @@
                    (let [sse (sse/create-sse)]
                      (println "[SSE] Connection established")
                      (swap! d/state assoc :sse sse)))
-                 own)})
+                 own)
+   :did-mount (fn [own]
+                (if (= (.-permission js/Notification) "granted")
+                  (nr/set-permission)
+                  (-> (.requestPermission js/Notification)
+                      (p/then (fn [permission]
+                                (if (= permission "granted")
+                                  (nr/set-permission))))))
+                own)})
 
 (def scroll-on-insert
   {:did-update

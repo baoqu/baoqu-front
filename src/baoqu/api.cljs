@@ -1,6 +1,5 @@
 (ns baoqu.api
   (:require [baoqu.http :as http]
-            [promesa.core :as p]
             [baoqu.utils :refer [->url]]))
 
 (enable-console-print!)

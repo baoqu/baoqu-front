@@ -4,7 +4,9 @@
             [baoqu.data :as d]
             [baoqu.services.idea :as is]
             [baoqu.services.comment :as cs]
+            [baoqu.services.circle :as cis]
             [baoqu.services.event :as es]
+            [baoqu.repos.user :as ur]
             [baoqu.repos.notification :as nr]))
 
 (enable-console-print!)
@@ -32,13 +34,25 @@
   (fn [msg]
     (keyword (:type msg))))
 
+(defn should-send-notification-for-comment
+  [comment]
+  (let [my-circle? (cis/is-my-circle? {:id (:circle-id comment)})
+        window-has-focus? (.hasFocus js/document)
+        my-comment? (= (:user-id comment) (:id (ur/get-me)))]
+    (and my-circle? (not my-comment?) (not window-has-focus?))))
+
 (defmethod process-message :comment
   [{:keys [data]}]
   (println ">> COMMENT")
   (println data)
 
-  (let [comment (keywordize-keys data)]
-    (cs/add-comment comment)))
+  (let [comment (keywordize-keys data)
+        current-circle-id (get-in @d/state [:circle "id"])]
+    (cs/add-comment comment)
+    (if (should-send-notification-for-comment comment)
+      (let [body (:body comment)
+            username (:username comment)]
+        (js/Notification. (str username ": " body))))))
 
 (defn end-if-idea-at-27
   [idea]
