@@ -8,7 +8,7 @@
   []
   (let [state (rum/react d/state)
         {:keys [id username]} (ur/get-me)
-        initial (s/upper-case (first username))]
+        initial (s/upper-case (or (first username) ""))]
     [:div#user
      [:div.avatar
       [:div.thumb {:class (str "color-" id)} initial]]]))
