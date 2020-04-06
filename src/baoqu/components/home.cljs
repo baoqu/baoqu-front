@@ -31,7 +31,7 @@
          [:span.tag.my-circle
           [:span.label "Mi círculo"]])
        ]
-      [:span.circle-header-exit
+      [:span.circle-header-exit {:style {:display "none"}}
        [:span "Salir "]
        [:span.hide-medium " de este círculo"]
        ]]
