@@ -44,7 +44,7 @@
         (for [comment comments]
           (let [author (:username comment)
                 author-id (:user-id comment)
-                initial (s/upper-case (first author))]
+                initial (s/upper-case (or (first author) ""))]
             [:li.mod-comment
              [:div.avatar
               [:div.thumb {:class (str "color-" author-id)} initial]
@@ -114,7 +114,7 @@
            (for [user users]
              (let [id (:id user)
                    author (:name user)
-                   initial (s/upper-case (first author))]
+                   initial (s/upper-case (or (first author) ""))]
                [:li.user {:key id}
                 [:div.avatar [:div.thumb {:class (str "color-" id)} initial]]
                 [:div.content [:div.username author]]
