@@ -113,7 +113,7 @@
           [:ul.mod-users-list
            (for [user users]
              (let [id (:id user)
-                   author (:name user)
+                   author (:username user)
                    initial (s/upper-case (or (first author) ""))]
                [:li.user {:key id}
                 [:div.avatar [:div.thumb {:class (str "color-" id)} initial]]
