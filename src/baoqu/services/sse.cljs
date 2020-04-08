@@ -78,7 +78,7 @@
     (is/add-idea-if-new idea)
     (is/add-vote (:id user) (:id idea))
 
-    ;; (.setTimeout js/window (partial end-if-idea-at-9 (get-in data ["idea" "name"])) 2000)
+    (.setTimeout js/window (partial end-if-idea-at-9 (get-in data ["idea" "name"])) 2000)
     ))
 
 (defmethod process-message :downvote
